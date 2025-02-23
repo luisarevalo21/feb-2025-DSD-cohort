@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import Dashboard from "./pages/Dashboard";
 import Complaints from "./pages/Complaints";
 import RootLayout from "./pages/RootLayout";
+import Example from "./reactQueryExample";
 function App() {
   return (
     <Routes>
@@ -14,6 +15,7 @@ function App() {
         <Route index element={<HomePage />}></Route>
         <Route path="dashboard" element={<Dashboard />}></Route>
         <Route path="complaints" element={<Complaints />}></Route>
+        <Route path="example" element={<Example />}></Route>
       </Route>
     </Routes>
   );
