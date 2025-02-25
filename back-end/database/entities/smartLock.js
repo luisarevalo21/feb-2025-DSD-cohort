@@ -11,20 +11,16 @@ module.exports = new EntitySchema({
     },
     tenant_id: {
         type: "int", // id of tenant that has control
-        nullable: true, // Empty until tenant signs contract for apartment
-    },
-    access_code: {
-      type: "varchar", // Currently varchar
-      nullable: true, // Optional, used to grant guest access
+        nullable: true, // Empty until assigned to a tenant
     },    
     status: {
       type: "enum",
       enum: ["Locked", "Unlocked"], // Status of smart lock
       default: "Locked", // Default to "Locked"
     },
-    log_entries: {
-        type: "varchar", // Varchar for now, but needs to be changed to a relationship with a table of logs
-        nullable: true, // Empty at first as no changes to smart lock until a tenant is assigned
-    }, 
+    guest_keys: {
+      type: "json", // Mock placeholder for future relationship
+      nullable: true, // This should be a one-to-many relation with GuestAccess in the future.
+    }
   },
 });

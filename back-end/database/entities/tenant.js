@@ -1,8 +1,8 @@
 const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
-  name: "User", // Logical name of the entity
-  tableName: "users", // The actual database table name
+  name: "Tenant", // Logical name of the entity
+  tableName: "tenantss", // The actual database table name
   columns: {
     id: {
       primary: true, // This column is the primary key
@@ -20,10 +20,9 @@ module.exports = new EntitySchema({
       type: "varchar",
       unique: true, // Ensures emails are not duplicated
     },
-    role: {
-      type: "enum",
-      enum: ["tenant", "landlord", "admin"], // Only allows these values
-      default: "tenant", // If no role is provided, default to "tenant"
+    apt_num: {
+      type: "int",
+      nullable: false, // tenants need an apartment number assigned to them
     },
   },
 });

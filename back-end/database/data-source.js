@@ -1,11 +1,13 @@
 require("dotenv").config(); // Load environment variables
 const { DataSource } = require("typeorm"); // TypeORM's database manager
+const Admin = require("./entities/admin") // Import the Admin entity
 const Apartment = require("./entities/apartment") // Import the Apartment entity
 const Complaint = require("./entities/complaint") // Import the Complaint entity
-const Contract = require("./entities/contract") // Import the Contract entity
+const GuestAccess = require("./entities/guessAccess") // Import the GuestAccess entity
+const LeaseAgreement = require("./entities/leaseAgreement") // Import the LeaseAgreement entity
 const SmartLock = require("./entities/smartLock") // Import the SmartLock entity
 const SmartLockLog = require("./entities/SmartLockLogs") // Import the SmartLockLog entity
-const User = require("./entities/user"); // Import the User entity
+const Tenant = require("./entities/tenant"); // Import the Tenant entity
 
 const AppDataSource = new DataSource({
   type: "postgres", // Specifies we are using PostgreSQL
@@ -14,7 +16,7 @@ const AppDataSource = new DataSource({
   username: process.env.DB_USER || "postgres", // Database username
   password: process.env.DB_PASS || "password", // Database password
   database: process.env.DB_NAME || "tenant_portal", // Database name
-  entities: [Apartment, Complaint, Contract, SmartLock, SmartLockLog, User], // Load our entities (tables)
+  entities: [Admin, Apartment, Complaint, GuestAccess, LeaseAgreement, SmartLock, SmartLockLog, Tenant], // Load our entities (tables)
   synchronize: true, // Auto-creates tables based on entities (use only in dev! switch to false for prod)
   logging: true, // Logs SQL queries (useful for debugging)
 });

@@ -9,9 +9,9 @@ module.exports = new EntitySchema({
       type: "int", // Integer data type
       generated: true, // Auto-incrementing ID
     },
-    apartment_id: {
-      type: "int", // Integer to reference apartment number
-      nullable: true, // Optional, but useful for the landlord to address the complaint
+    apt_num: {
+      type: "int", // Integer for apartment number
+      nullable: true, // Optional, but useful for the landlord to better address the complaint
     },
     complaint_type: {
         type: "enum", // Enum for complaint types

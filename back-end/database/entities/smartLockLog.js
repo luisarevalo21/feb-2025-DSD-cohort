@@ -9,18 +9,18 @@ module.exports = new EntitySchema({
       type: "int", // Integer data type
       generated: true, // Auto-incrementing ID
     },
-    smart_lock_id: {
-        type: "int", // Id of the smart lock being accessed
-        nullable: false // Required to track logs for specific smart locks
+    guest_access_id: {
+      type: "int",
+      nullable: false, // This links to the GuestAccess entity (future many-to-one relation).
     },
     action: {
-        type: "enum",
-        enum: ["Unlocked", "Locked", "Access Attempt", "Access Denied"], // Various actions recorded in the log
-        nullable: false, // Required to describe the action taken
+      type: "enum",
+      enum: ["Guest Access Granted", "Guest Access Used", "Guest Access Expired"], // Tracks what action the guest access is used for
+      nullable: false,
     },
     timestamp: {
-        type: "timestamp", // When an access was made
-        default: () => "CURRENT_TIMESTAMP", // Default to current time when created
-    },
+      type: "timestamp",
+      default: () => "CURRENT_TIMESTAMP",
+    }
   },
 });
