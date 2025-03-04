@@ -1,0 +1,5 @@
+{
+  "editor.codeLens": true,
+  "git.mergeEditor": true,
+  "git.enableSmartCommit": true
+}
