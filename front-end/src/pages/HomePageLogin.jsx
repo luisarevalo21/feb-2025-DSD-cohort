@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, Grid2 } from "@mui/material";
 import apartmentPhoto from "../assets/ApartmentPhoto.jpeg";
+import "./HomePageLogin.css";
 
 const HomePage = () => {
   return (

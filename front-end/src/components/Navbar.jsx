@@ -9,6 +9,7 @@ const Navbar = () => {
       <NavLink to="dashboard">Dashboard</NavLink>
       <NavLink to="complaints">Complaints</NavLink>
       <NavLink to="example">example</NavLink>
+      <NavLink to="register">register</NavLink>
     </Box>
   );
 };

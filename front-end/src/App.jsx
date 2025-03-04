@@ -7,6 +7,7 @@ import HomePageLogin from "./pages/HomePageLogin";
 import Dashboard from "./pages/Dashboard";
 import Complaints from "./pages/Complaints";
 import RootLayout from "./pages/RootLayout";
+import Register from "./pages/Register";
 import Example from "./reactQueryExample";
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="dashboard" element={<Dashboard />}></Route>
         <Route path="complaints" element={<Complaints />}></Route>
         <Route path="example" element={<Example />}></Route>
+        <Route path="register" element={<Register />}></Route>
       </Route>
     </Routes>
   );
