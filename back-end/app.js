@@ -17,4 +17,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.listen(4000, () => {
+  console.log("Server is running on localhost:4000, you better catch it!");
+});
+
 module.exports = app;
