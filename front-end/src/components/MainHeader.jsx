@@ -19,6 +19,10 @@ const MainHeader = () => {
                   variant='outlined'
                   size='small'
                   placeholder='Search...'
+                  sx={{
+                    backgroundColor: 'white',
+                    borderRadius: "8px"
+                  }}
                 />
 
                 {/* Non-functional Notification bell icon  */}
