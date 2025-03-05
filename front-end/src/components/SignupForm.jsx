@@ -138,7 +138,10 @@ const SignupForm = () => {
           }}
         />
 
-        <Button type="submit" disabled={isSubmitting}>
+        <Button
+          type="submit"
+          disabled={isSubmitting || Object.keys(errors).length > 0}
+        >
           {isSubmitting ? "Submitting..." : "Create new account"}
         </Button>
       </Stack>
