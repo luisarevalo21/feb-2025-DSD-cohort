@@ -23,9 +23,7 @@ passport.use(
 );
 
 //stores the id of user into the session
-//passport.serializeUser((user, cb) => cb(null, user.id));
 passport.serializeUser( function(user, cb) {
-  console.log("Serializing user:", user);
   cb(null, user) //stores user id and their username, if we use usernames for admins, as an object in session
 });
 
