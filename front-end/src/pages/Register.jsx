@@ -3,6 +3,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import styled from "@mui/system/styled";
+import SignupForm from "../components/SignupForm";
 
 import placeholder from "../assets/placeholder.jpg";
 
@@ -27,7 +28,8 @@ const Register = () => {
         </Grid>
         <Grid size={{ xs: 6, md: 6 }}>
           <Typography>Register here!</Typography>
-          <Typography>add register componet here!</Typography>{" "}
+          <Typography>add register componet here!</Typography>
+          <SignupForm />
         </Grid>
       </Grid>
     </Box>
