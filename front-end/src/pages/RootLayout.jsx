@@ -6,13 +6,9 @@ import { Outlet } from "react-router";
 const RootLayout = () => {
   return (
     <>
-      <header>
-        <Navbar />
-      </header>
       <main>
         <Outlet />
       </main>
-      <footer>{/* if needed */}</footer>
     </>
   );
 };
