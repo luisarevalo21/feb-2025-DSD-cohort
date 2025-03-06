@@ -45,9 +45,6 @@ const LeasePage = () => {
           Approve lease
         </Button>
       </Grid>
-      {/* <Box p={4} bgcolor={"#999"} width={"100%"} height={"100%"}>
-        <Typography>lease document form goes here</Typography>
-      </Box> */}
     </Box>
   );
 };
