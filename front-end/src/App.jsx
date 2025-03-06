@@ -9,6 +9,8 @@ import Complaints from "./pages/Complaints";
 import RootLayout from "./pages/RootLayout";
 import Register from "./pages/Register";
 import Example from "./reactQueryExample";
+import LeasePage from "./pages/LeasePage";
+
 function App() {
   return (
     <Routes>
@@ -18,6 +20,7 @@ function App() {
         <Route path="complaints" element={<Complaints />}></Route>
         <Route path="example" element={<Example />}></Route>
         <Route path="register" element={<Register />}></Route>
+        <Route path="leases" element={<LeasePage />}></Route>
       </Route>
     </Routes>
   );
