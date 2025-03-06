@@ -2,18 +2,20 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs"); //for password hashing security later on
 
+// ADD ERROR HANDLER MIDDLEWARE, LOOK IT UP
+
 passport.use(
   new LocalStrategy({ usernameField: "email" }, async function(email, password, cb) {
     try {
       //Example user to test login, ensure email and password match
       const user = {"id": 1, "firstName": "Charles", "lastName": "Richardson", "email": "test@test.com", "password": "test"};
 
-      const emailMatch = email == user.email;
-      if (!emailMatch) return cb(null, false, { message: "User not found" });
+      const emailMatch = email === user.email;
+      if (!emailMatch) throw(new Error("User not found"));
 
       //Using example password and checks against test password
-      const isMatch = password == user.password
-      if (!isMatch) return cb(null, false, { message: "Invalid credentials" });
+      const isMatch = password === user.password
+      if (!isMatch) throw(new Error("Invalid credentials"));
 
       return cb(null, user);
     } catch (err) {

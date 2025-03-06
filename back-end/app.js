@@ -32,8 +32,15 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/auth", authRoutes);
 
+app.use(errorHandler)
+
 app.listen(4000, () => {
   console.log("Server is running on localhost:4000, you better catch it!");
 });
+
+function errorHandler (err, req, res, next) {
+  //simple error response
+  return res.status(401).send(err.message)
+}
 
 module.exports = app;

@@ -8,12 +8,13 @@ router.post("/login", function(req, res, next) {
     //does handling based off the returned values from local strategy;
     //info is for returned information added as a third parameter to callback in local strategy
     //status is optional for returned status codes from local strategy as
-    if (err) return next(err);
-    if (!user) return res.status(401).json({ message: info.message });
+    if (err) return next(err)//throws error with text of err that occurred
 
-    req.logIn(user, function() {
-      return res.json(user)
-    });
+    else {
+      req.logIn(user, function() {
+        return res.json(user)
+      });
+    }
   })(req, res, next); // pass in req, res, and next to the passport local strategy function
 });
 
