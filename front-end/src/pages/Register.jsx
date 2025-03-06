@@ -23,10 +23,10 @@ const Register = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container>
-        <Grid size={{ xs: 6, md: 6 }}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <img src={placeholder} alt="" width={"55%"} />
         </Grid>
-        <Grid size={{ xs: 6, md: 6 }}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Typography>Register here!</Typography>
           <Typography>add register componet here!</Typography>
           <SignupForm />
