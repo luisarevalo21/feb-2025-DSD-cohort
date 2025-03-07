@@ -2,6 +2,7 @@ import React from "react";
 
 import Navbar from "../components/Navbar";
 import MainHeader from "../components/MainHeader";
+import SideNavigation from "../components/SideNavigation";
 import { Outlet } from "react-router";
 
 const RootLayout = () => {
@@ -15,10 +16,11 @@ const RootLayout = () => {
       
       {/* Main layout area  */}
       <div className="flex flex-1">
+        <SideNavigation />
         {/* Side navigation(placeholder for now)  */}
-        <aside className="w-64 bg-blue-200 p-4">
+        {/* <aside className="w-64 bg-blue-200 p-4">
           <div className="text-center font-semibold">Side nav placeholder</div>
-        </aside>
+        </aside> */}
         {/* Content for the page  */}
         <main className="flex-1 p-4">
           <Outlet />
