@@ -24,7 +24,7 @@ const Register = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container>
         <Grid size={{ xs: 12, md: 6 }}>
-          <img src={placeholder} alt="" width={"55%"} />
+          <img src={placeholder} alt="" width={"100%"} />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography>Register here!</Typography>
