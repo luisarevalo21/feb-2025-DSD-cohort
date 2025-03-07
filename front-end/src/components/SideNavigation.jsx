@@ -58,6 +58,7 @@ const SideNavigation = () => {
               width: open ? DRAWER_WIDTH : 64,
               overflowX: "hidden",
               transition: "width 0.3s",
+              boxShadow: "2px 5px 10px #4527a0"
             },
           }}
         >
@@ -81,31 +82,31 @@ const SideNavigation = () => {
                 <NavItem
                   to="/"
                   text="Dashboard"
-                  icon={<DashboardIcon />}
+                  icon={<DashboardIcon sx={{ color: "#4527a0" }} />}
                   open={open}
                 />
                 <NavItem
                   to="/access-control"
                   text="Access Control"
-                  icon={<LockIcon />}
+                  icon={<LockIcon sx={{ color: "#4527a0" }} />}
                   open={open}
                 />
                 <NavItem
                   to="/leases"
                   text="Leases"
-                  icon={<HomeWorkIcon />}
+                  icon={<HomeWorkIcon sx={{ color: "#4527a0" }} />}
                   open={open}
                 />
                 <NavItem
                   to="/complaints"
                   text="Complaints"
-                  icon={<ReportIcon />}
+                  icon={<ReportIcon sx={{ color: "#4527a0" }} />}
                   open={open}
                 />
                 <NavItem
                   to="/account-settings"
                   text="Account Settings"
-                  icon={<SettingsIcon />}
+                  icon={<SettingsIcon sx={{ color: "#4527a0" }} />}
                   open={open}
                 />
             </List>
@@ -116,7 +117,7 @@ const SideNavigation = () => {
                 <NavItem
                   to="/logout"
                   text="Log out"
-                  icon={<LogoutIcon />}
+                  icon={<LogoutIcon sx={{ color: "#CA3433" }} />}
                   open={open}
                 />
             </List>

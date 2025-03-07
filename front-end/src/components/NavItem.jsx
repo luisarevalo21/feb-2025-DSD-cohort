@@ -40,7 +40,8 @@ const NavItem = ({ to, text, icon, open }) => {
                     px: 2.5,
                     //Highlight the selection if active
                     "&.active": {
-                      backgroundColor: "rgba(0, 0, 0, 0.88)",
+                      backgroundColor: "#ede7f6",
+                      color: "#4527a0",
                     },
                   }}
                 >
