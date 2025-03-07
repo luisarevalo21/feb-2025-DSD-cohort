@@ -61,6 +61,23 @@ const SideNavigation = () => {
                     <MenuIcon />
                 </IconButton>
             </Box>
+            <Divider />
+
+            {/* Navigation items  */}
+            <List sx={{ flexGrow: 1 }}>
+                <NavItem
+                  to="/"
+                  text="Dashboard"
+                  icon={<DashboardIcon />}
+                  open={open}
+                />
+                <NavItem
+                  to="/access-control"
+                  text="Access Control"
+                  icon={<LockIcon />}
+                  open={open}
+                />
+            </List>
         </Drawer>
     )
 }
