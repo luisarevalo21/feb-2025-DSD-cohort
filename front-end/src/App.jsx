@@ -1,13 +1,9 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import { Routes, Route } from "react-router";
-import HomePageLogin from "./pages/HomePageLogin";
-import Dashboard from "./pages/Dashboard";
+import { Route, Routes } from "react-router";
 import Complaints from "./pages/Complaints";
-import RootLayout from "./pages/RootLayout";
+import Dashboard from "./pages/Dashboard";
+import HomePageLogin from "./pages/HomePageLogin";
 import Register from "./pages/Register";
+import RootLayout from "./pages/RootLayout";
 import Example from "./reactQueryExample";
 function App() {
   return (
