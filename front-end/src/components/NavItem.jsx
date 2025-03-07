@@ -23,6 +23,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { NavLink } from 'react-router-dom';
 
 const NavItem = ({ to, text, icon, open }) => {
+    //A helper component for the options in the toolbar
+    //props:
+    //to = page to navigate to
+    //text = text to display by the selection
+    //icon = icon to display from MUI library of icons
     return (
         <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip title={!open ? text : ""} placement="right">

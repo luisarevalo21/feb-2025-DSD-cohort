@@ -1,7 +1,8 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import "./App.css";
+//commenting out stylesheet since we're not using it and doing this makes it "full screen"
+// import "./App.css";
 import { Routes, Route } from "react-router";
 import HomePageLogin from "./pages/HomePageLogin";
 import Dashboard from "./pages/Dashboard";

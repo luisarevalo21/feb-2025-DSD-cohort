@@ -79,6 +79,35 @@ const SideNavigation = () => {
                   icon={<LockIcon />}
                   open={open}
                 />
+                <NavItem
+                  to="/leases"
+                  text="Leases"
+                  icon={<HomeWorkIcon />}
+                  open={open}
+                />
+                <NavItem
+                  to="/complaints"
+                  text="Complaints"
+                  icon={<ReportIcon />}
+                  open={open}
+                />
+                <NavItem
+                  to="/account-settings"
+                  text="Account Settings"
+                  icon={<SettingsIcon />}
+                  open={open}
+                />
+            </List>
+            <Divider />
+
+            {/* Log out button pinned at bottom */}
+            <List>
+                <NavItem
+                  to="/logout"
+                  text="Log out"
+                  icon={<LogoutIcon />}
+                  open={open}
+                />
             </List>
         </Drawer>
     )
