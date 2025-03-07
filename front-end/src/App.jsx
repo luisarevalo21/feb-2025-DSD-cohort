@@ -16,7 +16,7 @@ function App() {
       {/* Public routes  */}
         <Route path="login" element={<HomePageLogin />} />
         <Route path="register" element={<Register />} />
-      {/* Protected Routes wrapped by RootLayout  */}
+      {/* Protected Routes wrapped by RootLayout. ALL "details" pages must include "detail" in the path name for navbar state."  */}
       <Route path="/" element={<RootLayout />}>
         {/* Default page(index route ) */}
         <Route index element={<Dashboard />} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Drawer,
     Box,
@@ -19,7 +19,7 @@ import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import ReportIcon from '@mui/icons-material/Report';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 //import helper component
 import NavItem from './NavItem';
 
@@ -28,8 +28,19 @@ const DRAWER_WIDTH = 240;
 
 
 const SideNavigation = () => {
-    //open by default for now
+    //State for open or closed
     const [open, setOpen] = useState(true);
+
+    //get the browser location so we can default to closed if the pathname has "detail" in it
+    const location = useLocation();
+    //effect to run to check for if it should be open or closed
+    useEffect(() => {
+        if (location.pathname.includes("detail")) {
+            setOpen(false);
+        } else {
+            setOpen(true);
+        }
+    }, [location]);
 
     //Handler for toggling expanded or collapsed
     const handleToggle = () => {
@@ -46,7 +57,7 @@ const SideNavigation = () => {
             "& .MuiDrawer-paper": {
               width: open ? DRAWER_WIDTH : 64,
               overflowX: "hidden",
-              trainsition: "width 0.3s",
+              transition: "width 0.3s",
             },
           }}
         >

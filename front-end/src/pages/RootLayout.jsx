@@ -16,11 +16,9 @@ const RootLayout = () => {
       
       {/* Main layout area  */}
       <div className="flex flex-1">
+        {/* Side nav bar */}
         <SideNavigation />
-        {/* Side navigation(placeholder for now)  */}
-        {/* <aside className="w-64 bg-blue-200 p-4">
-          <div className="text-center font-semibold">Side nav placeholder</div>
-        </aside> */}
+        
         {/* Content for the page  */}
         <main className="flex-1 p-4">
           <Outlet />
