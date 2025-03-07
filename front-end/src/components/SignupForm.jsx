@@ -45,7 +45,7 @@ const SignupForm = () => {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-gray-100 border border-gray-300 w-md p-8 rounded-xl"
+      className="bg-gray-100 border border-gray-300 max-w-md p-8 rounded-xl"
     >
       <Stack spacing={2}>
         <TextField

@@ -12,12 +12,15 @@ import Example from "./reactQueryExample";
 function App() {
   return (
     <Routes>
+      {/* Public routes  */}
+        <Route path="login" element={<HomePageLogin />} />
+        <Route path="register" element={<Register />} />
+      {/* Protected Routes wrapped by RootLayout  */}
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<HomePageLogin />}></Route>
-        <Route path="dashboard" element={<Dashboard />}></Route>
-        <Route path="complaints" element={<Complaints />}></Route>
-        <Route path="example" element={<Example />}></Route>
-        <Route path="register" element={<Register />}></Route>
+        {/* Default page(index route ) */}
+        <Route index element={<Dashboard />} />
+        <Route path="complaints" element={<Complaints />} />
+        <Route path="example" element={<Example />} />
       </Route>
     </Routes>
   );
