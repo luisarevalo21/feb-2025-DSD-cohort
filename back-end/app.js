@@ -1,15 +1,15 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const session = require("express-session");
 const passport = require("./config/passportConfig");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-const authRoutes = require("./routes/auth");
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const authRouter = require("./routes/auth");
 
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -30,7 +30,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use("/auth", authRoutes);
+app.use("/auth", authRouter);
 
 app.use(errorHandler)
 
