@@ -20,6 +20,8 @@ import ReportIcon from '@mui/icons-material/Report';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { NavLink } from 'react-router-dom';
+//import helper component
+import NavItem from './NavItem';
 
 //fully expanded sidebar width
 const DRAWER_WIDTH = 240;
