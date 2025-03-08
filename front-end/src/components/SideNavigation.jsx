@@ -6,7 +6,6 @@ import {
     List,
     Divider
 } from '@mui/material';
-//Icons
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import LockIcon from '@mui/icons-material/Lock';
@@ -15,20 +14,15 @@ import ReportIcon from '@mui/icons-material/Report';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useLocation } from 'react-router-dom';
-//import helper component
 import NavItem from './NavItem';
 
 //fully expanded sidebar width
 const DRAWER_WIDTH = 240;
 
-
 const SideNavigation = () => {
-    //State for open or closed
     const [open, setOpen] = useState(true);
-
-    //get the browser location so we can default to closed if the pathname has "detail" in it
     const location = useLocation();
-    //effect to run to check for if it should be open or closed
+
     useEffect(() => {
         if (location.pathname.includes("detail")) {
             setOpen(false);
@@ -37,8 +31,7 @@ const SideNavigation = () => {
         }
     }, [location]);
 
-    //Handler for toggling expanded or collapsed
-    const handleToggle = () => {
+    const handleExpandCollapse = () => {
         setOpen(!open);
     };
 
@@ -57,7 +50,6 @@ const SideNavigation = () => {
             },
           }}
         >
-            {/* Top area with hamburger icon  */}
             <Box
               sx={{
                 display: "flex",
@@ -66,13 +58,11 @@ const SideNavigation = () => {
                 p:1
               }}
             >
-                <IconButton onClick={handleToggle}>
+                <IconButton onClick={handleExpandCollapse}>
                     <MenuIcon />
                 </IconButton>
             </Box>
             <Divider />
-
-            {/* Navigation items  */}
             <List sx={{ flexGrow: 1 }}>
                 <NavItem
                   to="/"
@@ -106,8 +96,6 @@ const SideNavigation = () => {
                 />
             </List>
             <Divider />
-
-            {/* Log out button pinned at bottom */}
             <List>
                 <NavItem
                   to="/logout"

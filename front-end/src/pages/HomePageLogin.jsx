@@ -2,6 +2,8 @@ import React from "react";
 import { Grid2 } from "@mui/material";
 import LoginForm from "../components/LoginForm";
 import apartmentPhoto from "../assets/ApartmentPhoto.jpeg";
+import "./styles/HomePageLogin.css";
+
 
 const HomePage = () => {
   return (
