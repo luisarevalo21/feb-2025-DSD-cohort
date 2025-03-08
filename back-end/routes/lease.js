@@ -140,7 +140,7 @@ router.get("/expiringLeases", (req, res, next) => {
   //   const response = Db.fetch(leases)
   //   const response = [];
   //   if (response.length === 0) {
-  //     return res.status(400).send(error);
+  //     return res.status(400).json([]);
   //   }
   const today = new Date();
   const endRange = new Date();
@@ -151,7 +151,7 @@ router.get("/expiringLeases", (req, res, next) => {
   });
 
   if (filteredLeases.length === 0) {
-    return res.status(400).json({ message: "no leases up for renewal!" });
+    return next(new Error("no leases found"));
   }
 
   return res.status(200).json(filteredLeases);
