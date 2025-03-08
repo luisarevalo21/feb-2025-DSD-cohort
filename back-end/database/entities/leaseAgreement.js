@@ -36,7 +36,7 @@ module.exports = new EntitySchema({
     },
     status: {
       type: "enum",
-      enum: ["Pending", "Signed", "Renewed"],
+      enum: ["Pending", "Signed", "Renewed", "Draft"],
       default: "Draft", // Tracks lease progress from creation to renewal or expiration
     },
     notes: {
