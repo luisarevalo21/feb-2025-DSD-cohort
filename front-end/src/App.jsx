@@ -8,6 +8,8 @@ import HomePageLogin from "./pages/HomePageLogin";
 import Register from "./pages/Register";
 import RootLayout from "./pages/RootLayout";
 import Example from "./reactQueryExample";
+import LeasePage from "./pages/LeasePage";
+
 
 function App() {
   return (
@@ -17,10 +19,12 @@ function App() {
         <Route path="register" element={<Register />} />
       {/* Protected Routes wrapped by RootLayout. ALL "details" pages must include "detail" in the path name for navbar state."  */}
       <Route path="/" element={<RootLayout />}>
-        {/* Default page(index route ) */}
-        <Route index element={<Dashboard />} />
-        <Route path="complaints" element={<Complaints />} />
-        <Route path="example" element={<Example />} />
+        <Route index element={<HomePageLogin />}></Route>
+        <Route path="dashboard" element={<Dashboard />}></Route>
+        <Route path="complaints" element={<Complaints />}></Route>
+        <Route path="example" element={<Example />}></Route>
+        <Route path="register" element={<Register />}></Route>
+        <Route path="leases" element={<LeasePage />}></Route>
       </Route>
     </Routes>
   );
