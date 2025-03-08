@@ -1,23 +1,33 @@
 import React from "react";
-import { Typography, Grid2 } from "@mui/material";
+import { Grid2 } from "@mui/material";
+import LoginForm from "../components/LoginForm";
 import apartmentPhoto from "../assets/ApartmentPhoto.jpeg";
-import "./HomePageLogin.css";
 
 const HomePage = () => {
   return (
-    <Grid2 container spacing={2} className="grid-container">
-      {/* Left Column */}
-      <Grid2 item size={6}>
-        <img
-          className="loginPhoto"
-          src={apartmentPhoto}
-          alt="A stylish urban apartment building with large glass windows and balconies, surrounded by tall, leafy green trees. The building has a sleek, contempora.webp"
-        />
-      </Grid2>
-      {/*Right Column */}
-      <Grid2 item size={6} sx={{ bgcolor: "#83a2a7" }}>
-        <Typography>LogIn Component goes here</Typography>
-      </Grid2>
+    <Grid2 className="grid place-items-center w-full h-full">
+      <div
+        className="grid grid-cols-2 gap-3
+       w-full max-w-2x1"
+      >
+        {/* Left Column */}
+        <Grid2 className="grid place-items-center">
+          <img
+            className="loginPhoto"
+            src={apartmentPhoto}
+            alt="A stylish urban apartment building with large glass windows and balconies, surrounded by tall, leafy green trees. The building has a sleek, contempora.webp"
+          />
+        </Grid2>
+        {/*Right Column */}
+        <Grid2
+          sx={{ bgcolor: "#83a2a7" }}
+          className="grid place-items-center min-w-0 w-full"
+        >
+          <div className="w-full max-w-md overflow-hidden flex items-center justify-center">
+            <LoginForm />
+          </div>
+        </Grid2>
+      </div>
     </Grid2>
   );
 };
