@@ -1,7 +1,8 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import "./App.css";
+//commenting out stylesheet since we're not using it and doing this makes it "full screen"
+// import "./App.css";
 import { Routes, Route } from "react-router";
 import HomePageLogin from "./pages/HomePageLogin";
 import Dashboard from "./pages/Dashboard";
@@ -15,7 +16,7 @@ function App() {
       {/* Public routes  */}
         <Route path="login" element={<HomePageLogin />} />
         <Route path="register" element={<Register />} />
-      {/* Protected Routes wrapped by RootLayout  */}
+      {/* Protected Routes wrapped by RootLayout. ALL "details" pages must include "detail" in the path name for navbar state."  */}
       <Route path="/" element={<RootLayout />}>
         {/* Default page(index route ) */}
         <Route index element={<Dashboard />} />
