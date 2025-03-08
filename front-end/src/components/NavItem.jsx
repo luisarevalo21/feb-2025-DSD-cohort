@@ -11,11 +11,6 @@ import {
 import { NavLink } from 'react-router-dom';
 
 const NavItem = ({ to, text, icon, open }) => {
-    //A helper component for the options in the toolbar
-    //props:
-    //to = page to navigate to
-    //text = text to display by the selection
-    //icon = icon to display from MUI library of icons
     return (
         <ListItem disablePadding sx={{ display: "block" }}>
             <Tooltip title={!open ? text : ""} placement="right">
@@ -26,7 +21,6 @@ const NavItem = ({ to, text, icon, open }) => {
                     minHeight: 48,
                     justifyContent: open ? "initial" : "center",
                     px: 2.5,
-                    //Highlight the selection if active
                     "&.active": {
                       backgroundColor: "#ede7f6",
                       color: "#4527a0",

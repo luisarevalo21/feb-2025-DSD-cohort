@@ -15,11 +15,10 @@ function App() {
   return (
     <Routes>
       {/* Public routes  */}
-        <Route path="login" element={<HomePageLogin />} />
+        <Route index path="login" element={<HomePageLogin />} />
         <Route path="register" element={<Register />} />
       {/* Protected Routes wrapped by RootLayout. ALL "details" pages must include "detail" in the path name for navbar state."  */}
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<HomePageLogin />}></Route>
         <Route path="dashboard" element={<Dashboard />}></Route>
         <Route path="complaints" element={<Complaints />}></Route>
         <Route path="example" element={<Example />}></Route>

@@ -18,7 +18,8 @@ const Item = styled("div")(({ theme }) => ({
     backgroundColor: "#1A2027",
     borderColor: "#444d58",
   }),
-}));
+})); 
+
 const Register = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -27,8 +28,6 @@ const Register = () => {
           <img src={placeholder} alt="" width={"100%"} />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
-          <Typography>Register here!</Typography>
-          <Typography>add register componet here!</Typography>
           <SignupForm />
         </Grid>
       </Grid>
