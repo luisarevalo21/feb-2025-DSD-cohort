@@ -7,13 +7,13 @@ passport.use(
     try {
       //Example user to test login, ensure email and password match
       const user = {"id": 1, "firstName": "Charles", "lastName": "Richardson", "email": "test@test.com", "password": "test"};
-
+    
       const emailMatch = email === user.email;
       if (!emailMatch) throw(new Error("User not found"));
 
       //Using example password and checks against test password
-      const isMatch = password === user.password
-      if (!isMatch) throw(new Error("Invalid credentials"));
+      const passwordMatch = password === user.password
+      if (!passwordMatch) throw(new Error("Invalid credentials"));
 
       return cb(null, user);
     } catch (err) {
@@ -31,5 +31,7 @@ passport.serializeUser( function(user, cb) {
 passport.deserializeUser( function(user, cb) {//input variable would be appropriate for the data stored in session, this case is user
   cb(null, user); //gives user object
 });
+
+//QUESTION: Should there be error handling for serialize/deserialize? Ex: throw(new Error("blah blah")) in case of any general error.
 
 module.exports = passport;

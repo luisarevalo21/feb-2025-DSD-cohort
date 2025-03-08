@@ -5,7 +5,7 @@ This will be the object returned on any errors
 
 ```
 {
-    message: "You messed up" 
+    "message": "You messed up" 
 }
 ```
 
@@ -14,16 +14,42 @@ This will be the object returned on any errors
  - Req:
     ```
         {
-            email: foo@email.com,
-            password: password
+            "email": "foo@email.com",
+            "password": "password"
         }
     ```
  - Res:
     ```
         {
-            id: int,
-            fullName: string,
-            email: string,
-            password: string
+            "id": int,
+            "firstName": string,
+            "lastName": string,
+            "email": string,
+            "password": string
+        }
+    ```
+
+- `auth/signup`
+ POST
+ - Req:
+    ```
+        {
+            "firstName": "Foo",
+            "lastName": "Bar",
+            "email": "foo@bar.com",
+            "password": "password",
+        }
+    ```
+ - Res:
+    ```
+        {
+            "user": {
+                "id": int,
+                "firstName": string,
+                "lastName": string,
+                "email": string,
+                "password": string
+            },
+            "redirect": "/dashboard"   
         }
     ```
