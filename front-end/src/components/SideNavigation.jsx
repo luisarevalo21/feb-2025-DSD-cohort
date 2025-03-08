@@ -4,22 +4,17 @@ import {
     Box,
     IconButton,
     List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Divider,
-    Tooltip
+    Divider
 } from '@mui/material';
 //Icons
 import MenuIcon from '@mui/icons-material/Menu';
-import DashboardIcon from '@mui/icons-material/DashBoard'
+import DashboardIcon from '@mui/icons-material/Dashboard'
 import LockIcon from '@mui/icons-material/Lock';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import ReportIcon from '@mui/icons-material/Report';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 //import helper component
 import NavItem from './NavItem';
 
