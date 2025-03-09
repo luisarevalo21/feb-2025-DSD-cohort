@@ -9,16 +9,19 @@ module.exports = new EntitySchema({
       type: "int", // Integer data type
       generated: true, // Auto-incrementing ID
     },
-    name: {
+    first_name: {
       type: "varchar",
     },
-    password: {
+    last_name: {
       type: "varchar",
-      length: 255, // Ensure enough space for hashed passwords in the future
     },
     email: {
       type: "varchar",
       unique: true, // Ensures emails are not duplicated
+    },
+    password: {
+      type: "varchar",
+      length: 255, // Ensure enough space for hashed passwords in the future
     },
   },
 });

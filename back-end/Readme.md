@@ -1,3 +1,35 @@
+## Start Up
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Install TypeORM globally if not already installed:
+
+   ```bash
+   npm install -g typeorm
+   ```
+
+3. Create the database:
+
+   ```bash
+   npm run migration:create-db
+   ```
+
+4. Run the migrations to set up the database schema:
+
+   ```bash
+   npm run migration:run
+   ```
+
+5. Seed the database with initial data:
+   ```bash
+   npm run seed
+   ``*
+   ```
+
 ## Routes
 
 ### Error object
@@ -38,8 +70,7 @@ This will be the object returned on any errors
 
   ```
 
-- Res
-
+- Res:
   ```
   [{
     id: int,
@@ -52,7 +83,6 @@ This will be the object returned on any errors
     lease_end_date: date,
     renewal_term: string,
     status: string,
-    notes: string,
-
+    notes: string
   }]
   ```

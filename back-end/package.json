@@ -3,7 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "migration:create-db": "node ./database/create-database.js",
+    "migration:generate-and-run": "npm run migration:generate && npm run migration:run",
+    "migration:generate": "typeorm migration:generate -d ./database/data-source.js -o ./database/migrations",
+    "migration:run": "typeorm migration:run -d ./database/data-source.js",
+    "migration:revert": "typeorm migration:revert -d ./database/data-source.js",
+    "seed": "node ./database/seed.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

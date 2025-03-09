@@ -9,8 +9,25 @@ module.exports = new EntitySchema({
       type: "int", // Integer data type
       generated: true, // Auto-incrementing ID
     },
-    address: {
-      type: "varchar",
+    apartment_number: {
+      type: "text",
+      unique: true,
+    },
+    square_footage: {
+      type: "int",
+    },
+    bedrooms: {
+      type: "int",
+    },
+    bathrooms: {
+      type: "int",
+    },
+    floor: {
+      type: "int",
+    },
+    notes: {
+      type: "text",
+      nullable: true,
     },
   },
 });
