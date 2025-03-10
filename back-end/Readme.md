@@ -21,8 +21,8 @@
 4. Run the migrations to set up the database schema:
 
    ```bash
-   not needed can skip
-   npm run migration:run
+   still working on migration portion can be skipped
+   npm run migration:generate
    ```
 
 5. Seed the database with initial data:
