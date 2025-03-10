@@ -16,6 +16,6 @@ module.exports = {
   logging: false,
   entities: [Admin, Lease, Apartment, Tenant],
   migrations: ["./database/migrations/**/*.js"],
-  experimentalDecorators: true, // <---
-  emitDecoratorMetadata: true, // <---
+  experimentalDecorators: true,
+  emitDecoratorMetadata: true,
 };
