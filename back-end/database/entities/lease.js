@@ -2,7 +2,7 @@ const { EntitySchema } = require("typeorm");
 const apartment = require("./apartment");
 
 module.exports = new EntitySchema({
-  name: "Leases", // Renamed for clarity
+  name: "Leases",
   tableName: "leases",
   columns: {
     id: {
@@ -12,23 +12,23 @@ module.exports = new EntitySchema({
     },
     lease_start_date: {
       type: "date",
-      nullable: false, // The official start date of the lease
+      nullable: false,
     },
     lease_end_date: {
       type: "date",
-      nullable: false, // The official end date of the lease
+      nullable: false,
     },
     monthly_rent_in_dollars: {
       type: "int",
-      nullable: false, // The monthly rent amount
+      nullable: false,
     },
     notes: {
       type: "text",
-      nullable: true, // Extra notes the landlord may add
+      nullable: true,
     },
     apartment_id: {
       type: "int",
-      nullable: false, // The apartment this lease is for
+      nullable: false,
     },
   },
 });

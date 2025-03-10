@@ -1,13 +1,13 @@
 const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
-  name: "Tenant", // Logical name of the entity
-  tableName: "tenants", // The actual database table name
+  name: "Tenant",
+  tableName: "tenants",
   columns: {
     id: {
-      primary: true, // This column is the primary key
-      type: "int", // Integer data type
-      generated: true, // Auto-incrementing ID
+      primary: true,
+      type: "int",
+      generated: true,
     },
     first_name: {
       type: "varchar",
@@ -17,7 +17,7 @@ module.exports = new EntitySchema({
     },
     email: {
       type: "varchar",
-      unique: true, // Ensures emails are not duplicated
+      unique: true,
     },
     date_of_birth: {
       type: "date",
