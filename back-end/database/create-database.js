@@ -5,11 +5,8 @@ const dbConfig = require("../ormconfig.js");
 const createDatabase = async () => {
   const dbName = process.env.DB_NAME || "tenant_portal";
   const client = new Client({
-    host: process.env.DB_HOST || "localhost",
-    port: parseInt(process.env.DB_PORT) || 5432,
-    user: process.env.DB_USER || "postgres",
-    password: process.env.DB_PASS || "password",
-    database: "postgres", // Connect to the default 'postgres' database first
+    dbConfig,
+    database: "postgres",
   });
 
   try {
