@@ -2,8 +2,8 @@ const { EntitySchema } = require("typeorm");
 const apartment = require("./apartment");
 
 module.exports = new EntitySchema({
-  name: "LeaseAgreement", // Renamed for clarity
-  tableName: "lease_agreements",
+  name: "Leases", // Renamed for clarity
+  tableName: "leases",
   columns: {
     id: {
       primary: true,

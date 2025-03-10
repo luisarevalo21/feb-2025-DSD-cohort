@@ -1,4 +1,4 @@
-const { AppDataSource } = require("./data-source");
+// const { AppDataSource } = require("./data-source");
 const { Client } = require("pg");
 
 const createDatabase = async () => {
@@ -33,17 +33,17 @@ const createDatabase = async () => {
   }
 
   // Now initialize the AppDataSource (it will connect to the tenant_portal DB)
-  AppDataSource.initialize()
-    .then(async () => {
-      console.log("✅ Database connected. Running migrations...");
-      await AppDataSource.synchronize();
-      console.log("✅ Tables created.");
-      process.exit();
-    })
-    .catch(error => {
-      console.error("❌ Failed to initialize Data Source:", error);
-      process.exit(1);
-    });
+  // AppDataSource.initialize()
+  //   .then(async () => {
+  //     console.log("✅ Database connected. Running migrations...");
+  //     await AppDataSource.synchronize();
+  //     console.log("✅ Tables created.");
+  //     process.exit();
+  //   })
+  //   .catch(error => {
+  //     console.error("❌ Failed to initialize Data Source:", error);
+  //     process.exit(1);
+  //   });
 };
 
 createDatabase();
