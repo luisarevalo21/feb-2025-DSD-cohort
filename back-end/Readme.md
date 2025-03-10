@@ -21,6 +21,7 @@
 4. Run the migrations to set up the database schema:
 
    ```bash
+   not needed can skip
    npm run migration:run
    ```
 
