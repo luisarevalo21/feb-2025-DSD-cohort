@@ -17,7 +17,7 @@ router.get("/expiringLeases", async (req, res, next) => {
     const mockLeaseData = await AppDataSource.manager.find(lease);
 
     if (mockLeaseData.length === 0) {
-      return next(new Error("no leases found"));
+      return res.status(200).json([]);
     }
 
     const today = new Date();
@@ -30,7 +30,7 @@ router.get("/expiringLeases", async (req, res, next) => {
     });
 
     if (filteredLeases.length === 0) {
-      return next(new Error("no leases found"));
+      return res.status(200).json([]);
     }
 
     return res.status(200).json(filteredLeases);

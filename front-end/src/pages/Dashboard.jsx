@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid2";
 import api from "../api";
 const Dashboard = () => {
   const [expiredLeases, setExpiredLeases] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   //fetches expired leases from backend
   useEffect(() => {
     const fetchExpiredLeases = async () => {
@@ -12,11 +12,14 @@ const Dashboard = () => {
         .get("/api/dashboard/expiringLeases")
         .then(res => {
           setExpiredLeases(res.data);
+          setLoading(false);
         })
         .catch(err => {
           console.log(err);
+          setLoading(false);
         });
     };
+    setLoading(true);
     fetchExpiredLeases();
   }, []);
   return (
@@ -28,7 +31,9 @@ const Dashboard = () => {
           <Box p={10} border={"1px solid black"} bgcolor={"#f5f5f5"}>
             <Typography>hello from left box</Typography>
 
-            {expiredLeases.length === 0 ? (
+            {loading ? (
+              <Typography>loading...</Typography>
+            ) : expiredLeases.length === 0 ? (
               <Typography>no expired leases</Typography>
             ) : (
               expiredLeases.map(lease => (
