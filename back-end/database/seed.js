@@ -229,10 +229,10 @@ AppDataSource.initialize()
 
     console.log("🎉 Database seeding complete.");
 
-    process.exit(0);
+    await AppDataSource.destroy();
+    console.log("connection closed");
   })
 
   .catch(error => {
     console.error("❌ Error seeding database:", error);
-    process.exit(1);
   });
