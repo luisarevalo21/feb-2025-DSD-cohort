@@ -5,7 +5,7 @@ const dbConfig = require("../ormconfig.js");
 const createDatabase = async () => {
   const dbName = process.env.DB_NAME || "tenant_portal";
   const client = new Client({
-    dbConfig,
+    ...dbConfig,
     database: "postgres",
   });
 
