@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { AppDataSource } = require("./data-source");
+const AppDataSource = require("./data-source");
 const Admin = require("./entities/admin");
 const Apartment = require("./entities/apartment");
 const Lease = require("./entities/lease");

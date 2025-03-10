@@ -1,5 +1,6 @@
-// const { AppDataSource } = require("./data-source");
 const { Client } = require("pg");
+const { DataSource } = require("typeorm");
+const dbConfig = require("../ormconfig.js");
 
 const createDatabase = async () => {
   const dbName = process.env.DB_NAME || "tenant_portal";
@@ -29,21 +30,24 @@ const createDatabase = async () => {
     await client.end();
   } catch (error) {
     console.error("❌ Failed to create the database:", error);
-    process.exit(1);
+    await client.end();
+    return;
   }
 
-  // Now initialize the AppDataSource (it will connect to the tenant_portal DB)
-  // AppDataSource.initialize()
-  //   .then(async () => {
-  //     console.log("✅ Database connected. Running migrations...");
-  //     await AppDataSource.synchronize();
-  //     console.log("✅ Tables created.");
-  //     process.exit();
-  //   })
-  //   .catch(error => {
-  //     console.error("❌ Failed to initialize Data Source:", error);
-  //     process.exit(1);
-  //   });
+  const AppDataSource = new DataSource(dbConfig);
+  try {
+    await AppDataSource.initialize();
+    console.log("✅ Data Source has been initialized!");
+
+    await AppDataSource.synchronize();
+    console.log("✅ Tables created.");
+
+    await AppDataSource.destroy();
+    console.log("✅ Data Source has been destroyed!");
+  } catch (err) {
+    console.error("❌ Error during Data Source initialization:", err);
+    await AppDataSource.destroy();
+  }
 };
 
 createDatabase();
