@@ -1,7 +1,7 @@
 import React from "react";
+import { Outlet } from "react-router";
 import MainHeader from "../components/MainHeader";
 import SideNavigation from "../components/SideNavigation";
-import { Outlet } from "react-router";
 
 const RootLayout = () => {
   return (
@@ -9,7 +9,7 @@ const RootLayout = () => {
       <MainHeader />
       <div className="flex flex-1">
         <SideNavigation />
-          <main className="flex-1 p-4">
+        <main className="flex-1 p-4 overflow-auto">
           <Outlet />
         </main>
       </div>
@@ -18,4 +18,3 @@ const RootLayout = () => {
 };
 
 export default RootLayout;
-
