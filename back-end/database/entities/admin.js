@@ -1,24 +1,27 @@
 const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
-  name: "Admin", // Logical name of the entity
-  tableName: "admins", // The actual database table name
+  name: "Admin",
+  tableName: "admins",
   columns: {
     id: {
-      primary: true, // This column is the primary key
-      type: "int", // Integer data type
-      generated: true, // Auto-incrementing ID
+      primary: true,
+      type: "int",
+      generated: true,
     },
-    name: {
+    first_name: {
       type: "varchar",
     },
-    password: {
+    last_name: {
       type: "varchar",
-      length: 255, // Ensure enough space for hashed passwords in the future
     },
     email: {
       type: "varchar",
-      unique: true, // Ensures emails are not duplicated
+      unique: true,
+    },
+    password: {
+      type: "varchar",
+      length: 255,
     },
   },
 });
