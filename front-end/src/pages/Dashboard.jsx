@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import PendingLeasesTable from "../components/PendingLeasesTable";
 
 const Dashboard = () => {
   return (
@@ -16,7 +17,7 @@ const Dashboard = () => {
 
         <Grid size={6}>
           <Box p={10} border={"1px solid black"} bgcolor={"#f5f5f5"}>
-            <Typography>hello from right box</Typography>
+            <PendingLeasesTable />
           </Box>
         </Grid>
         <Grid size={12}>
