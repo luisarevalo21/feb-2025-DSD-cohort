@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import api from "../api";
 import ApartmentTable from "../components/tables/ApartmentTable";
-import PendingLeasesTable from "../components/PendingLeasesTable";
+import PendingLeasesTable from "../components/tables/PendingLeasesTable";
 
 const Dashboard = () => {
   const [expiredLeases, setExpiredLeases] = useState([]);
@@ -42,7 +42,7 @@ const Dashboard = () => {
           <Typography variant="h4" fontSize={"1.5rem"} marginBottom={"1rem"}>
             Upcoming Renewals
           </Typography>
-          <Box p={10} border={"1px solid black"} bgcolor={"#f5f5f5"}>
+          <Box border={"1px solid black"} bgcolor={"#f5f5f5"}>
             <Typography>hello from left box</Typography>
 
             {loading ? (
@@ -62,7 +62,7 @@ const Dashboard = () => {
           <Typography variant="h4" fontSize={"1.5rem"} marginBottom={"1rem"}>
             Pending Leases
           </Typography>
-          <Box p={10} border={"1px solid black"} bgcolor={"#f5f5f5"}>
+          <Box border={"1px solid black"} bgcolor={"#f5f5f5"}>
             <PendingLeasesTable />
           </Box>
         </Grid>
