@@ -1,8 +1,8 @@
-import { Button } from "@mui/material";
-import Paper from "@mui/material/Paper";
+import { Button, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router";
 
+// Columns Definition
 const columns = [
   {
     field: "apartmentNumber",
@@ -31,11 +31,14 @@ const columns = [
     headerName: "Lease Status",
     flex: 1,
     minWidth: 120,
-    renderCell: (params) => (
-      <a href={`/leases/${params.row.leaseId}`} className="underline">
-        {params.row.leaseStatus}
-      </a>
-    ),
+    renderCell: (params) =>
+      params.row.leaseStatus === "Vacant" ? (
+        <span>{params.row.leaseStatus}</span>
+      ) : (
+        <a href={`/leases/${params.row.leaseId}`} className="underline">
+          {params.row.leaseStatus}
+        </a>
+      ),
   },
   {
     field: "leaseStart",
@@ -57,37 +60,42 @@ const columns = [
     flex: 1,
     minWidth: 200,
     disableColumnMenu: true,
-    renderCell: (params) => (
-      <div className="flex justify-center items-center gap-2 h-full">
-        {params.row.leaseStatus === "Vacant" ? (
-          <Button
-            component={Link}
-            to={`/leases/${params.row.id}`}
-            color="primary"
-            variant="contained"
-          >
-            Create New Lease
-          </Button>
-        ) : params.row.leaseStatus === "Expired" ? (
-          <Button
-            component={Link}
-            to={`/leases/${params.row.id}`}
-            color="error"
-            variant="contained"
-          >
-            Renew Lease
-          </Button>
-        ) : (
-          <></>
-        )}
-      </div>
-    ),
+    // Customizes the content of this column based on lease status
+    renderCell: (params) => {
+      const leaseEndDate = new Date(params.row.leaseEnd);
+      const today = new Date();
+      const daysUntilEnd = (leaseEndDate - today) / (1000 * 60 * 60 * 24);
+
+      return (
+        <div className="flex justify-center items-center gap-2 h-full">
+          {params.row.leaseStatus === "Vacant" ? (
+            <Button
+              component={Link}
+              to={`/leases/${params.row.leaseId}`}
+              color="primary"
+              variant="contained"
+            >
+              Create Lease
+            </Button>
+          ) : daysUntilEnd < 30 ? (
+            <Button
+              component={Link}
+              to={`/leases/${params.row.leaseId}`}
+              color="warning"
+              variant="contained"
+            >
+              Renew Lease
+            </Button>
+          ) : null}
+        </div>
+      );
+    },
   },
 ];
 
 const paginationModel = { page: 0, pageSize: 5 };
 
-export default function DataTable() {
+const ApartmentTable = () => {
   return (
     <Paper>
       <DataGrid
@@ -103,11 +111,15 @@ export default function DataTable() {
         align={"center"}
         disableColumnResize
         disableColumnSelector
+        disableRowSelectionOnClick
       />
     </Paper>
   );
-}
+};
 
+export default ApartmentTable;
+
+// Mock Data
 const rows = [
   {
     id: 1,
@@ -117,7 +129,7 @@ const rows = [
     leaseId: 5001,
     leaseStatus: "Active",
     leaseStart: "2024-01-01",
-    leaseEnd: "2025-01-01",
+    leaseEnd: "2025-04-05",
   },
   {
     id: 2,
@@ -126,18 +138,18 @@ const rows = [
     tenantName: "Jane Smith",
     leaseId: 5002,
     leaseStatus: "Active",
-    leaseStart: "2023-12-01",
-    leaseEnd: "2024-12-01",
+    leaseStart: "2024-02-01",
+    leaseEnd: "2025-05-01",
   },
   {
     id: 3,
     apartmentNumber: "103",
     tenantId: 1003,
-    tenantName: "Michael Johnson",
+    tenantName: "",
     leaseId: 5003,
-    leaseStatus: "Expired",
-    leaseStart: "2022-10-01",
-    leaseEnd: "2023-10-01",
+    leaseStatus: "Vacant",
+    leaseStart: "",
+    leaseEnd: "",
   },
   {
     id: 4,
@@ -147,7 +159,7 @@ const rows = [
     leaseId: 5004,
     leaseStatus: "Active",
     leaseStart: "2024-03-01",
-    leaseEnd: "2025-03-01",
+    leaseEnd: "2025-03-20",
   },
   {
     id: 5,
@@ -166,18 +178,18 @@ const rows = [
     tenantName: "Sophia Wilson",
     leaseId: 5006,
     leaseStatus: "Active",
-    leaseStart: "2023-08-15",
-    leaseEnd: "2024-08-15",
+    leaseStart: "2024-08-15",
+    leaseEnd: "2025-08-15",
   },
   {
     id: 7,
     apartmentNumber: "107",
     tenantId: 1007,
-    tenantName: "David Martinez",
+    tenantName: "",
     leaseId: 5007,
-    leaseStatus: "Expired",
-    leaseStart: "2021-05-01",
-    leaseEnd: "2022-05-01",
+    leaseStatus: "Vacant",
+    leaseStart: "",
+    leaseEnd: "",
   },
   {
     id: 8,
@@ -187,7 +199,7 @@ const rows = [
     leaseId: 5008,
     leaseStatus: "Active",
     leaseStart: "2024-02-01",
-    leaseEnd: "2025-02-01",
+    leaseEnd: "2025-04-02",
   },
   {
     id: 9,
@@ -206,7 +218,17 @@ const rows = [
     tenantName: "Ava Thomas",
     leaseId: 5010,
     leaseStatus: "Active",
-    leaseStart: "2023-11-01",
-    leaseEnd: "2024-11-01",
+    leaseStart: "2024-11-01",
+    leaseEnd: "2025-11-01",
+  },
+  {
+    id: 11,
+    apartmentNumber: "111",
+    tenantId: 1011,
+    tenantName: "",
+    leaseId: 5011,
+    leaseStatus: "Vacant",
+    leaseStart: "",
+    leaseEnd: "",
   },
 ];
