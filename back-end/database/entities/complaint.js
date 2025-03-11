@@ -1,49 +1,49 @@
 const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
-  name: "Complaint", // Logical name of the entity
-  tableName: "complaints", // The actual database table name
+  name: "Complaint",
+  tableName: "complaints",
   columns: {
     id: {
-      primary: true, // This column is the primary key
-      type: "int", // Integer data type
-      generated: true, // Auto-incrementing ID
+      primary: true,
+      type: "int",
+      generated: true,
     },
     apt_num: {
-      type: "int", // Integer for apartment number
-      nullable: true, // Optional, but useful for the landlord to better address the complaint
+      type: "int",
+      nullable: true,
     },
     complaint_type: {
-        type: "enum", // Enum for complaint types
-        enum: ["Noise", "Disturbance", "Emergency", "Maintenance", "Other"], // Allowed complaint types
-      nullable: false, // Can't be empty
+      type: "enum",
+      enum: ["Noise", "Disturbance", "Emergency", "Maintenance", "Other"],
+      nullable: false,
     },
     description: {
-      type: "text", // Text field to store detailes about the complaint
-      nullable: true, // Optional, for more details about complaint
+      type: "text",
+      nullable: true,
     },
     location: {
-      type: "varchar", // The location where the disturbance occurred
-      nullable: true, // Optional, but useful for details
+      type: "varchar",
+      nullable: true,
     },
     timestamp: {
-      type: "timestamp", // When the complaint was filed
-      default: () => "CURRENT_TIMESTAMP", // Default to current time when created
+      type: "timestamp",
+      default: () => "CURRENT_TIMESTAMP",
     },
     status: {
       type: "enum",
-      enum: ["New", "In Progress", "Resolved"], // Different statuses for tracking
-      default: "New", // Default to "New" when the complaint is first filed
+      enum: ["New", "In Progress", "Resolved"],
+      default: "New",
     },
     admin_response: {
-      type: "text", // Admin/landlord's response (optional)
-      nullable: true, // Optional, could be added after reviewing the complaint
+      type: "text",
+      nullable: true,
     },
     priority: {
-        type: "enum", // Enum for priority levels
-        enum: ["Low", "Medium", "High", "Urgent"], // Allowed priority levels
-        default: "Medium", // Default priority
-      nullable: true, // Optional but useful for prioritization
+      type: "enum",
+      enum: ["Low", "Medium", "High", "Urgent"],
+      default: "Medium",
+      nullable: true,
     },
   },
 });
