@@ -5,9 +5,10 @@ const logger = require("morgan");
 const session = require("express-session");
 const passport = require("./config/passportConfig");
 const cors = require("cors");
+
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const authRoutes = require("./routes/auth");
+const authRouter = require("./routes/auth");
 const leaseRoutes = require("./routes/lease");
 
 const app = express();
@@ -37,7 +38,7 @@ app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/auth", authRoutes);
+app.use("/auth", authRouter);
 
 app.use("/api/dashboard", leaseRoutes);
 

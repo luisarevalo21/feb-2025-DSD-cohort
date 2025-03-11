@@ -1,9 +1,15 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
+
 const Complaints = () => {
   return (
     <Box>
-      <Typography> hello from complaints page!</Typography>
+      <Typography
+        component="h1"
+        align="left"
+        sx={{ fontWeight: "bold", fontSize: "2rem" }}
+      >
+        Tenant Complaints
+      </Typography>
     </Box>
   );
 };
