@@ -1,4 +1,5 @@
 const { EntitySchema } = require("typeorm");
+const Lease = require("./lease");
 
 module.exports = new EntitySchema({
   name: "Tenant",
@@ -21,6 +22,10 @@ module.exports = new EntitySchema({
     },
     date_of_birth: {
       type: "date",
+    },
+    lease_id: {
+      type: "int",
+      nullable: true,
     },
   },
 });

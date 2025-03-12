@@ -1,4 +1,5 @@
 const { EntitySchema } = require("typeorm");
+const Lease = require("./lease.js");
 
 module.exports = new EntitySchema({
   name: "Apartment",
@@ -33,6 +34,13 @@ module.exports = new EntitySchema({
     notes: {
       type: "text",
       nullable: true,
+    },
+  },
+  relations: {
+    leases: {
+      type: "one-to-many",
+      target: "Lease",
+      inverseSide: "apartment",
     },
   },
 });

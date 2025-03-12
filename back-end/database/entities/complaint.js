@@ -1,4 +1,5 @@
 const { EntitySchema } = require("typeorm");
+const tenant = require("./tenant");
 
 module.exports = new EntitySchema({
   name: "Complaint",
@@ -9,9 +10,13 @@ module.exports = new EntitySchema({
       type: "int",
       generated: true,
     },
-    apt_num: {
+    tenant_id: {
       type: "int",
-      nullable: true,
+      nullable: false,
+    },
+    date_submitted: {
+      type: "date",
+      nullable: false,
     },
     complaint_type: {
       type: "enum",
@@ -22,28 +27,10 @@ module.exports = new EntitySchema({
       type: "text",
       nullable: true,
     },
-    location: {
-      type: "varchar",
-      nullable: true,
-    },
-    timestamp: {
-      type: "timestamp",
-      default: () => "CURRENT_TIMESTAMP",
-    },
     status: {
       type: "enum",
       enum: ["New", "In Progress", "Resolved"],
       default: "New",
-    },
-    admin_response: {
-      type: "text",
-      nullable: true,
-    },
-    priority: {
-      type: "enum",
-      enum: ["Low", "Medium", "High", "Urgent"],
-      default: "Medium",
-      nullable: true,
     },
   },
 });

@@ -1,8 +1,7 @@
 const { EntitySchema } = require("typeorm");
-const apartment = require("./apartment");
 
 module.exports = new EntitySchema({
-  name: "Leases",
+  name: "Lease",
   tableName: "leases",
   columns: {
     id: {
@@ -29,6 +28,16 @@ module.exports = new EntitySchema({
     apartment_id: {
       type: "int",
       nullable: false,
+    },
+  },
+  relations: {
+    apartment: {
+      target: "Apartment",
+      type: "many-to-one",
+      joinColumn: {
+        name: "apartment_id",
+      },
+      inverseSide: "leases",
     },
   },
 });
