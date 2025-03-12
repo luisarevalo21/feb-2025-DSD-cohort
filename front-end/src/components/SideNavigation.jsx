@@ -65,7 +65,7 @@ const SideNavigation = () => {
             <Divider />
             <List sx={{ flexGrow: 1 }}>
                 <NavItem
-                  to="/"
+                  to="/dashboard"
                   text="Dashboard"
                   icon={<DashboardIcon sx={{ color: "#4527a0" }} />}
                   open={open}
@@ -74,12 +74,6 @@ const SideNavigation = () => {
                   to="/access-control"
                   text="Access Control"
                   icon={<LockIcon sx={{ color: "#4527a0" }} />}
-                  open={open}
-                />
-                <NavItem
-                  to="/leases"
-                  text="Leases"
-                  icon={<HomeWorkIcon sx={{ color: "#4527a0" }} />}
                   open={open}
                 />
                 <NavItem
