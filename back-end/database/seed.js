@@ -7,6 +7,11 @@ const Tenant = require("./entities/tenant");
 
 AppDataSource.initialize()
   .then(async () => {
+
+    console.log("Dropping database...");
+    await AppDataSource.dropDatabase(); // Drops the entire database
+    await AppDataSource.synchronize(); // Recreates the database schema based on your entities
+
     console.log("Seeding database...");
 
     // --------- Seed Admin Table --------- //
@@ -39,6 +44,11 @@ AppDataSource.initialize()
           bedrooms: 2,
           bathrooms: 1,
           floor: 1,
+          features: [
+            "hardwood floors",
+            "stainless steel appliances",
+            "spacious living area",
+          ],
           notes: "Corner unit",
         },
 
@@ -48,6 +58,7 @@ AppDataSource.initialize()
           bedrooms: 3,
           bathrooms: 2,
           floor: 2,
+          features: ["balcony", "city view", "central air", "updated bathroom"],
           notes: "Balcony",
         },
       ]);
