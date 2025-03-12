@@ -1,21 +1,21 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcryptjs"); //for password hashing security later on
+const bcrypt = require("bcryptjs");
+const admin = require("../database/entities/admin")
+
+const AppDataSource = require("../database/data-source");
 
 passport.use(
   new LocalStrategy({ usernameField: "email" }, async function(email, password, cb) {
     try {
-      //Example user to test login, ensure email and password match
-      const user = {"id": 1, "firstName": "Charles", "lastName": "Richardson", "email": "test@test.com", "password": "test"};
-    
-      const emailMatch = email === user.email;
-      if (!emailMatch) throw(new Error("User not found"));
+      const loggedadmin = await AppDataSource.manager.findOneBy(admin, { email: email });
 
-      //Using example password and checks against test password
-      const passwordMatch = password === user.password
+      if (!loggedadmin) throw(new Error("User not found"));
+      
+      const passwordMatch = bcrypt.compare(password, loggedadmin.password)
       if (!passwordMatch) throw(new Error("Invalid credentials"));
 
-      return cb(null, user);
+      return cb(null, loggedadmin);
     } catch (err) {
       return cb(err);
     }
@@ -24,14 +24,16 @@ passport.use(
 
 //stores the id of user into the session
 passport.serializeUser( function(user, cb) {
-  cb(null, user) //stores user id and their username, if we use usernames for admins, as an object in session
+  cb(null, user.id)
 });
 
 //get user info from database using the stored user id
-passport.deserializeUser( function(user, cb) {//input variable would be appropriate for the data stored in session, this case is user
-  cb(null, user); //gives user object
+passport.deserializeUser( function(userId, cb) {
+  const user = AppDataSource.manager.findOneBy(admin, { id: userId })
+  if (!user) {
+    cb(new Error("Admin not in session"))
+  }
+  cb(null, user)
 });
-
-//QUESTION: Should there be error handling for serialize/deserialize? Ex: throw(new Error("blah blah")) in case of any general error.
 
 module.exports = passport;

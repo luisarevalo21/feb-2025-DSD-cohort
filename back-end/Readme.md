@@ -56,10 +56,7 @@ This will be the object returned on any errors
 
   ```
       {
-          id: int,
-          fullName: string,
-          email: string,
-          password: string
+          redirect: "/dashboard"
       }
   ```
 

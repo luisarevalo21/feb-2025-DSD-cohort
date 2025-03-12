@@ -10,6 +10,10 @@ import {
 import * as React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState({
@@ -27,18 +31,51 @@ const LoginForm = () => {
     event.preventDefault();
   };
 
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({ resolver: zodResolver(loginSchema) });
+
+  const onSubmit = async (formData) => {
+    api.post('/auth/login', formData)
+    .then(function (res) {
+      navigate(res.data.redirect);
+    })
+    .catch(function (err) {
+      if (err.response) {
+        console.log("Error Status:", err.response.status);
+        console.log("Error Message:", err.response.data.message);
+      }
+    });
+  };
+
   return (
     <form
       noValidate
+      onSubmit={handleSubmit(onSubmit)}
       className="bg-gray-100 border border-gray-300 w-md max-w-full p-8 rounded-xl"
     >
       <Stack spacing={2}>
-        <TextField required name="email" label="Email" type="email" />
+        <TextField 
+          required 
+          name="email" 
+          label="Email" 
+          type="email" 
+          {...register("email")}
+          error={errors?.email}
+          helperText={errors?.email?.message}
+        />
         <TextField
           required
           name="password"
           label="Password"
           type={showPassword.password ? "text" : "password"}
+          {...register("password")}
+          error={errors?.password}
+          helperText={errors?.password?.message}
           slotProps={{
             input: {
               endAdornment: (
@@ -62,12 +99,31 @@ const LoginForm = () => {
           }}
         />
 
-        <Button type="submit" variant="contained">
-          Submit
+        <Button 
+          type="submit" variant="contained" 
+          disabled={isSubmitting || Object.keys(errors).length > 0}
+        >
+          {/* Submit */}
+          {isSubmitting ? "Submitting..." : "Log In"}
         </Button>
       </Stack>
     </form>
   );
 };
+
+// Zod schema to validate inputs and display error messages
+const loginSchema = z
+  .object({
+    email: z
+      .string()
+      .min(1, { message: "Email is required." })
+      .email({ message: "Please enter a valid email address." })
+      .toLowerCase()
+      .trim(),
+
+    password: z
+      .string()
+      .min(1, { message: "Password is required." }),
+  })
 
 export default LoginForm;
