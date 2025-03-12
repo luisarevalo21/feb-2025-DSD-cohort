@@ -25,6 +25,11 @@ module.exports = new EntitySchema({
     floor: {
       type: "int",
     },
+    features: {
+      type: "text",
+      array: true,
+      nullable: true,
+    },
     notes: {
       type: "text",
       nullable: true,
