@@ -11,6 +11,8 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState({
@@ -29,6 +31,8 @@ const SignupForm = () => {
     event.preventDefault();
   };
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -36,8 +40,21 @@ const SignupForm = () => {
   } = useForm({ resolver: zodResolver(signupSchema) });
 
   const onSubmit = async (formData) => {
-    await new Promise((res) => setTimeout(res, 2000));
-    console.log("Submitted", formData);
+    api
+      .post("/auth/signup", formData)
+      .then((res) => {
+        if (res.status === 200) {
+          navigate("/dashboard");
+        } else {
+          navigate("/signup");
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log("Error Status:", err.response.status);
+          console.log("Error Message:", err.response.data.message);
+        }
+      });
   };
 
   return (

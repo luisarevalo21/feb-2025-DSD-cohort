@@ -9,7 +9,7 @@ const cors = require("cors");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
-const leaseRoutes = require("./routes/lease");
+const leaseRouter = require("./routes/lease");
 
 const app = express();
 
@@ -40,7 +40,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 
-app.use("/api/dashboard", leaseRoutes);
+app.use("/api/dashboard", leaseRouter);
 
 app.use(errorHandler);
 
