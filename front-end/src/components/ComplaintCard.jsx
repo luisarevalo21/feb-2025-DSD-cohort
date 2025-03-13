@@ -24,3 +24,37 @@ const complaintTypeIcons = {
     Other: <HelpOutlineIcon fontSize='small' />
 }
 
+
+const ComplaintCard = ({ complaint }) => {
+    const {
+        complaint_type,
+        timestamp,
+        description,
+        status,
+    } = complaint;
+
+    //choose an icon based on the complaint type or default to "other"
+    const iconElement = complaintTypeIcons[complaint_type] || <HelpOutlineIcon fontSize='small' />;
+
+    //Format the timestamp in Month, Day, Year format
+    const dateString = new Date(timestamp).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numberic",
+    })
+
+    //We only want to show the first 50 characters of the description on these cards, unless it's already shorted than 50 characters
+    const shortDescription = description && description.length > 50 ? description.slice(0,50) + "..." : description;
+
+
+    return (
+        
+    )
+
+
+
+
+
+
+
+}
