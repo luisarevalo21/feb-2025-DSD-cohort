@@ -1,8 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const lease = require("../database/entities/lease");
+const Lease = require("../database/entities/lease");
 
 const AppDataSource = require("../database/data-source");
+
+router.get("/", async (req, res, next) => {
+  try {
+    const lease = await AppDataSource.manager.find(Lease);
+
+    if (lease.length === 0) {
+      return res.status(200).json([]);
+    }
+
+    return res.status(200).json(lease);
+  } catch (error) {
+    return next(error);
+  }
+});
 
 router.get("/expiringLeases", async (req, res, next) => {
   //fetch all leases from database

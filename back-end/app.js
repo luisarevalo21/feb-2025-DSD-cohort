@@ -10,6 +10,8 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const leaseRouter = require("./routes/lease");
+const apartmentRouter = require("./routes/apartment");
+const tenantRouter = require("./routes/tenant");
 
 const app = express();
 
@@ -40,7 +42,9 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 
-app.use("/api/dashboard", leaseRouter);
+app.use("/api/dashboard/lease", leaseRouter);
+app.use("/api/dashboard/tenant", tenantRouter);
+app.use("/api/dashboard/apartment", apartmentRouter);
 
 app.use(errorHandler);
 
