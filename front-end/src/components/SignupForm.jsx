@@ -43,10 +43,10 @@ const SignupForm = () => {
     api
       .post("/auth/signup", formData)
       .then((res) => {
-        if (res.data.status === "success") {
+        if (res.status === 200) {
           navigate("/dashboard");
         } else {
-          navigate("/register");
+          navigate("/signup");
         }
       })
       .catch((err) => {

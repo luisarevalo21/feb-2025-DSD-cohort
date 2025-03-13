@@ -42,7 +42,7 @@ const LoginForm = () => {
   const onSubmit = async (formData) => {
     api.post('/auth/login', formData)
     .then(function (res) {
-      if (res.data.status === "success") {
+      if (res.status === 200) {
         navigate("/dashboard");
       } else {
         navigate("/login")
