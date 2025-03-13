@@ -10,6 +10,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const leaseRouter = require("./routes/lease");
+const complaintsRouter = require("./routes/complaints");
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use(passport.session());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
+app.use("/api/complaints", complaintsRouter);
 
 app.use("/api/dashboard", leaseRouter);
 
@@ -50,7 +52,9 @@ app.listen(4000, () => {
 
 function errorHandler(err, req, res, next) {
   //simple error response
-  return res.status(res.statusCode !== 200 ? res.statusCode : 500).json({ message: err.message });
+  return res
+    .status(res.statusCode !== 200 ? res.statusCode : 500)
+    .json({ message: err.message });
 }
 
 module.exports = app;

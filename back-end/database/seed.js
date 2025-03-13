@@ -4,10 +4,10 @@ const Admin = require("./entities/admin");
 const Apartment = require("./entities/apartment");
 const Lease = require("./entities/lease");
 const Tenant = require("./entities/tenant");
+const Complaint = require("./entities/complaint");
 
 AppDataSource.initialize()
   .then(async () => {
-
     console.log("Dropping database...");
     await AppDataSource.dropDatabase(); // Drops the entire database
     await AppDataSource.synchronize(); // Recreates the database schema based on your entities
@@ -238,12 +238,46 @@ AppDataSource.initialize()
       console.log("⚠️ Leases table already has data.");
     }
 
+    // // --------- Seed Complaint Table --------- //
+    const complaintRepo = AppDataSource.getRepository(Complaint);
+    const existingComplaint = await complaintRepo.count();
+
+    if (existingComplaint === 0) {
+      await complaintRepo.insert([
+        {
+          id: 1,
+          apt_num: 205,
+          complaint_type: "Noise",
+          description: "Loud music playing past midnight.",
+          location: "Building A, 2nd Floor",
+          timestamp: "2025-03-11T22:15:00Z",
+          status: "New",
+          admin_response: null,
+          priority: "High",
+        },
+        {
+          id: 2,
+          apt_num: 312,
+          complaint_type: "Maintenance",
+          description: "Leaking faucet in the kitchen.",
+          location: "Building B, 3rd Floor",
+          timestamp: "2025-03-11T19:30:00Z",
+          status: "In Progress",
+          admin_response: "Plumber scheduled for tomorrow.",
+          priority: "Medium",
+        },
+      ]);
+      console.log("✅ Complaint table seeded.");
+    } else {
+      console.log("⚠️ Complaint table already has data.");
+    }
+
     console.log("🎉 Database seeding complete.");
 
     await AppDataSource.destroy();
     console.log("connection closed");
   })
 
-  .catch(error => {
+  .catch((error) => {
     console.error("❌ Error seeding database:", error);
   });
