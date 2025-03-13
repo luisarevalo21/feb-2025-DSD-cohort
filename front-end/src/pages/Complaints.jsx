@@ -86,7 +86,7 @@ const Complaints = () => {
         container
         spacing={2}
         sx={{
-          maxHeight: "70vh", //may need to adjust
+          maxHeight: "100vh", //may need to adjust
           overflowY: "auto", //to enable vertical scroll
         }}
       >
