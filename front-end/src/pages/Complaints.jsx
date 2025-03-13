@@ -3,7 +3,7 @@ import { Box, Grid, Typography, Button } from "@mui/material";
 import ComplaintCard from '../components/ComplaintCard';
 
 const Complaints = () => {
-  //some generated dummy complaints objects that match the current state of the backend schema, for testing my new card component
+  //some generated dummy complaints objects that match the current state of the backend schema, for testing my new card component. This part will be replaced with a fetch from the backend.
   const dummyComplaints = [
     {
       id: 1,

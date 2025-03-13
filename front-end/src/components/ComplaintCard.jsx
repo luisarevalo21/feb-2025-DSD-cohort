@@ -15,13 +15,20 @@ import PriorityHighIcon from '@mui/icons-material/PriorityHigh'; //Emergency
 import BuildIcon from '@mui/icons-material/Build'; //Maintenance
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
-//Map complaint type enum to their corresponding icons
+//Map complaint type enum to their corresponding icons and colors
 const complaintTypeIcons = {
-    Noise: <VolumeUpIcon fontSize='small' />,
-    Disturbance: <WarningIcon fontSize='small' />,
-    Emergency: <PriorityHighIcon fontSize='small' />,
-    Maintenance: <BuildIcon fontSize='small' />,
-    Other: <HelpOutlineIcon fontSize='small' />
+    Noise: <VolumeUpIcon fontSize='small' sx={{ color: "purple" }} />,
+    Disturbance: <WarningIcon fontSize='small' sx={{ color: "red" }} />,
+    Emergency: <PriorityHighIcon fontSize='small' sx={{ color: "orange" }} />,
+    Maintenance: <BuildIcon fontSize='small' sx={{ color: "blue" }} />,
+    Other: <HelpOutlineIcon fontSize='small' sx={{ color: "gray" }} />,
+}
+
+//Colors for each status
+const statusColors = {
+    New: "blue",
+    "In Progress": "orange",
+    Resolved: "green",
 }
 
 
@@ -34,7 +41,7 @@ const ComplaintCard = ({ complaint }) => {
     } = complaint;
 
     //choose an icon based on the complaint type or default to "other"
-    const iconElement = complaintTypeIcons[complaint_type] || <HelpOutlineIcon fontSize='small' />;
+    const iconElement = complaintTypeIcons[complaint_type] || <HelpOutlineIcon fontSize='small' sx={{ color: "gray" }} />;
 
     //Format the timestamp in Month, Day, Year format
     const dateString = new Date(timestamp).toLocaleDateString("en-US", {
@@ -44,11 +51,11 @@ const ComplaintCard = ({ complaint }) => {
     })
 
     //We only want to show the first 50 characters of the description on these cards, unless it's already shorted than 50 characters
-    const shortDescription = description && description.length > 50 ? description.slice(0,50) + "..." : description;
+    const shortDescription = description && description.length > 250 ? description.slice(0,250) + "..." : description;
 
 
     return (
-        <Card sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <Card sx={{ display: "flex", flexDirection: "column", height: "100%", border: "1px solid #ccc", borderRadius: 1, boxShadow: 1, }}>
             <CardContent sx={{ flexGrow: 1 }}>
                 {/* date complaint was submitted  */}
                 <Typography variant='caption' color='text.secondary'>
@@ -69,7 +76,7 @@ const ComplaintCard = ({ complaint }) => {
                 </Typography>
 
                 {/* Complaint status  */}
-                <Typography variant='body2' color='text.secondary' sx={{ fontWeight: "bold" }}>
+                <Typography variant='body2' sx={{ fontWeight: "bold", color: statusColors[status] || "text.primary", }}>
                     {status}
                 </Typography>
             </CardContent>
