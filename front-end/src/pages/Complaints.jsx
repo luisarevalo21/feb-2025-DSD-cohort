@@ -76,7 +76,7 @@ const Complaints = () => {
         Tenant Complaints
       </Typography>
       {/* AI summary button placeholder that's not hooked up to anything yet */}
-      <Button variant="contained" sx={{ mb:2 }}>
+      <Button variant="contained" color="success" sx={{ mb:2 }}>
         AI Summary
       </Button>
 
