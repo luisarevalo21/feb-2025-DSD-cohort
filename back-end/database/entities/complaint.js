@@ -10,10 +10,6 @@ module.exports = new EntitySchema({
       type: "int",
       generated: true,
     },
-    tenant_id: {
-      type: "int",
-      nullable: false,
-    },
     date_submitted: {
       type: "date",
       nullable: false,
@@ -31,6 +27,28 @@ module.exports = new EntitySchema({
       type: "enum",
       enum: ["New", "In Progress", "Resolved"],
       default: "New",
+    },
+    tenant_id: {
+      type: "int",
+      nullable: false,
+    },
+  },
+  relations: {
+    tenant: {
+      target: "Tenant",
+      type: "many-to-one",
+      joinColumn: {
+        name: "tenant_id",
+      },
+      inverseSide: "complaints",
+    },
+    tenant: {
+      target: "Tenant",
+      type: "many-to-one",
+      joinColumn: {
+        name: "tenant_id",
+      },
+      inverseSide: "complaints",
     },
   },
 });

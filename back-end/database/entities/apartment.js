@@ -1,5 +1,5 @@
 const { EntitySchema } = require("typeorm");
-const Lease = require("./lease.js");
+const Lease = require("./lease");
 
 module.exports = new EntitySchema({
   name: "Apartment",

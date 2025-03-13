@@ -1,5 +1,7 @@
 const { EntitySchema } = require("typeorm");
 const Lease = require("./lease");
+const Complaint = require("./complaint");
+const TenantDetails = require("./tenantDetails");
 
 module.exports = new EntitySchema({
   name: "Tenant",
@@ -26,6 +28,27 @@ module.exports = new EntitySchema({
     lease_id: {
       type: "int",
       nullable: true,
+    },
+  },
+  relations: {
+    lease: {
+      target: "Lease",
+      type: "one-to-one",
+      joinColumn: {
+        name: "lease_id",
+      },
+      inverseSide: "tenant",
+    },
+    tenant_details: {
+      target: "TenantDetails",
+      type: "one-to-one",
+      inverseSide: "tenant",
+    },
+
+    complaints: {
+      target: "Complaint",
+      type: "one-to-many",
+      inverseSide: "tenant",
     },
   },
 });
