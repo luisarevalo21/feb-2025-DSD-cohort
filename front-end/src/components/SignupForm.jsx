@@ -66,21 +66,21 @@ const SignupForm = () => {
       <Stack spacing={2}>
         <TextField
           required
-          name="name"
-          label="Name"
+          name="firstName"
+          label="First Name"
           type="text"
-          {...register("name")}
-          error={errors?.name}
-          helperText={errors?.name?.message}
+          {...register("firstName")}
+          error={errors?.firstName}
+          helperText={errors?.firstName?.message}
         />
         <TextField
           required
-          name="property"
-          label="Property"
+          name="lastName"
+          label="Last Name"
           type="text"
-          {...register("property")}
-          error={errors?.property}
-          helperText={errors?.property?.message}
+          {...register("lastName")}
+          error={errors?.lastName}
+          helperText={errors?.lastName?.message}
         />
         <TextField
           required
@@ -170,16 +170,16 @@ export default SignupForm;
 // Zod schema to validate inputs and display error messages
 const signupSchema = z
   .object({
-    name: z
+    firstName: z
       .string()
-      .min(1, { message: "Name is required." })
-      .max(30, { message: "Name cannot exceed 30 characters." })
+      .min(1, { message: "First Name is required." })
+      .max(30, { message: "First Name cannot exceed 30 characters." })
       .trim(),
 
-    property: z
+    lastName: z
       .string()
-      .min(1, { message: "Property is required." })
-      .max(30, { message: "Property cannot exceed 30 characters." })
+      .min(1, { message: "Last Name is required." })
+      .max(30, { message: "Last Name cannot exceed 30 characters." })
       .trim(),
 
     email: z
