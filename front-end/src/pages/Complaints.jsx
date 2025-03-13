@@ -80,7 +80,7 @@ const Complaints = () => {
         AI Summary
       </Button>
 
-      Scrollable grid of complaint cards
+      {/* Scrollable grid of complaint cards */}
       <Grid
         container
         spacing={2}

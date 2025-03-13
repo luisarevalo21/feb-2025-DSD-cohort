@@ -40,7 +40,7 @@ const ComplaintCard = ({ complaint }) => {
     const dateString = new Date(timestamp).toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",
-        year: "numberic",
+        year: "numeric",
     })
 
     //We only want to show the first 50 characters of the description on these cards, unless it's already shorted than 50 characters
@@ -48,7 +48,12 @@ const ComplaintCard = ({ complaint }) => {
 
 
     return (
-        
+        <Card sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+            <CardContent sx={{ flexGrow: 1 }}>
+                {/* date complaint was submitted  */}
+
+            </CardContent>
+        </Card>
     )
 
 
@@ -58,3 +63,5 @@ const ComplaintCard = ({ complaint }) => {
 
 
 }
+
+export default ComplaintCard;
