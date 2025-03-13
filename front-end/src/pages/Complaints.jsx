@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
+import Grid from '@mui/material/Grid2';
 import ComplaintCard from '../components/ComplaintCard';
 
 const Complaints = () => {
@@ -86,11 +87,11 @@ const Complaints = () => {
         spacing={2}
         sx={{
           maxHeight: "70vh", //may need to adjust
-          overflowY: "auto," //to enable vertical scroll
+          overflowY: "auto", //to enable vertical scroll
         }}
       >
         {dummyComplaints.map((complaint) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={complaint.id}>
+          <Grid size={{ xs:12, sm:6, md:4, lg:3 }} key={complaint.id}>
             <ComplaintCard complaint={complaint} />
           </Grid>
         ))}
