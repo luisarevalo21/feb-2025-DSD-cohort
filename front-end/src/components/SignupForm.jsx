@@ -43,7 +43,11 @@ const SignupForm = () => {
     api
       .post("/auth/signup", formData)
       .then((res) => {
-        navigate(res.data.redirect);
+        if (res.data.status === "success") {
+          navigate("/dashboard");
+        } else {
+          navigate("/register");
+        }
       })
       .catch((err) => {
         if (err.response) {

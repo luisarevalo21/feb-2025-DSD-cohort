@@ -10,7 +10,7 @@ router.post("/login", function (req, res, next) {
     if (err) return next(err);
     else {
       req.logIn(user, function () {
-        return res.json({ redirect: "/dashboard" });
+        return res.json({ user: user, status: "success" });
       });
     }
   })(req, res, next);
@@ -48,7 +48,7 @@ router.post("/signup", async (req, res, next) => {
     req.logIn(newUser, (err) => {
       if (err) return next(err);
 
-      return res.json({ redirect: "/dashboard" });
+      return res.json({ user: user, status: "success" });
     });
   } catch (err) {
     return next(err);
