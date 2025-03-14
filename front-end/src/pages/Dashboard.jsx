@@ -14,11 +14,11 @@ const Dashboard = () => {
     const fetchExpiredLeases = async () => {
       api
         .get("/api/dashboard/expiringLeases")
-        .then((res) => {
+        .then(res => {
           setExpiredLeases(res.data);
           setLoading(false);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           setLoading(false);
         });
@@ -28,13 +28,7 @@ const Dashboard = () => {
   }, []);
   return (
     <>
-      <Typography
-        component="h1"
-        align="left"
-        fontWeight={"bold"}
-        fontSize={"2rem"}
-        marginBottom={"2rem"}
-      >
+      <Typography component="h1" align="left" fontWeight={"bold"} fontSize={"2rem"} marginBottom={"2rem"}>
         Dashboard
       </Typography>
 

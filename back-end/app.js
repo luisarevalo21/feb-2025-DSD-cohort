@@ -12,6 +12,7 @@ const authRouter = require("./routes/auth");
 const leaseRouter = require("./routes/lease");
 const apartmentRouter = require("./routes/apartment");
 const tenantRouter = require("./routes/tenant");
+const complaintsRouter = require("./routes/complaints");
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use(passport.session());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
+app.use("/api/complaints", complaintsRouter);
 
 app.use("/api/dashboard/lease", leaseRouter);
 app.use("/api/dashboard/tenant", tenantRouter);
