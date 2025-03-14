@@ -1,5 +1,4 @@
-import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import ComplaintCard from '../components/ComplaintCard';
 
@@ -76,18 +75,14 @@ const Complaints = () => {
       >
         Tenant Complaints
       </Typography>
-      {/* AI summary button placeholder that's not hooked up to anything yet */}
-      <Button variant="contained" color="success" sx={{ mb:2 }}>
-        AI Summary
-      </Button>
 
       {/* Scrollable grid of complaint cards */}
       <Grid
         container
         spacing={2}
         sx={{
-          maxHeight: "100vh", //may need to adjust
-          overflowY: "auto", //to enable vertical scroll
+          maxHeight: "100vh", 
+          overflowY: "auto", 
         }}
       >
         {dummyComplaints.map((complaint) => (
