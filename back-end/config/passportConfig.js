@@ -12,7 +12,7 @@ passport.use(
 
       if (!loggedadmin) throw(new Error("User not found"));
       
-      const passwordMatch = bcrypt.compare(password, loggedadmin.password)
+      const passwordMatch = await bcrypt.compare(password, loggedadmin.password)
       if (!passwordMatch) throw(new Error("Invalid credentials"));
 
       return cb(null, loggedadmin);

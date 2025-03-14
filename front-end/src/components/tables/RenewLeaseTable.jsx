@@ -1,7 +1,6 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button } from "@mui/material";
-import Paper from "@mui/material/Paper";
+import { Button, Paper } from "@mui/material";
 
 //Defining the columns
 const columns = [
@@ -15,7 +14,7 @@ const columns = [
     width: 150,
     renderCell: () => (
       <Button variant="contained" color="warning">
-        Pending
+        Renew
       </Button>
     ),
   },
@@ -24,46 +23,28 @@ const columns = [
 //Temp dummy data
 const rows = [
   {
-    id: 1,
-    apartmentNumber: 1205,
-    tenantName: "John Drake",
-    leaseEnd: "06/03/2025",
-  },
-  {
-    id: 2,
-    apartmentNumber: 805,
-    tenantName: "Max Verstappen",
-    leaseEnd: "07/10/2025",
-  },
-  {
     id: 3,
-    apartmentNumber: 1210,
-    tenantName: "Sergio Perez",
-    leaseEnd: "07/11/2025",
+    apartmentNumber: 333,
+    tenantName: "Joke Sonyou",
+    leaseEnd: "04/01/2025",
   },
   {
     id: 4,
-    apartmentNumber: 803,
+    apartmentNumber: 23,
     tenantName: "Lando Norris",
-    leaseEnd: "09/02/2026",
+    leaseEnd: "04/12/2025",
   },
   {
     id: 5,
-    apartmentNumber: 702,
-    tenantName: "Daniel Ricciardo",
-    leaseEnd: "10/03/2026",
-  },
-  {
-    id: 6,
-    apartmentNumber: 105,
-    tenantName: "Lance Stroll",
-    leaseEnd: "12/12/2027",
+    apartmentNumber: 324,
+    tenantName: "Michael Schumacher",
+    leaseEnd: "03/24/2025",
   },
 ];
 
 const paginationModel = { page: 0, pageSize: 5 };
 
-export default function PendingLeasesTable() {
+export default function RenewLeaseTable() {
   return (
     <Paper sx={{ height: 370, width: "100%" }}>
       <DataGrid
@@ -84,17 +65,3 @@ export default function PendingLeasesTable() {
     </Paper>
   );
 }
-
-// const PendingLeasesTable = () => {
-//     return (
-//         <div style={{ height: 300, width: "100%" }}>
-//             <DataGrid
-//               rows={rows}
-//               columns={columns}
-//               disableRowSelectionOnClick
-//               pageSize={5}
-//               rowsPerPageOptions={[5]}
-//             />
-//         </div>
-//     )
-// }

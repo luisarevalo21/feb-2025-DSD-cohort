@@ -11,6 +11,8 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState({
@@ -29,6 +31,8 @@ const SignupForm = () => {
     event.preventDefault();
   };
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -36,8 +40,21 @@ const SignupForm = () => {
   } = useForm({ resolver: zodResolver(signupSchema) });
 
   const onSubmit = async (formData) => {
-    await new Promise((res) => setTimeout(res, 2000));
-    console.log("Submitted", formData);
+    api
+      .post("/auth/signup", formData)
+      .then((res) => {
+        if (res.status === 200) {
+          navigate("/dashboard");
+        } else {
+          navigate("/signup");
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log("Error Status:", err.response.status);
+          console.log("Error Message:", err.response.data.message);
+        }
+      });
   };
 
   return (
@@ -49,21 +66,21 @@ const SignupForm = () => {
       <Stack spacing={2}>
         <TextField
           required
-          name="name"
-          label="Name"
+          name="firstName"
+          label="First Name"
           type="text"
-          {...register("name")}
-          error={errors?.name}
-          helperText={errors?.name?.message}
+          {...register("firstName")}
+          error={errors?.firstName}
+          helperText={errors?.firstName?.message}
         />
         <TextField
           required
-          name="property"
-          label="Property"
+          name="lastName"
+          label="Last Name"
           type="text"
-          {...register("property")}
-          error={errors?.property}
-          helperText={errors?.property?.message}
+          {...register("lastName")}
+          error={errors?.lastName}
+          helperText={errors?.lastName?.message}
         />
         <TextField
           required
@@ -153,16 +170,16 @@ export default SignupForm;
 // Zod schema to validate inputs and display error messages
 const signupSchema = z
   .object({
-    name: z
+    firstName: z
       .string()
-      .min(1, { message: "Name is required." })
-      .max(30, { message: "Name cannot exceed 30 characters." })
+      .min(1, { message: "First Name is required." })
+      .max(30, { message: "First Name cannot exceed 30 characters." })
       .trim(),
 
-    property: z
+    lastName: z
       .string()
-      .min(1, { message: "Property is required." })
-      .max(30, { message: "Property cannot exceed 30 characters." })
+      .min(1, { message: "Last Name is required." })
+      .max(30, { message: "Last Name cannot exceed 30 characters." })
       .trim(),
 
     email: z

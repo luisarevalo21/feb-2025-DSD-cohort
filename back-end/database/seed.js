@@ -5,6 +5,7 @@ const Apartment = require("./entities/apartment");
 const Lease = require("./entities/lease");
 const Tenant = require("./entities/tenant");
 const TenantDetails = require("./entities/tenantDetails");
+const Complaint = require("./entities/complaint");
 
 AppDataSource.initialize()
   .then(async () => {
@@ -265,10 +266,43 @@ AppDataSource.initialize()
       console.log("⚠️ Lease table already has data.");
     }
 
-    // --------- Update Tenant Table with Lease IDs --------- //
-    await tenantRepo.update({ id: 1 }, { lease_id: 1 });
-    await tenantRepo.update({ id: 2 }, { lease_id: 2 });
-    await tenantRepo.update({ id: 3 }, { lease_id: 3 });
+    // // --------- Seed Complaint Table --------- //
+    const complaintRepo = AppDataSource.getRepository(Complaint);
+    const existingComplaint = await complaintRepo.count();
+
+    if (existingComplaint === 0) {
+      await complaintRepo.insert([
+        {
+          id: 1,
+          apt_num: 205,
+          complaint_type: "Noise",
+          description: "Loud music playing past midnight.",
+          location: "Building A, 2nd Floor",
+          timestamp: "2025-03-11T22:15:00Z",
+          status: "New",
+          admin_response: null,
+          priority: "High",
+          date_submitted: "2025-03-11",
+          tenant_id: 2,
+        },
+        {
+          id: 2,
+          apt_num: 312,
+          complaint_type: "Maintenance",
+          description: "Leaking faucet in the kitchen.",
+          location: "Building B, 3rd Floor",
+          timestamp: "2025-03-11T19:30:00Z",
+          status: "In Progress",
+          admin_response: "Plumber scheduled for tomorrow.",
+          priority: "Medium",
+          date_submitted: "2025-03-11",
+          tenant_id: 1,
+        },
+      ]);
+      console.log("✅ Complaint table seeded.");
+    } else {
+      console.log("⚠️ Complaint table already has data.");
+    }
 
     console.log("🎉 Database seeding complete.");
 
