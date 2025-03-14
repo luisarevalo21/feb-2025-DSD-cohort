@@ -1,5 +1,4 @@
 const { EntitySchema } = require("typeorm");
-const Apartment = require("./apartment");
 
 module.exports = new EntitySchema({
   name: "Lease",
@@ -30,20 +29,26 @@ module.exports = new EntitySchema({
       type: "int",
       nullable: false,
     },
+    tenant_id: {
+      type: "int",
+      nullable: false,
+      unique: true,
+    },
   },
   relations: {
     apartment: {
       target: "Apartment",
       type: "many-to-one",
       joinColumn: {
-        name: "id",
+        name: "apartment_id",
       },
-      inverseSide: "leases",
+      inverseSide: "lease",
     },
 
     tenant: {
       target: "Tenant",
       type: "one-to-one",
+      //foreign key used to reference the pirmary key of the target entity
       joinColumn: {
         name: "tenant_id",
       },
