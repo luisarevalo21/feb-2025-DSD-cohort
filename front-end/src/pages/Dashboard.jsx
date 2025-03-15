@@ -7,38 +7,28 @@ import PendingLeasesTable from "../components/tables/PendingLeasesTable";
 import RenewLeaseTable from "../components/tables/RenewLeaseTable";
 
 import { fetchApartmentInformation } from "../api/apartmentApi";
+import { fetchRenewals, fetchPending } from "../api/leaseApi";
 const Dashboard = () => {
-  const [expiredLeases, setExpiredLeases] = useState([]);
+  const [renewableLeases, setRenewableLeases] = useState([]);
   const [pendingLeases, setPendingLeases] = useState([]);
   const [apartmentInfo, setApartmentInfo] = useState([]);
-  const [loadingApartmentInfo, setLoadingAparmentInfo] = useState(false);
-
-  const [loading, setLoading] = useState(false);
+  const [loadingDashboardData, setLoadingDashboardData] = useState(true);
   //fetches expired leases from backend
 
   useEffect(() => {
     async function InitialFetch() {
-      const results = await fetchApartmentInformation();
-      console.log(results);
-      setApartmentInfo(results);
+      const [apartmentInformation, renewableInformation, pendingInformation] = await Promise.all([
+        fetchApartmentInformation(),
+        fetchRenewals(),
+        fetchPending(),
+      ]);
+      setApartmentInfo(apartmentInformation);
+      setRenewableLeases(renewableInformation);
+      setPendingLeases(pendingInformation);
     }
-    setLoadingAparmentInfo(true);
+    setLoadingDashboardData(true);
     InitialFetch();
-    setLoadingAparmentInfo(false);
-    // const fetchExpiredLeases = async () => {
-    //   api
-    //     .get("/api/dashboard/expiringLeases")
-    //     .then(res => {
-    //       setExpiredLeases(res.data);
-    //       setLoading(false);
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //       setLoading(false);
-    //     });
-    // };
-    // setLoading(true);
-    // fetchExpiredLeases();
+    setLoadingDashboardData(false);
   }, []);
   return (
     <>
@@ -52,19 +42,7 @@ const Dashboard = () => {
             Upcoming Renewals
           </Typography>
           <Box border={"1px solid black"} bgcolor={"#f5f5f5"}>
-            <RenewLeaseTable />
-
-            {/* {loading ? (
-              <Typography>loading...</Typography>
-            ) : expiredLeases.length === 0 ? (
-              <Typography>no expired leases</Typography>
-            ) : (
-              expiredLeases.map((lease) => (
-                <Box key={lease.id}>
-                  <Typography>{lease.lease_end_date}</Typography>
-                </Box>
-              ))
-            )} */}
+            <RenewLeaseTable isLoading={loadingDashboardData} renewableLeases={renewableLeases} />
           </Box>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
@@ -72,7 +50,7 @@ const Dashboard = () => {
             Pending Leases
           </Typography>
           <Box border={"1px solid black"} bgcolor={"#f5f5f5"}>
-            <PendingLeasesTable />
+            <PendingLeasesTable isLoading={loadingDashboardData} pendingLeases={pendingLeases} />
           </Box>
         </Grid>
         <Grid size={{ xs: 12 }}>
@@ -80,7 +58,7 @@ const Dashboard = () => {
             Apartments Info
           </Typography>
           <Box border={"1px solid black"} bgcolor={"#f5f5f5"}>
-            <ApartmentTable isLoading={loadingApartmentInfo} apartmentInfo={apartmentInfo} />
+            <ApartmentTable isLoading={loadingDashboardData} apartmentInfo={apartmentInfo} />
           </Box>
         </Grid>
       </Grid>

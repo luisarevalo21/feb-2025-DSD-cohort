@@ -1,8 +1,7 @@
 import { Button, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router";
-import CircularProgress from "@mui/material/CircularProgress";
-
+import Spinner from "../Spinner";
 // Columns Definition
 const columns = [
   {
@@ -88,15 +87,8 @@ const paginationModel = { page: 0, pageSize: 5 };
 
 const ApartmentTable = ({ isLoading, apartmentInfo }) => {
   if (isLoading) {
-    return (
-      <Box>
-        <CircularProgress />
-      </Box>
-    );
+    return <Spinner />;
   }
-  // const row = { ...apartmentInfo, id: Math.random() * 10000 };
-
-  console.log("aparmtentInfo", apartmentInfo);
   return (
     <Paper>
       <DataGrid
@@ -113,6 +105,7 @@ const ApartmentTable = ({ isLoading, apartmentInfo }) => {
         disableColumnResize
         disableColumnSelector
         disableRowSelectionOnClick
+        localeText={{ noRowsLabel: "No apartment information" }}
       />
     </Paper>
   );

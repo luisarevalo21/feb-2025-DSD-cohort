@@ -1,4 +1,4 @@
-const calcExpiredLease = lease => {
+const calculateLeaseExpiration = lease => {
   const leaseEndDate = new Date(lease);
   const today = new Date();
   const endRange = new Date();
@@ -7,4 +7,4 @@ const calcExpiredLease = lease => {
   return today <= leaseEndDate && leaseEndDate <= endRange;
 };
 
-module.exports = { calcExpiredLease };
+module.exports = { calculateLeaseExpiration };
