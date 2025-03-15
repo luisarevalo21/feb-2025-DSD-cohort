@@ -6,7 +6,11 @@ const AppDataSource = require("../database/data-source");
 
 router.get("/", async (req, res, next) => {
   try {
-    const lease = await AppDataSource.manager.find(Lease);
+    const lease = await AppDataSource.manager.find(Lease, {
+      relations: ["apartment", "tenant"],
+    });
+
+    console.log(lease);
 
     if (lease.length === 0) {
       return res.status(200).json([]);

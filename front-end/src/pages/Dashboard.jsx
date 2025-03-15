@@ -1,30 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import api from "../api";
+// import api from "../api";
 import ApartmentTable from "../components/tables/ApartmentTable";
 import PendingLeasesTable from "../components/tables/PendingLeasesTable";
 import RenewLeaseTable from "../components/tables/RenewLeaseTable";
 
+import { fetchApartmentInformation } from "../api/apartmentApi";
 const Dashboard = () => {
   const [expiredLeases, setExpiredLeases] = useState([]);
+  const [pendingLeases, setPendingLeases] = useState([]);
+  const [apartmentInfo, setApartmentInfo] = useState([]);
+  const [loadingApartmentInfo, setLoadingAparmentInfo] = useState(false);
+
   const [loading, setLoading] = useState(false);
   //fetches expired leases from backend
+
   useEffect(() => {
-    const fetchExpiredLeases = async () => {
-      api
-        .get("/api/dashboard/expiringLeases")
-        .then(res => {
-          setExpiredLeases(res.data);
-          setLoading(false);
-        })
-        .catch(err => {
-          console.log(err);
-          setLoading(false);
-        });
-    };
-    setLoading(true);
-    fetchExpiredLeases();
+    async function InitialFetch() {
+      const results = await fetchApartmentInformation();
+      console.log(results);
+      setApartmentInfo(results);
+    }
+    setLoadingAparmentInfo(true);
+    InitialFetch();
+    setLoadingAparmentInfo(false);
+    // const fetchExpiredLeases = async () => {
+    //   api
+    //     .get("/api/dashboard/expiringLeases")
+    //     .then(res => {
+    //       setExpiredLeases(res.data);
+    //       setLoading(false);
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //       setLoading(false);
+    //     });
+    // };
+    // setLoading(true);
+    // fetchExpiredLeases();
   }, []);
   return (
     <>
@@ -66,7 +80,7 @@ const Dashboard = () => {
             Apartments Info
           </Typography>
           <Box border={"1px solid black"} bgcolor={"#f5f5f5"}>
-            <ApartmentTable />
+            <ApartmentTable isLoading={loadingApartmentInfo} apartmentInfo={apartmentInfo} />
           </Box>
         </Grid>
       </Grid>
