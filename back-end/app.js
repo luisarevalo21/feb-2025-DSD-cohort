@@ -1,46 +1,52 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const session = require("express-session");
 const passport = require("./config/passportConfig");
+const cors = require("cors");
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
+const leaseRouter = require("./routes/leases");
 
 const app = express();
 
-app.use(logger('dev'));
+app.use(logger("dev"));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
-    session({
-        secret: "your_secret_key",
-        resave: false,
-        saveUninitialized: false,
-    })
+  session({
+    secret: "your_secret_key",
+    resave: false,
+    saveUninitialized: false,
+  })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
 app.use("/auth", authRouter);
+app.use("/leases", leaseRouter);
 
-app.use(errorHandler)
+app.use(errorHandler);
 
 app.listen(4000, () => {
   console.log("Server is running on localhost:4000, you better catch it!");
 });
 
-function errorHandler (err, req, res, next) {
+function errorHandler(err, req, res, next) {
   //simple error response
-  return res.status(res.statusCode !== 200 ? res.statusCode : 500).json({ message: err.message })
+  return res
+    .status(res.statusCode !== 200 ? res.statusCode : 500)
+    .json({ message: err.message });
 }
 
 module.exports = app;
