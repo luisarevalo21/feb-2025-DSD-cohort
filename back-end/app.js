@@ -40,9 +40,9 @@ app.use(passport.session());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
-app.use("/api/complaints", complaintsRouter);
+app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
 
-app.use("/api/dashboard", leaseRouter);
+app.use("/api/dashboard", ensureAuthenticated, leaseRouter);
 
 app.use(errorHandler);
 
@@ -55,6 +55,13 @@ function errorHandler(err, req, res, next) {
   return res
     .status(res.statusCode !== 200 ? res.statusCode : 500)
     .json({ message: err.message });
+}
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  return next(new Error("Unauthorized"));
 }
 
 module.exports = app;
