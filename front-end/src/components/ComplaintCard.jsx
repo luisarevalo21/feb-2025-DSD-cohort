@@ -31,6 +31,7 @@ const statusColors = {
 
 const ComplaintCard = ({ complaint }) => {
     const {
+        id,
         complaint_type,
         timestamp,
         description,
@@ -72,7 +73,7 @@ const ComplaintCard = ({ complaint }) => {
             </CardContent>
 
             <CardActions sx={{ justifyContent: "flex-end" }}>
-                <Button variant='contained' size="small" component={Link} to={`/complaint-detail`}>
+                <Button variant='contained' size="small" component={Link} to={`/complaint-details/${id}`}>
                     View Details
                 </Button>
             </CardActions>
