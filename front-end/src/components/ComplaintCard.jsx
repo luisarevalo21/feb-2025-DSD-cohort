@@ -13,6 +13,8 @@ import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import BuildIcon from '@mui/icons-material/Build'; 
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'; 
 
+import { Link } from "react-router";
+
 const complaintTypeIcons = {
     Noise: <VolumeUpIcon fontSize='small' sx={{ color: "purple" }} />,
     Disturbance: <WarningIcon fontSize='small' sx={{ color: "red" }} />,
@@ -70,7 +72,7 @@ const ComplaintCard = ({ complaint }) => {
             </CardContent>
 
             <CardActions sx={{ justifyContent: "flex-end" }}>
-                <Button variant='contained' size="small">
+                <Button variant='contained' size="small" component={Link} to={`/complaint-detail`}>
                     View Details
                 </Button>
             </CardActions>

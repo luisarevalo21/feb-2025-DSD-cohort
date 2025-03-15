@@ -13,9 +13,9 @@ const Complaints = () => {
       return result.data;
     }
   })
-  if (isPending) return 'Loading...'
+  if (isPending) return <Typography>Loading...</Typography>
 
-  if (error) return 'An error has occurred: ' + error.message
+  if (error) return <Typography>An error has occurred:  {error.message} </Typography>
   return (
     <Box>
       <Typography
