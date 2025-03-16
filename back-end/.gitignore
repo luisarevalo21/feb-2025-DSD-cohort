@@ -25,4 +25,3 @@ dist-ssr
 
 # environment variables
 .env
-./database/test.js
