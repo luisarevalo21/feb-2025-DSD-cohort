@@ -40,11 +40,11 @@ app.use(passport.session());
 
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
-app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
 
-app.use("/api/dashboard/lease", ensureAuthenticated, leaseRouter);
-app.use("/api/dashboard/tenant", ensureAuthenticated, tenantRouter);
-app.use("/api/dashboard/apartment", ensureAuthenticated, apartmentRouter);
+app.use("/api/complaints", complaintsRouter);
+app.use("/api/lease", leaseRouter);
+app.use("/api/tenant", tenantRouter);
+app.use("/api/apartment", apartmentRouter);
 
 app.use(errorHandler);
 

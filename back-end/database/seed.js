@@ -266,6 +266,10 @@ AppDataSource.initialize()
       console.log("⚠️ Lease table already has data.");
     }
 
+    await tenantRepo.update({ id: 1 }, { lease_id: 1 });
+    await tenantRepo.update({ id: 2 }, { lease_id: 2 });
+    await tenantRepo.update({ id: 3 }, { lease_id: 3 });
+
     // // --------- Seed Complaint Table --------- //
     const complaintRepo = AppDataSource.getRepository(Complaint);
     const existingComplaint = await complaintRepo.count();
