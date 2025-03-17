@@ -8,7 +8,6 @@ const cors = require("cors");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const meRouter = require("./routes/me");
 const authRouter = require("./routes/auth");
 const leaseRouter = require("./routes/lease");
 const complaintsRouter = require("./routes/complaints");
@@ -40,7 +39,6 @@ app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/api/me", meRouter);
 app.use("/auth", authRouter);
 app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
 
