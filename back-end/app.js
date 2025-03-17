@@ -6,7 +6,6 @@ const session = require("express-session");
 const passport = require("./config/passportConfig");
 const cors = require("cors");
 
-const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const leaseRouter = require("./routes/lease");
@@ -37,7 +36,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
