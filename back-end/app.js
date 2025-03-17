@@ -9,6 +9,8 @@ const cors = require("cors");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const leaseRouter = require("./routes/lease");
+const apartmentRouter = require("./routes/apartment");
+const tenantRouter = require("./routes/tenant");
 const complaintsRouter = require("./routes/complaints");
 
 const app = express();
@@ -40,7 +42,9 @@ app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
 
-app.use("/api/dashboard", ensureAuthenticated, leaseRouter);
+app.use("/api/dashboard/lease", ensureAuthenticated, leaseRouter);
+app.use("/api/dashboard/tenant", ensureAuthenticated, tenantRouter);
+app.use("/api/dashboard/apartment", ensureAuthenticated, apartmentRouter);
 
 app.use(errorHandler);
 
@@ -50,9 +54,7 @@ app.listen(4000, () => {
 
 function errorHandler(err, req, res, next) {
   //simple error response
-  return res
-    .status(res.statusCode !== 200 ? res.statusCode : 500)
-    .json({ message: err.message });
+  return res.status(res.statusCode !== 200 ? res.statusCode : 500).json({ message: err.message });
 }
 
 function ensureAuthenticated(req, res, next) {
