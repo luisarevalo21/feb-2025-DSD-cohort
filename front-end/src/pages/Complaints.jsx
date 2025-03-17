@@ -9,7 +9,7 @@ const Complaints = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ['repoData'],
     queryFn: async () => {
-      const result = await api.get('http://localhost:4000/api/complaints')
+      const result = await api.get('/api/complaints')
       return result.data;
     }
   })
