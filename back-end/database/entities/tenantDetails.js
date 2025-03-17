@@ -1,31 +1,27 @@
 const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
-  name: "Complaint",
-  tableName: "complaints",
+  name: "TenantDetails",
+  tableName: "tenant_details",
   columns: {
     id: {
       primary: true,
       type: "int",
       generated: true,
     },
-    date_submitted: {
-      type: "date",
+    tenant_id: {
+      type: "int",
       nullable: false,
     },
-    complaint_type: {
-      type: "enum",
-      enum: ["Noise", "Disturbance", "Emergency", "Maintenance", "Other"],
-      nullable: false,
+    phone_number: {
+      type: "varchar",
     },
-    description: {
-      type: "text",
-      nullable: true,
+
+    profile_photo: {
+      type: "varchar",
     },
-    status: {
-      type: "enum",
-      enum: ["New", "In Progress", "Resolved"],
-      default: "New",
+    additional_information: {
+      type: "varchar",
     },
     tenant_id: {
       type: "int",
@@ -39,7 +35,7 @@ module.exports = new EntitySchema({
       joinColumn: {
         name: "tenant_id",
       },
-      inverseSide: "complaints",
+      inverseSide: "tenant_details",
     },
   },
 });

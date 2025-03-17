@@ -1,28 +1,58 @@
 const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
-  name: "Tenant", // Logical name of the entity
-  tableName: "tenantss", // The actual database table name
+  name: "Tenant",
+  tableName: "tenants",
   columns: {
     id: {
-      primary: true, // This column is the primary key
-      type: "int", // Integer data type
-      generated: true, // Auto-incrementing ID
+      primary: true,
+      type: "int",
+      generated: true,
     },
-    name: {
+    first_name: {
       type: "varchar",
     },
-    password: {
+    last_name: {
       type: "varchar",
-      length: 255, // Ensure enough space for hashed passwords in the future
     },
     email: {
       type: "varchar",
-      unique: true, // Ensures emails are not duplicated
+      unique: true,
     },
-    apt_num: {
+    date_of_birth: {
+      type: "date",
+    },
+    lease_id: {
       type: "int",
-      nullable: false, // tenants need an apartment number assigned to them
+      nullable: true,
+    },
+    tenant_details_id: {
+      type: "int",
+      nullable: true,
+    },
+  },
+  relations: {
+    lease: {
+      target: "Lease",
+      type: "one-to-one",
+      joinColumn: {
+        name: "lease_id",
+      },
+      inverseSide: "tenant",
+    },
+    tenant_details: {
+      target: "TenantDetails",
+      type: "one-to-one",
+      joinColumn: {
+        name: "tenant_details_id",
+      },
+      inverseSide: "tenant",
+    },
+
+    complaints: {
+      target: "Complaint",
+      type: "one-to-many",
+      inverseSide: "tenant",
     },
   },
 });

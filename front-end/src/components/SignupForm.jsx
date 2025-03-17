@@ -5,12 +5,15 @@ import {
   Button,
   IconButton,
   InputAdornment,
+  Link,
   Stack,
   TextField,
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import api from "../api";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState({
@@ -29,6 +32,8 @@ const SignupForm = () => {
     event.preventDefault();
   };
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -36,34 +41,47 @@ const SignupForm = () => {
   } = useForm({ resolver: zodResolver(signupSchema) });
 
   const onSubmit = async (formData) => {
-    await new Promise((res) => setTimeout(res, 2000));
-    console.log("Submitted", formData);
+    api
+      .post("/auth/signup", formData)
+      .then((res) => {
+        if (res.status === 200) {
+          navigate("/dashboard");
+        } else {
+          navigate("/signup");
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log("Error Status:", err.response.status);
+          console.log("Error Message:", err.response.data.message);
+        }
+      });
   };
 
   return (
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-gray-100 border border-gray-300 max-w-md p-8 rounded-xl"
+      className="bg-gray-100 border border-gray-300 p-8 rounded-xl max-w-md  xl:w-sm"
     >
       <Stack spacing={2}>
         <TextField
           required
-          name="name"
-          label="Name"
+          name="firstName"
+          label="First Name"
           type="text"
-          {...register("name")}
-          error={errors?.name}
-          helperText={errors?.name?.message}
+          {...register("firstName")}
+          error={errors?.firstName}
+          helperText={errors?.firstName?.message}
         />
         <TextField
           required
-          name="property"
-          label="Property"
+          name="lastName"
+          label="Last Name"
           type="text"
-          {...register("property")}
-          error={errors?.property}
-          helperText={errors?.property?.message}
+          {...register("lastName")}
+          error={errors?.lastName}
+          helperText={errors?.lastName?.message}
         />
         <TextField
           required
@@ -139,11 +157,15 @@ const SignupForm = () => {
 
         <Button
           type="submit"
+          variant="contained"
           disabled={isSubmitting || Object.keys(errors).length > 0}
         >
           {isSubmitting ? "Submitting..." : "Create new account"}
         </Button>
       </Stack>
+      <p className="mt-4 text-center">
+        Already have an account? <Link href="/">Login</Link>
+      </p>
     </form>
   );
 };
@@ -153,16 +175,16 @@ export default SignupForm;
 // Zod schema to validate inputs and display error messages
 const signupSchema = z
   .object({
-    name: z
+    firstName: z
       .string()
-      .min(1, { message: "Name is required." })
-      .max(30, { message: "Name cannot exceed 30 characters." })
+      .min(1, { message: "First Name is required." })
+      .max(30, { message: "First Name cannot exceed 30 characters." })
       .trim(),
 
-    property: z
+    lastName: z
       .string()
-      .min(1, { message: "Property is required." })
-      .max(30, { message: "Property cannot exceed 30 characters." })
+      .min(1, { message: "Last Name is required." })
+      .max(30, { message: "Last Name cannot exceed 30 characters." })
       .trim(),
 
     email: z

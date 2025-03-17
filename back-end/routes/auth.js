@@ -1,24 +1,22 @@
-// Auth Route
 const express = require("express");
 const router = express.Router();
-const passport = require("../config/passportConfig.js"); // Import passport setup
+const passport = require("../config/passportConfig.js");
+const bcrypt = require("bcryptjs");
+const admin = require("../database/entities/admin");
+const AppDataSource = require("../database/data-source");
 
-router.post("/login", function(req, res, next) {
+router.post("/login", function (req, res, next) {
   passport.authenticate("local", (err, user, info, status) => {
-    //does handling based off the returned values from local strategy;
-    //info is for returned information added as a third parameter to callback in local strategy
-    //status is optional for returned status codes from local strategy as
-    if (err) return next(err) //goes to error handler with text of error that occurred in the local strategy
-
+    if (err) return next(err);
     else {
-      req.logIn(user, function() {
-        return res.json(user)
+      req.logIn(user, function () {
+        return res.status(200).json({ user: user });
       });
     }
-  })(req, res, next); // pass in req, res, and next to the passport local strategy function
+  })(req, res, next);
 });
 
-router.post("/signup", (req, res, next) => {
+router.post("/signup", async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
 
   //If any fields are missing, for now throw a general error to error handling middleware in app.js. As a seperate later task we can add in a validation library.
@@ -26,22 +24,35 @@ router.post("/signup", (req, res, next) => {
     return next(new Error("Missing required fields"));
   }
 
-  //Later task: Here we would check if the email is already registered and throw an error if they are. Otherwise, insert the new user into the database
-  const newUser = {
-    id: 2,
-    firstName,
-    lastName,
-    email,
-    password,
-  };
+  try {
+    const existingUser = await AppDataSource.manager.findOneBy(admin, {
+      email,
+    });
 
-  //Logs in the user with passport's req.logIn method.
-  req.logIn(newUser, (err) => {
-    if (err) return next(err);
+    if (existingUser) {
+      return next(new Error("Email already taken. Please try again."));
+    }
 
-    //Returns the new user object and a mock redirect path to dashboard.
-    return res.json({user: newUser, redirect: "/dashboard"})
-  })
-})
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = AppDataSource.manager.create(admin, {
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      password: hashedPassword,
+    });
+
+    await AppDataSource.manager.save(admin, newUser);
+
+    //Logs in the user with passport's req.logIn method.
+    req.logIn(newUser, (err) => {
+      if (err) return next(err);
+
+      return res.status(200).json({ user: newUser });
+    });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 module.exports = router;
