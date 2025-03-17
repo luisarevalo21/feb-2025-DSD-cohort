@@ -6,7 +6,6 @@ const session = require("express-session");
 const passport = require("./config/passportConfig");
 const cors = require("cors");
 
-const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const leaseRouter = require("./routes/lease");
@@ -39,14 +38,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
-app.use("/api/complaints", complaintsRouter);
+app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
 
-app.use("/api/dashboard/lease", leaseRouter);
-app.use("/api/dashboard/tenant", tenantRouter);
-app.use("/api/dashboard/apartment", apartmentRouter);
+app.use("/api/dashboard/lease", ensureAuthenticated, leaseRouter);
+app.use("/api/dashboard/tenant", ensureAuthenticated, tenantRouter);
+app.use("/api/dashboard/apartment", ensureAuthenticated, apartmentRouter);
 
 app.use(errorHandler);
 
@@ -57,6 +55,13 @@ app.listen(4000, () => {
 function errorHandler(err, req, res, next) {
   //simple error response
   return res.status(res.statusCode !== 200 ? res.statusCode : 500).json({ message: err.message });
+}
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  return next(new Error("Unauthorized"));
 }
 
 module.exports = app;
