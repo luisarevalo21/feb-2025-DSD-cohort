@@ -47,6 +47,7 @@ app.use("/api/complaints", complaintsRouter);
 app.use("/api/dashboard/lease", leaseRouter);
 app.use("/api/dashboard/tenant", tenantRouter);
 app.use("/api/dashboard/apartment", apartmentRouter);
+app.use("/api/tenant", tenantRouter);
 
 app.use(errorHandler);
 
