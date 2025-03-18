@@ -9,6 +9,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +34,7 @@ const SignupForm = () => {
   };
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -45,6 +47,8 @@ const SignupForm = () => {
       .post("/auth/signup", formData)
       .then((res) => {
         if (res.status === 200) {
+          queryClient.setQueryData(["user"], res.data.user);
+          localStorage.setItem("isLogged", true);
           navigate("/dashboard");
         } else {
           navigate("/signup");

@@ -2,7 +2,7 @@ import { Box, Link, Typography } from "@mui/material";
 
 const NotFoundPage = () => {
   return (
-    <Box className="h-full flex flex-col items-center justify-center">
+    <Box className="min-h-screen flex flex-col items-center justify-center">
       <Typography
         component="h1"
         align="left"
