@@ -33,14 +33,14 @@ const ComplaintCard = ({ complaint }) => {
     const {
         id,
         complaint_type,
-        timestamp,
+        date_submitted,
         description,
         status,
     } = complaint;
 
     const iconElement = complaintTypeIcons[complaint_type] || <HelpOutlineIcon fontSize='small' sx={{ color: "gray" }} />;
 
-    const dateString = new Date(timestamp).toLocaleDateString("en-US", {
+    const dateString = new Date(date_submitted).toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",
         year: "numeric",
