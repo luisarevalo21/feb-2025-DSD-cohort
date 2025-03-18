@@ -29,7 +29,7 @@ router.get("/", async (req, res, next) => {
         leaseId: leaseInformation ? leaseInformation.id : "",
         leaseStart: leaseInformation ? new Date(leaseInformation.lease_start_date).toLocaleDateString("en") : "",
         leaseEnd: leaseInformation ? new Date(leaseInformation.lease_end_date).toLocaleDateString("en") : "",
-        setToExpired: leaseExpired,
+        setToExpire: leaseExpired,
         leaseStatus: leaseInformation ? leaseInformation.status : "",
         tenantName: leaseInformation ? `${leaseInformation.tenant.first_name} ${leaseInformation.tenant.last_name}` : "Vacant",
         tenantId: leaseInformation ? leaseInformation.tenant.id : "",
