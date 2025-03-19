@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import { useParams } from "react-router";
 import Hero from "../../components/aptdetails/Hero";
+import Details from '../../components/aptdetails/Details';
 //import floor plan photos
 import floorPlan1 from '../../assets/floorplans/floorplan1.png';
 import floorPlan2 from '../../assets/floorplans/floorplan2.png'
@@ -24,17 +25,27 @@ const ApartmentDetails = () => {
 
   //THIS MOCK DATA WILL NOT BE IN THE PULL REQUEST AND IS JUST FOR TESTING WHILE I BUILD THE COMPONENTS
   const mockApartmentData = {
+    //for hero
     id: "APT-1205",
     apartmentNumber: "1205",
     status: "Occupied",   
     leaseEnd: "2025-03-20",
     tenantName: "John Drake",
     floorPlanImg: floorPlan,
+    //for details
+    layout: "3-2-B-SHARED",
+    squareFootage: 1047,
+    bedrooms: 3,
+    bathrooms: 2,
+    floor: 12,
   };
 
   return (
-    <Box sx={{ p:2 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", minheight: "100vh", p:2 }}>
       <Hero apartmentData={mockApartmentData} />
+      <Box sx={{ display: "flex", flex: 1, mt: 4 }}>
+        <Details apartmentData={mockApartmentData} />
+      </Box>
     </Box>
   );
 };
