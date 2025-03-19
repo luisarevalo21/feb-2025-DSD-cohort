@@ -11,9 +11,11 @@ const Hero = ({ apartmentData }) => {
         apartmentNumber,
         status,
         leaseEnd,
-        tenantName
+        tenantName,
+        floorPlanImg,
     } = apartmentData;
 
+    //for the modal
     const [open, setOpen] = useState(false);
     //hardcoded address, in variables so it can be changed
     const address1 = `515 East Broadway #${apartmentNumber}`;
@@ -90,7 +92,7 @@ const Hero = ({ apartmentData }) => {
                 }}
                 >
                     <img
-                    src={floorplan1}
+                    src={floorPlanImg}
                     alt="Floor Plan 1"
                     style={{
                         maxWidth: "160px",
@@ -109,7 +111,7 @@ const Hero = ({ apartmentData }) => {
             {/* Dialog/modal for enlarged image */}
             <Dialog open={open} onClose={() => setOpen(false)}>
                 <img
-                  src={floorplan1}
+                  src={floorPlanImg}
                   alt="Floor Plan Large"
                   style={{
                     maxWidth: "80vw",
