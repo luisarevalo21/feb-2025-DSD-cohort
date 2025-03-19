@@ -25,6 +25,14 @@ module.exports = new EntitySchema({
       type: "text",
       nullable: true,
     },
+    signed_at: {
+      type: "date",
+      nullable: true,
+    },
+    signature: {
+      type: "text",
+      nullable: true,
+    },
     apartment_id: {
       type: "int",
       nullable: false,
