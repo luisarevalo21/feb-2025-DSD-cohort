@@ -74,4 +74,17 @@ router.get("/pendingLeases", async (req, res, next) => {
   }
 });
 
+router.put("/signLease/:leaseId", async (req, res, next) => {
+  try {
+    const leaseId = req.params.leaseId;
+    const signedLease = await AppDataSource.manager.findOneBy(Lease, { id: leaseId });
+
+    signedLease.signed_at = new Date();
+    await AppDataSource.manager.save(Lease, signedLease);
+    return res.status(200).json(signedLease);
+  } catch (error) {
+    return next(error);
+  }
+})
+
 module.exports = router;
