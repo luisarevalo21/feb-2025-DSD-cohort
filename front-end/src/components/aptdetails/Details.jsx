@@ -15,11 +15,13 @@ const Details = ({ apartmentData }) => {
     return (
         <Box
           sx={{
-            border: "1px solid #ccc",
+            border: "3px solid #ccc",
             borderRadius: 1,
             p: 2,
             display: "flex",
-            flexDirection: "column"
+            flexDirection: "column",
+            textAlign: "center",
+            flex: 1
           }}
         >
             <Typography variant="h2" sx={{ fontWeight: "bold", mb: 1 }}>

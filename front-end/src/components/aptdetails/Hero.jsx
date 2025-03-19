@@ -33,22 +33,15 @@ const Hero = ({ apartmentData }) => {
         <Box>
             <Box sx={{
                 width: "100%",
-                border: "1px solid #ccc",
+                border: "3px solid #ccc",
                 borderRadius: 1,
                 overflow: "hidden",
             }}
             >
-                <Grid2 container columns={14} sx={{ width: "100"}}>
+                <Grid2 container columns={14}>
                     {/* Left section  */}
                     <Grid2 size={{ xs: 14, md: 5 }} sx={{ p: 2, position: "relative" }}>
-                        <Typography
-                        variant="h6"
-                        sx={{
-                            position: "absolute",
-                            top: 8,
-                            right: 8,
-                        }}
-                        >
+                        <Typography variant="body1">
                             ID: {id}
                         </Typography>
 

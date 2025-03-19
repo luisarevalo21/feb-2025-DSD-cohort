@@ -41,10 +41,10 @@ const ApartmentDetails = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minheight: "100vh", p:2 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p:2 }}>
       <Hero apartmentData={mockApartmentData} />
-      <Grid2 container spacing={2} sx={{ flex: 1, mt: 4 , alignItems: "stretch" }}>
-        <Grid2 size={{ xs: 12, md: 4 }} sx={{ display: "flex", flexDirection: "column" }}>
+      <Grid2 container spacing={2} sx={{ flex: 1, minHeight: 0, mt: 4 , alignItems: "stretch" }}>
+        <Grid2 size={{ xs: 12, md: 4 }} sx={{ display: "flex", flexDirection: "column", flex:1 }}>
           <Details apartmentData={mockApartmentData} />
         </Grid2>
       </Grid2>
