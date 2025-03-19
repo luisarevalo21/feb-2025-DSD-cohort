@@ -17,13 +17,6 @@ const ApartmentDetails = () => {
 
   return (
     <Box sx={{ p:2 }}>
-      <Typography
-        component="h1"
-        align="left"
-        sx={{ fontWeight: "bold", fontSize: "2rem" }}
-      >
-        Apartment details for: {id}
-      </Typography>
       <Hero apartmentData={mockApartmentData} />
     </Box>
   );

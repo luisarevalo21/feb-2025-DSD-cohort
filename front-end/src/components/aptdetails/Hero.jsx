@@ -1,6 +1,8 @@
 import { Box, Typography, Divider, IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import floorplan1 from '../../assets/floorplans/floorplan1.png'
+import { useState } from 'react';
+import Dialog from '@mui/material/Dialog';
 
 const Hero = ({ apartmentData }) => {
 
@@ -11,6 +13,8 @@ const Hero = ({ apartmentData }) => {
         leaseEnd,
         tenantName
     } = apartmentData;
+
+    const [open, setOpen] = useState(false);
     //hardcoded address, in variables so it can be changed
     const address1 = `515 East Broadway #${apartmentNumber}`;
     const address2 = "Eugene, Oregon";
@@ -35,7 +39,7 @@ const Hero = ({ apartmentData }) => {
             {/* Left section  */}
             <Box sx={{ flex: 3, p: 2, position: "relative" }}>
                 <Typography
-                  variant="body2"
+                  variant="h6"
                   sx={{
                     position: "absolute",
                     top: 8,
@@ -45,29 +49,29 @@ const Hero = ({ apartmentData }) => {
                     ID: {id}
                 </Typography>
 
-                <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
                     Apartment {apartmentNumber}
                 </Typography>
 
-                <Typography>{address1}</Typography>
-                <Typography>{address2}</Typography>
-                <Typography>{address3}</Typography>
+                <Typography variant="h6">{address1}</Typography>
+                <Typography variant="h6">{address2}</Typography>
+                <Typography variant="h6">{address3}</Typography>
             </Box>
 
             <Divider orientation="vertical" flexItem />
 
-            <Box sx={{ flex: 4, p:2 }}>
-                <Typography variant="body1">
+            <Box sx={{ flex: 3, p:2 }}>
+                <Typography variant="h5" sx={{ mb: 1 }}>
                     <strong>Status: </strong>
                     <span style={{ color: statusColor }}>{status}</span>
                 </Typography>
                 
-                <Typography variant="body1">
+                <Typography variant="h5" sx={{ mb: 1 }}>
                     <strong>Lease Expires: </strong>
                     <span style={{ color: leaseExpirationColor }}>{leaseEnd}</span>
                 </Typography>
 
-                <Typography variant="body1">
+                <Typography variant="h5" sx={{ mb: 1 }}>
                     <strong>Current Occupant: </strong>
                     <span style={{ color: "green" }}>{tenantName}</span>
                 </Typography>
@@ -77,7 +81,7 @@ const Hero = ({ apartmentData }) => {
 
             <Box
               sx={{
-                flex: 5,
+                flex: 1,
                 p: 2,
                 display: "flex",
                 alignItems: "center",
@@ -89,12 +93,12 @@ const Hero = ({ apartmentData }) => {
                   alt="Floor Plan 1"
                   style={{
                     maxWidth: "160px",
-                    maxHeight: "160px",
+                    maxHeight: "150px",
                     objectFit: "contain",
                   }}
                 />
 
-                <IconButton aria-label="Zoom Floor Plan">
+                <IconButton aria-label="Zoom Floor Plan" onClick={() => setOpen(true)}>
                     <AddCircleOutlineIcon />
                 </IconButton>
             </Box>
