@@ -3,6 +3,7 @@ import { Box, Grid2 } from "@mui/material";
 import { useParams } from "react-router";
 import Hero from "../../components/aptdetails/Hero";
 import Details from '../../components/aptdetails/Details';
+import Features from "../../components/aptdetails/Features";
 //import floor plan photos
 import floorPlan1 from '../../assets/floorplans/floorplan1.png';
 import floorPlan2 from '../../assets/floorplans/floorplan2.png'
@@ -38,14 +39,28 @@ const ApartmentDetails = () => {
     bedrooms: 3,
     bathrooms: 2,
     floor: 12,
+    features: [
+      "In-unit Washer and Dryer",
+      "55-inch LG TV",
+      "Oven",
+      "Microwave Oven",
+      "Fridge/Freezer Combo",
+      "Mini Fridge",
+      "Walk-out balcony",
+      "Fully Furnished"
+    ],
   };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p:2 }}>
       <Hero apartmentData={mockApartmentData} />
       <Grid2 container spacing={2} sx={{ flex: 1, minHeight: 0, mt: 4 , alignItems: "stretch" }}>
-        <Grid2 size={{ xs: 12, md: 4 }} sx={{ display: "flex", flexDirection: "column", flex:1 }}>
+        <Grid2 size={{ xs: 12, md: 4 }} sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
           <Details apartmentData={mockApartmentData} />
+        </Grid2>
+
+        <Grid2 size={{ xs: 12, md: 4}} sx={{ display: "flex", flexDirection: "column", flex: 1}}>
+          <Features apartmentData={mockApartmentData} />
         </Grid2>
       </Grid2>
     </Box>
