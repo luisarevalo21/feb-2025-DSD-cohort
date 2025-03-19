@@ -1,4 +1,4 @@
-import { Box, Typography, Divider, IconButton } from "@mui/material";
+import { Box, Typography, Divider, Grid2, IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import floorplan1 from '../../assets/floorplans/floorplan1.png'
 import { useState } from 'react';
@@ -32,80 +32,84 @@ const Hero = ({ apartmentData }) => {
     return (
         <Box>
             <Box sx={{
-                display: "flex",
                 width: "100%",
                 border: "1px solid #ccc",
                 borderRadius: 1,
                 overflow: "hidden",
             }}
             >
-                {/* Left section  */}
-                <Box sx={{ flex: 3, p: 2, position: "relative" }}>
-                    <Typography
-                    variant="h6"
-                    sx={{
-                        position: "absolute",
-                        top: 8,
-                        right: 8,
-                    }}
-                    >
-                        ID: {id}
-                    </Typography>
+                <Grid2 container columns={14} sx={{ width: "100"}}>
+                    {/* Left section  */}
+                    <Grid2 size={{ xs: 14, md: 5 }} sx={{ p: 2, position: "relative" }}>
+                        <Typography
+                        variant="h6"
+                        sx={{
+                            position: "absolute",
+                            top: 8,
+                            right: 8,
+                        }}
+                        >
+                            ID: {id}
+                        </Typography>
 
-                    <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                        Apartment {apartmentNumber}
-                    </Typography>
+                        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                            Apartment {apartmentNumber}
+                        </Typography>
 
-                    <Typography variant="h6">{address1}</Typography>
-                    <Typography variant="h6">{address2}</Typography>
-                    <Typography variant="h6">{address3}</Typography>
-                </Box>
-
-                <Divider orientation="vertical" flexItem />
-
-                <Box sx={{ flex: 3, p:2 }}>
-                    <Typography variant="h5" sx={{ mb: 1 }}>
-                        <strong>Status: </strong>
-                        <span style={{ color: statusColor }}>{status}</span>
-                    </Typography>
+                        <Typography variant="h6">{address1}</Typography>
+                        <Typography variant="h6">{address2}</Typography>
+                        <Typography variant="h6">{address3}</Typography>
+                    </Grid2>
                     
-                    <Typography variant="h5" sx={{ mb: 1 }}>
-                        <strong>Lease Expires: </strong>
-                        <span style={{ color: leaseExpirationColor }}>{leaseEnd}</span>
-                    </Typography>
+                    <Grid2 size={{ xs: 14, md: 1 }}>
+                        <Divider orientation="vertical" />
+                    </Grid2>
+                    
+                    <Grid2 size={{ xs: 14, md: 5 }} sx={{ p:2 }}>
+                        <Typography variant="h5" sx={{ mb: 1 }}>
+                            <strong>Status: </strong>
+                            <span style={{ color: statusColor }}>{status}</span>
+                        </Typography>
+                        
+                        <Typography variant="h5" sx={{ mb: 1 }}>
+                            <strong>Lease Expires: </strong>
+                            <span style={{ color: leaseExpirationColor }}>{leaseEnd}</span>
+                        </Typography>
 
-                    <Typography variant="h5" sx={{ mb: 1 }}>
-                        <strong>Current Occupant: </strong>
-                        <span style={{ color: "green" }}>{tenantName}</span>
-                    </Typography>
-                </Box>
+                        <Typography variant="h5" sx={{ mb: 1 }}>
+                            <strong>Current Occupant: </strong>
+                            <span style={{ color: "green" }}>{tenantName}</span>
+                        </Typography>
+                    </Grid2>
 
-                <Divider orientation="vertical" flexItem />
+                    <Grid2 size={{ xs: 14, md: 1 }}>
+                        <Divider orientation="vertical" />
+                    </Grid2>
 
-                <Box
-                sx={{
-                    flex: 1,
-                    p: 2,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                }}
-                >
-                    <img
-                    src={floorPlanImg}
-                    alt="Floor Plan 1"
-                    style={{
-                        maxWidth: "160px",
-                        maxHeight: "150px",
-                        objectFit: "contain",
-                    }}
-                    />
+                    <Grid2
+                        size={{ xs: 14, md: 2 }}
+                        sx={{
+                            p: 2,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        <img
+                            src={floorPlanImg}
+                            alt="Floor Plan 1"
+                            style={{
+                            maxWidth: "160px",
+                            maxHeight: "150px",
+                            objectFit: "contain",
+                        }}
+                        />
 
-                    <IconButton aria-label="Zoom Floor Plan" onClick={() => setOpen(true)}>
-                        <AddCircleOutlineIcon sx={{ color: "green" }} />
-                    </IconButton>
-                </Box>
-                
+                        <IconButton aria-label="Zoom Floor Plan" onClick={() => setOpen(true)}>
+                            <AddCircleOutlineIcon sx={{ color: "green" }} />
+                        </IconButton>
+                    </Grid2>
+                </Grid2>
             </Box>
 
             {/* Dialog/modal for enlarged image */}

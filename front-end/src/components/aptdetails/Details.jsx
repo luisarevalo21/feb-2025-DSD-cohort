@@ -15,7 +15,6 @@ const Details = ({ apartmentData }) => {
     return (
         <Box
           sx={{
-            width: "33.3%",
             border: "1px solid #ccc",
             borderRadius: 1,
             p: 2,
@@ -27,7 +26,7 @@ const Details = ({ apartmentData }) => {
                 Details
             </Typography>
 
-            <Divider orientation="horizontal" flexItem />
+            <Divider orientation="horizontal" flexItem sx={{mb: 2}}/>
 
             <Typography variant="h4">Layout: {layout}</Typography>
             <Typography variant="h4">Sq. Ft: {squareFootage}</Typography>

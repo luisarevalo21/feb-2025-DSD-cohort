@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import { Box, Grid2 } from "@mui/material";
 import { useParams } from "react-router";
 import Hero from "../../components/aptdetails/Hero";
 import Details from '../../components/aptdetails/Details';
@@ -43,9 +43,11 @@ const ApartmentDetails = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minheight: "100vh", p:2 }}>
       <Hero apartmentData={mockApartmentData} />
-      <Box sx={{ display: "flex", flex: 1, mt: 4 }}>
-        <Details apartmentData={mockApartmentData} />
-      </Box>
+      <Grid2 container spacing={2} sx={{ flex: 1, mt: 4 , alignItems: "stretch" }}>
+        <Grid2 size={{ xs: 12, md: 4 }} sx={{ display: "flex", flexDirection: "column" }}>
+          <Details apartmentData={mockApartmentData} />
+        </Grid2>
+      </Grid2>
     </Box>
   );
 };
