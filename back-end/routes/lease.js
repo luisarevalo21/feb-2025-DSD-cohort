@@ -39,7 +39,7 @@ router.get("/renewals", async (req, res, next) => {
   }
 });
 
-router.get("/pendingLeases", async (req, res) => {
+router.get("/pendingLeases", async (req, res, next) => {
   try {
     const currentLeases = await AppDataSource.manager.find(Lease, {
       relations: ["tenant", "apartment"],
@@ -53,13 +53,13 @@ router.get("/pendingLeases", async (req, res) => {
         const { apartment } = lease;
         const { tenant } = lease;
 
-        if (lease.status === "pending")
+        if (lease.signed_at === null)
           return {
             id: lease.id,
             leaseId: lease.id,
             apartmentNumber: apartment.apartment_number,
             tenantName: `${tenant.first_name} ${tenant.last_name}`,
-            leaseEnd: lease.lease_end_date.toLocalDateString("en-US"),
+            leaseEnd: new Date(lease.lease_end_date).toLocaleDateString("en-US"),
           };
       })
       .filter(lease => lease !== undefined);

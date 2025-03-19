@@ -28,6 +28,9 @@ router.get("/", async (req, res, next) => {
           leaseInformation.lease_end_date
         );
       }
+      if(leaseInformation?.signed_at !== undefined) {
+        leaseInformation.status = leaseInformation.signed_at ? "Active" : "Pending"
+      }
       return {
         id: apartment.id,
         apartmentNumber: apartment.apartment_number,
@@ -39,7 +42,7 @@ router.get("/", async (req, res, next) => {
           ? new Date(leaseInformation.lease_end_date).toLocaleDateString("en")
           : "",
         setToExpire: leaseExpired,
-        leaseStatus: leaseInformation ? leaseInformation.status : "",
+        leaseStatus: leaseInformation ? leaseInformation.status : "Vacant",
         tenantName: leaseInformation
           ? `${leaseInformation.tenant.first_name} ${leaseInformation.tenant.last_name}`
           : "Vacant",
