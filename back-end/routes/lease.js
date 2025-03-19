@@ -77,9 +77,11 @@ router.get("/pendingLeases", async (req, res, next) => {
 router.put("/signLease/:leaseId", async (req, res, next) => {
   try {
     const leaseId = req.params.leaseId;
+    const { signature } = req.body
     const signedLease = await AppDataSource.manager.findOneBy(Lease, { id: leaseId });
 
     signedLease.signed_at = new Date();
+    signedLease.signature = signature;
     await AppDataSource.manager.save(Lease, signedLease);
     return res.status(200).json(signedLease);
   } catch (error) {
