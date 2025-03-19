@@ -11,7 +11,7 @@ const ApartmentDetails = () => {
     id: "APT-1205",
     apartmentNumber: "1205",
     status: "Occupied",   
-    leaseEnd: "2025-05-05",
+    leaseEnd: "2025-03-20",
     tenantName: "John Drake",
   };
 
