@@ -12,13 +12,13 @@ const TenantLeaseDetails = ({ tenant }) => {
         <CardContent className="p-4 space-y-3 text-center text-xl-1 font-semi-bold text-gray-800">
           <Grid2 container spacing={2} padding={2}>
             <Grid2 size={{ xs: 12, md: 6 }}>
-              <p>Apartment Number: {tenant.apartmentNumber}</p>
-              <p>Monthly Rent: {tenant.rentAmount}</p>{" "}
-              <p>Additional Info:{tenant.notes}</p>
+              <p>Apartment Number: {tenant.apartment.apartmentNumber}</p>
+              <p>Monthly Rent: {tenant.leaseInformation.rentAmount}</p>
+              <p>Additional Info:{tenant.leaseInformation.notes}</p>
             </Grid2>
             <Grid2 size={{ xs: 12, md: 6 }}>
-              <p>Lease Start: {tenant.leaseStartDate}</p>
-              <p>Lease End: {tenant.leaseEndDate}</p>
+              <p>Lease Start: {tenant.leaseInformation.leaseStartDate}</p>
+              <p>Lease End: {tenant.leaseInformation.leaseEndDate}</p>
             </Grid2>
           </Grid2>
         </CardContent>
@@ -29,11 +29,15 @@ const TenantLeaseDetails = ({ tenant }) => {
 
 TenantLeaseDetails.propTypes = {
   tenant: PropTypes.shape({
-    apartmentNumber: PropTypes.string,
-    rentAmount: PropTypes.number,
-    notes: PropTypes.string,
-    leaseStartDate: PropTypes.string,
-    leaseEndDate: PropTypes.string,
+    apartment: PropTypes.shape({
+      apartmentNumber: PropTypes.string,
+    }),
+    leaseInformation: PropTypes.shape({
+      rentAmount: PropTypes.number,
+      notes: PropTypes.string,
+      leaseStartDate: PropTypes.string,
+      leaseEndDate: PropTypes.string,
+    }),
   }),
 };
 
