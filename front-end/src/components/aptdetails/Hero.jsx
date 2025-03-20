@@ -14,8 +14,10 @@ const Hero = ({ apartmentData }) => {
         const parts = fullAddress.split(',').map(part => part.trim());
         return {
             address1: `${parts[0] || "Street Address"} #${apartmentData.apartmentNumber}`,
-            address2: parts[1] || "City, State",
-            address3: parts[2] || "ZIP Code"
+            address2: parts[1] || "City",
+            address3: parts[2] || "State Zip Code",
+            //need backend folks to make the address in street address, city, state, zip format with commas my prefferred formatting, but this is fine for now
+            //address4: parts[3] || "ZIP Code"
         };
     };
 
