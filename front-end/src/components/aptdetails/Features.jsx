@@ -1,5 +1,6 @@
 import { Box, Typography, Button, TextField, Divider } from "@mui/material";
 import { useState } from 'react';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Features = ({ apartmentData }) => {
     const { features, id } = apartmentData;
@@ -48,14 +49,15 @@ const Features = ({ apartmentData }) => {
             display: "flex",
             flexDirection: "column",
             flex: 1,
+            textAlign: "center"
           }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Box sx={{ justifyContent: "space-between", alignItems: "center" }}>
                 <Typography variant="h2" sx={{ fontWeight: "bold" }}>
                     Features
                 </Typography>
                 {!isEditing && (
-                    <Button variant="outlined" onClick={handleEdit}>
-                        Modify Features
+                    <Button variant="outlined" color="warning" onClick={handleEdit}>
+                        Modify Features <EditIcon />
                     </Button>
                 )}
             </Box>
@@ -85,12 +87,12 @@ const Features = ({ apartmentData }) => {
                 <>
                     {localFeatures.length > 0? (
                         localFeatures.map((feature, index) => (
-                            <Typography key={index} variant="body1">
+                            <Typography key={index} variant="h6">
                                 {feature}
                             </Typography>
                         ))
                     ) : (
-                        <Typography variant="body">No features to display!</Typography>
+                        <Typography variant="h5">No features to display!</Typography>
                     )}
                 </>
             )}

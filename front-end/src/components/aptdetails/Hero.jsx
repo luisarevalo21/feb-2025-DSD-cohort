@@ -1,6 +1,5 @@
 import { Box, Typography, Divider, Grid2, IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import floorplan1 from '../../assets/floorplans/floorplan1.png'
 import { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 
