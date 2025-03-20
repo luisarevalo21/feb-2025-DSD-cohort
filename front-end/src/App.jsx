@@ -11,6 +11,8 @@ import ApartmentDetails from "./pages/details/ApartmentDetails";
 import ComplaintDetails from "./pages/details/ComplaintDetails";
 import LeaseDetails from "./pages/details/LeaseDetails";
 import TenantDetails from "./pages/details/TenantDetails";
+import CreateLeasePage from "./pages/CreateLease";
+import LeaseView from "./pages/LeaseView";
 
 function App() {
   return (
