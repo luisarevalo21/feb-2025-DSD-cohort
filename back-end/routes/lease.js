@@ -39,7 +39,7 @@ router.get("/renewals", async (req, res, next) => {
   }
 });
 
-router.get("/pendingLeases", async (req, res) => {
+router.get("/pendingLeases", async (req, res, next) => {
   try {
     const currentLeases = await AppDataSource.manager.find(Lease, {
       relations: ["tenant", "apartment"],
@@ -53,13 +53,13 @@ router.get("/pendingLeases", async (req, res) => {
         const { apartment } = lease;
         const { tenant } = lease;
 
-        if (lease.status === "pending")
+        if (lease.signed_at === null)
           return {
             id: lease.id,
             leaseId: lease.id,
             apartmentNumber: apartment.apartment_number,
             tenantName: `${tenant.first_name} ${tenant.last_name}`,
-            leaseEnd: lease.lease_end_date.toLocalDateString("en-US"),
+            leaseEnd: new Date(lease.lease_end_date).toLocaleDateString("en-US"),
           };
       })
       .filter(lease => lease !== undefined);
@@ -74,40 +74,21 @@ router.get("/pendingLeases", async (req, res) => {
   }
 });
 
-router.get("/expiringLeases", async (req, res, next) => {
-  //fetch all leases from database
-  //will use mock data to mimick since its not connected or data doesn't exist just yet
-  //mock resposne to database
-  //   const response = Db.fetch(leases)
-  //   const response = [];
-  //   if (response.length === 0) {
-  //     return res.status(400).json([]);
-  //   }
+router.put("/signLease/:leaseId", async (req, res, next) => {
   try {
-    const mockLeaseData = await AppDataSource.manager.find(lease);
-
-    if (mockLeaseData.length === 0) {
-      return res.status(200).json([]);
+    const leaseId = req.params.leaseId;
+    const { signature } = req.body
+    const signedLease = await AppDataSource.manager.findOneBy(Lease, { id: leaseId });
+    if(!signedLease) {
+      return next(new Error("Lease not found."));
     }
-
-    const today = new Date();
-    const endRange = new Date();
-
-    endRange.setDate(endRange.getDate() + 30);
-    const filteredLeases = mockLeaseData.filter(lease => {
-      const leaseEndDate = new Date(lease.lease_end_date);
-      return today <= leaseEndDate && leaseEndDate <= endRange;
-    });
-
-    if (filteredLeases.length === 0) {
-      return res.status(200).json([]);
-    }
-
-    return res.status(200).json(filteredLeases);
+    signedLease.signed_at = new Date();
+    signedLease.signature = signature;
+    await AppDataSource.manager.save(Lease, signedLease);
+    return res.status(200).json(signedLease);
   } catch (error) {
     return next(error);
   }
-});
+})
 
-//set up cors and send to the frontend to display
 module.exports = router;

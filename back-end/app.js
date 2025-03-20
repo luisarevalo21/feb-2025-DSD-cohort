@@ -38,14 +38,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/users", usersRouter);
+app.use("/users", ensureAuthenticated, usersRouter);
 app.use("/auth", authRouter);
 app.use("/leases", leaseRouter);
 
-app.use("/api/complaints", complaintsRouter);
-app.use("/api/lease", leaseRouter);
-app.use("/api/tenant", tenantRouter);
-app.use("/api/apartment", apartmentRouter);
+app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
+app.use("/api/lease", ensureAuthenticated, leaseRouter);
+app.use("/api/tenant", ensureAuthenticated, tenantRouter);
+app.use("/api/apartment", ensureAuthenticated, apartmentRouter);
 
 app.use(errorHandler);
 

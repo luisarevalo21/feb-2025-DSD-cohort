@@ -23,7 +23,7 @@ router.get("/:tenantId", async (req, res, next) => {
   try {
     const tenant = await AppDataSource.manager.findOne(Tenant, {
       where: { id: id },
-      relations: ["lease", "tenant_details", "lease.apartment"],
+      relations: ["lease", "lease.apartment"],
     });
 
     if (tenant === null) {
@@ -36,11 +36,9 @@ router.get("/:tenantId", async (req, res, next) => {
       lastName: tenant.last_name,
       email: tenant.email,
       dateOfBirth: tenant.date_of_birth,
-      tenantDetails: {
-        phoneNumber: tenant.tenant_details.phone_number,
-        profile_photo: tenant.tenant_details.phone_number,
-        additionalInformation: tenant.tenant_details.additional_information,
-      },
+      phoneNumber: tenant.phone_number,
+      profile_photo: tenant.phone_number,
+      additionalInformation: tenant.additional_information,
       leaseInformation: {
         leaseId: tenant.lease_id,
         leaseStartDate: tenant.lease.lease_start_date,

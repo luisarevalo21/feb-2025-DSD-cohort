@@ -9,8 +9,10 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import api from "../api";
@@ -32,6 +34,7 @@ const LoginForm = () => {
   };
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -44,16 +47,20 @@ const LoginForm = () => {
       .post("/auth/login", formData)
       .then(function (res) {
         if (res.status === 200) {
+          queryClient.setQueryData(["user"], res.data.user);
+          localStorage.setItem("isLogged", true);
+          toast.success(
+            `Welcome Back, ${res.data.user.first_name || "Guest"}!`
+          );
           navigate("/dashboard");
         } else {
           navigate("/login");
         }
       })
       .catch(function (err) {
-        if (err.response) {
-          console.log("Error Status:", err.response.status);
-          console.log("Error Message:", err.response.data.message);
-        }
+        toast.error(
+          err.response?.data?.message || "An error occurred. Please try again"
+        );
       });
   };
 
