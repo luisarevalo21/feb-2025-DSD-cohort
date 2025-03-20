@@ -11,7 +11,6 @@ const Features = ({ apartmentData }) => {
     const [localFeatures, setLocalFeatures] = useState(initialFeatures);
     const [backupFeatures, setBackupFeatures] = useState(initialFeatures)
 
-    //handler for edit features button
     const handleEdit = () => {
         setIsEditing(true);
         //save the current features as a backup in case the user hits the cancel button
@@ -24,7 +23,6 @@ const Features = ({ apartmentData }) => {
         setLocalFeatures(lines);
     }
 
-    //Handler for save button
     const handleSave = async () => {
         setIsEditing(false);
         
@@ -51,7 +49,7 @@ const Features = ({ apartmentData }) => {
             flex: 1,
             textAlign: "center"
           }}>
-            <Box sx={{ justifyContent: "space-between", alignItems: "center" }}>
+            <Box sx={{ justifyContent: "space-between" }}>
                 <Typography variant="h2" sx={{ fontWeight: "bold" }}>
                     Features
                 </Typography>
@@ -74,7 +72,7 @@ const Features = ({ apartmentData }) => {
                       value={localFeatures.join("\n")}
                       onChange={handleFeatureChange}
                     />
-                    <Box sx={{ mt: 2, display: "flex", gap: 2}}>
+                    <Box sx={{ mt: 2, display: "flex", gap: 2, alignItems: "center", justifyContent: "center" }}>
                         <Button variant="contained" onClick={handleSave}>
                             Save
                         </Button>

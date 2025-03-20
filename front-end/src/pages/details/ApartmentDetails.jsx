@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import Hero from "../../components/aptdetails/Hero";
 import Details from '../../components/aptdetails/Details';
 import Features from "../../components/aptdetails/Features";
+import Notes from "../../components/aptdetails/Notes";
 //import floor plan photos
 import floorPlan1 from '../../assets/floorplans/floorplan1.png';
 import floorPlan2 from '../../assets/floorplans/floorplan2.png'
@@ -49,11 +50,14 @@ const ApartmentDetails = () => {
       "Walk-out balcony",
       "Fully Furnished"
     ],
+    notes: "Overlooks the pool. Next to boiler room. Lorem ipsum whatever whatever long string."
   };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p:2 }}>
+
       <Hero apartmentData={mockApartmentData} />
+      
       <Grid2 container spacing={2} sx={{ flex: 1, minHeight: 0, mt: 4 , alignItems: "stretch" }}>
         <Grid2 size={{ xs: 12, md: 4 }} sx={{ display: "flex", flexDirection: "column"}}>
           <Details apartmentData={mockApartmentData} />
@@ -61,6 +65,10 @@ const ApartmentDetails = () => {
 
         <Grid2 size={{ xs: 12, md: 4}} sx={{ display: "flex", flexDirection: "column"}}>
           <Features apartmentData={mockApartmentData} />
+        </Grid2>
+
+        <Grid2 size={{ xs: 12, md: 4}} sx={{ display: "flex", flexDirection: "column"}}>
+          <Notes apartmentData={mockApartmentData} />
         </Grid2>
       </Grid2>
     </Box>
