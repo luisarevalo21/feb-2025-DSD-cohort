@@ -8,6 +8,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"; // Import MUI DatePicker
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"; // Import date adapter
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"; // Import LocalizationProvider
+import { createLease } from "../api/leaseApi";
 
 const darkTheme = createTheme({
   palette: {
@@ -79,10 +80,13 @@ const CreateLease = () => {
   };
 
   // Submit Lease Details
-  const onSubmitLease = data => {
+  const onSubmitLease = async data => {
     console.log("Lease Data Submitted: ", data);
     setFormData(prevData => ({ ...prevData, ...data }));
     setActiveStep(prevStep => prevStep + 1);
+
+    const response = await createLease(formData);
+    console.log(response);
   };
 
   // Load creattie script when component mounts
