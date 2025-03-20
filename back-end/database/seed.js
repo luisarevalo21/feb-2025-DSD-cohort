@@ -1,4 +1,5 @@
 require("dotenv").config();
+const bcrypt = require("bcryptjs");
 const AppDataSource = require("./data-source");
 const Admin = require("./entities/admin");
 const Apartment = require("./entities/apartment");
@@ -24,7 +25,7 @@ AppDataSource.initialize()
           first_name: "John",
           last_name: "Doe",
           email: "john.doe@email.com",
-          password: "password123",
+          password: bcrypt.hashSync("password123"),
         },
       ]);
       console.log("✅ Admin table seeded.");
