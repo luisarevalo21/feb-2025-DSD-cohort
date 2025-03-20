@@ -47,7 +47,8 @@ const Features = ({ apartmentData }) => {
             display: "flex",
             flexDirection: "column",
             flex: 1,
-            textAlign: "center"
+            textAlign: "center",
+            overflow: "hidden"
           }}>
             <Box sx={{ justifyContent: "space-between" }}>
                 <Typography variant="h2" sx={{ fontWeight: "bold" }}>

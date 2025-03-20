@@ -4,22 +4,35 @@ import { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 
 const Hero = ({ apartmentData }) => {
+    const parseAddress = (fullAddress) => {
+        if (!fullAddress) return { 
+            address1: "Street Address",
+            address2: "City, State",
+            address3: "ZIP Code"
+        };
+
+        const parts = fullAddress.split(',').map(part => part.trim());
+        return {
+            address1: `${parts[0] || "Street Address"} #${apartmentData.apartmentNumber}`,
+            address2: parts[1] || "City, State",
+            address3: parts[2] || "ZIP Code"
+        };
+    };
 
     const {
         id,
         apartmentNumber,
-        leaseStatus,
+        leaseStatus = "No Status",
         leaseEndDate,
         tenantName,
         floorPlanImg,
+        apartmentAddress
     } = apartmentData;
+
+    const { address1, address2, address3 } = parseAddress(apartmentAddress);
 
     //for the modal
     const [open, setOpen] = useState(false);
-    //hardcoded address, in variables so it can be changed
-    const address1 = `515 East Broadway #${apartmentNumber}`;
-    const address2 = "Eugene, Oregon";
-    const address3 = "97401"
 
     const statusColor = leaseStatus === "Occupied" ? "red" : "green";
 
@@ -118,9 +131,6 @@ const Hero = ({ apartmentData }) => {
             </Dialog>
         </Box>
     )
-
-
-
 }
 
 export default Hero;

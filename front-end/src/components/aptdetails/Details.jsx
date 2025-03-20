@@ -21,7 +21,8 @@ const Details = ({ apartmentData }) => {
             display: "flex",
             flexDirection: "column",
             textAlign: "center",
-            flex: 1
+            flex: 1,
+            overflow: "hidden"
           }}
         >
             <Typography variant="h2" sx={{ fontWeight: "bold" }}>

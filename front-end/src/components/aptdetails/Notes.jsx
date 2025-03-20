@@ -40,7 +40,8 @@ const Notes = ({ apartmentData }) => {
             p: 2,
             display: "flex",
             flexDirection: "column",
-            flex: 1
+            flex: 1,
+            overflow: "hidden"
           }}>
             <Box sx={{ textAlign: "center" }}>
                 <Typography variant="h2" sx={{ fontWeight: "bold"}}>
