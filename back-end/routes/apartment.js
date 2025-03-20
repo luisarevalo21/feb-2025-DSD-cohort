@@ -62,7 +62,6 @@ router.get("/:apartmentId", async (req, res, next) => {
     }
 
     const { lease } = apartment;
-    console.log(apartment);
 
     const leaseInformation = lease[0];
 
