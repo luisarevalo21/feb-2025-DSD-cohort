@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Typography, Button, TextField, Divider } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit";
+import { updateApartmentDetails } from "../../api/apartmentApi";
 
 const Notes = ({ apartmentData }) => {
     const { notes, id } = apartmentData;
@@ -26,6 +27,15 @@ const Notes = ({ apartmentData }) => {
         //api call will go here
         console.log("Apartment id to be saved to:", id);
         console.log("Saving notes to API:",  id, localNotes);
+        try {
+            const response = await updateApartmentDetails(id, { notes: localNotes });
+            console.log("Updated apartment with new notes response:", response);
+            //give a visual confirmation to the user that the notes were updated
+            alert("Notes updated successfully!");
+        } catch (error) {
+            console.error("Error updating apartment notes:", error);
+            alert("Failed to update notes. Please try again.");
+        }
     }
 
     const handleCancel = () => {
