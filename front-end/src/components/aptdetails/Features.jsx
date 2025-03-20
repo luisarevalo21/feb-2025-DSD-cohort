@@ -94,7 +94,7 @@ const Features = ({ apartmentData }) => {
                 </>
             ) : (
                 <>
-                    {localFeatures.length > 0? (
+                    {localFeatures.length > 0 && localFeatures[0] ? (
                         localFeatures.map((feature, index) => (
                             <Typography key={index} variant="h6">
                                 {feature}
