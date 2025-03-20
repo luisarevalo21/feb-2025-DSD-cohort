@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  TextField,
-  Box,
-  Stepper,
-  Step,
-  StepLabel,
-  LinearProgress,
-  Grid2,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Button, TextField, Box, Stepper, Step, StepLabel, LinearProgress, Grid2, Paper, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -32,19 +21,15 @@ const darkTheme = createTheme({
 const tenantSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email").min(1, "Email is required"),
-  phone: z
-    .string()
-    .min(10, "Phone number is required")
-    .max(15, "Phone number is too long"),
+  phone: z.string().min(10, "Phone number is required").max(15, "Phone number is too long"),
 });
 
 // Zod schema for lease details
 const leaseSchema = z.object({
-  leaseStartDate: z.string().min(1, "Start date is required"),
-  leaseEndDate: z.string().min(1, "End date is required"),
+  // leaseStartDate: z.string(),
+  // leaseEndDate: z.string(),
   rentAmount: z.number().min(1, "Rent amount is required"),
   apartmentNumber: z.string().min(1, "Apartment number is required"),
-  apartmentAddress: z.string().min(1, "Apartment address is required"),
   notes: z.string().optional(),
 });
 
@@ -59,6 +44,13 @@ const CreateLease = () => {
     formState: { errors: tenantErrors },
   } = useForm({
     resolver: zodResolver(tenantSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      additionalInfo: "",
+      dob: "",
+    },
   });
 
   // Handling Lease form
@@ -68,27 +60,29 @@ const CreateLease = () => {
     formState: { errors: leaseErrors },
   } = useForm({
     resolver: zodResolver(leaseSchema),
+    defaultValues: {
+      leaseStartDate: "",
+      leaseEndDate: "",
+      rentAmount: 0,
+      apartmentNumber: "",
+      notes: "",
+    },
   });
 
   // Form Steps for Tenant and Lease Forms
   const steps = ["Enter Tenant Details", "Enter Lease Details"];
 
   // Submit Tenant Details
-  const onSubmitTenant = (data) => {
-    console.log("Tenant Data Submitted: ", data);
-    // setFormData((prevData) => ({ ...prevData, ...data }));
-    setActiveStep((prevStep) => prevStep + 1);
+  const onSubmitTenant = data => {
+    setFormData(prevData => ({ ...prevData, ...data }));
+    setActiveStep(prevStep => prevStep + 1);
   };
 
   // Submit Lease Details
-  const onSubmitLease = (data) => {
-    // e.preventDefault();
-
+  const onSubmitLease = data => {
     console.log("Lease Data Submitted: ", data);
-
-    // setFormData((prevData) => ({ ...prevData, ...data }));
-
-    // alert(JSON.stringify(data, null, 2));
+    setFormData(prevData => ({ ...prevData, ...data }));
+    setActiveStep(prevStep => prevStep + 1);
   };
 
   // Load creattie script when component mounts
@@ -97,16 +91,13 @@ const CreateLease = () => {
     script.src = "https://creattie.com/js/embed.js?id=3f6954fde297cd31b441";
     script.defer = true;
     document.body.appendChild(script);
-
     return () => {
       document.body.removeChild(script);
     };
   }, []);
 
-  // Render form step based on activeStep
   const renderFormStep = () => {
     switch (activeStep) {
-      // Tenant Details Form
       case 0:
         return (
           <form onSubmit={handleSubmitTenant(onSubmitTenant)}>
@@ -143,9 +134,7 @@ const CreateLease = () => {
               <DatePicker
                 label="Date of Birth"
                 value={formData.dob || null}
-                onChange={(newValue) =>
-                  setFormData({ ...formData, dob: newValue })
-                }
+                onChange={newValue => setFormData({ ...formData, dob: newValue })}
                 sx={{ width: "100%" }}
                 slotProps={{
                   textField: {
@@ -157,44 +146,34 @@ const CreateLease = () => {
                 }}
               />
             </LocalizationProvider>
-            <TextField
-              label="Additional Info"
-              fullWidth
-              margin="dense"
-              multiline
-              rows={3}
-              {...registerTenant("additionalInfo")}
-            />
+            <TextField label="Additional Info" fullWidth margin="dense" multiline rows={3} {...registerTenant("additionalInfo")} />
             <Box sx={{ textAlign: "right", paddingTop: 1, paddingRight: 2 }}>
-              <Button
-                type="submit"
-                variant="contained"
-                className="!bg-black text-white !text-center "
-              >
+              <Button type="submit" variant="contained" className="!bg-black text-white !text-center ">
                 Next
               </Button>
             </Box>
           </form>
         );
       case 1:
-        // Lease Details Form
         return (
-          <form onSubmit={handleSubmitLease(onSubmitLease)}>
+          <form
+            onSubmit={handleSubmitLease(data => {
+              console.log("Lease Form Submission Triggered", data);
+              onSubmitLease(data);
+            })}
+          >
             <Typography variant="h6" paddingBottom={1}>
               Lease Details
             </Typography>
-
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <Grid2 container spacing={2}>
                 <Grid2 item xs={6} size={6}>
                   <DatePicker
                     label="Lease Start Date"
                     value={formData.leaseStartDate || null}
-                    onChange={(newValue) =>
-                      setFormData({ ...formData, leaseStartDate: newValue })
-                    }
+                    onChange={newValue => setFormData({ ...formData, leaseStartDate: newValue })}
                     sx={{ width: "100%" }}
-                    renderInput={(params) => (
+                    renderInput={params => (
                       <TextField
                         {...params}
                         error={!!leaseErrors.leaseStartDate}
@@ -210,11 +189,9 @@ const CreateLease = () => {
                   <DatePicker
                     label="Lease End Date"
                     value={formData.leaseEndDate || null}
-                    onChange={(newValue) =>
-                      setFormData({ ...formData, leaseEndDate: newValue })
-                    }
+                    onChange={newValue => setFormData({ ...formData, leaseEndDate: newValue })}
                     sx={{ width: "100%" }}
-                    renderInput={(params) => (
+                    renderInput={params => (
                       <TextField
                         {...params}
                         error={!!leaseErrors.leaseEndDate}
@@ -227,19 +204,17 @@ const CreateLease = () => {
                 </Grid2>
               </Grid2>
             </LocalizationProvider>
-
             <TextField
               label="Monthly Rent (in dollars)"
               fullWidth
               margin="normal"
               type="number"
               {...registerLease("rentAmount", {
-                setValueAs: (value) => parseFloat(value) || 0,
+                setValueAs: value => parseFloat(value) || 0,
               })}
               error={!!leaseErrors.rentAmount}
               helperText={leaseErrors.rentAmount?.message}
             />
-
             <TextField
               label="Apartment Number"
               fullWidth
@@ -248,16 +223,6 @@ const CreateLease = () => {
               error={!!leaseErrors.apartmentNumber}
               helperText={leaseErrors.apartmentNumber?.message}
             />
-
-            <TextField
-              label="Apartment Address"
-              fullWidth
-              margin="normal"
-              {...registerLease("apartmentAddress")}
-              error={!!leaseErrors.apartmentAddress}
-              helperText={leaseErrors.apartmentAddress?.message}
-            />
-
             <TextField
               label="Notes"
               fullWidth
@@ -268,7 +233,6 @@ const CreateLease = () => {
               error={!!leaseErrors.notes}
               helperText={leaseErrors.notes?.message}
             />
-
             <Box sx={{ textAlign: "right", paddingTop: 1, paddingRight: 2 }}>
               <Button type="submit" variant="contained" endIcon={<SendIcon />}>
                 Send Lease
@@ -300,11 +264,7 @@ const CreateLease = () => {
                 </Step>
               ))}
             </Stepper>
-            <LinearProgress
-              variant="determinate"
-              value={(activeStep / steps.length) * 100}
-              sx={{ marginBottom: 2, marginTop: 2 }}
-            />
+            <LinearProgress variant="determinate" value={(activeStep / steps.length) * 100} sx={{ marginBottom: 2, marginTop: 2 }} />
             {renderFormStep()}
           </Paper>
         </Grid2>
