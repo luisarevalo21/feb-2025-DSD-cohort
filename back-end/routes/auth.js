@@ -5,6 +5,17 @@ const bcrypt = require("bcryptjs");
 const admin = require("../database/entities/admin");
 const AppDataSource = require("../database/data-source");
 
+router.post("/logout", function (req, res, next) {
+  req.logout((err) => {
+    if (err) return next(new Error(err));
+
+    req.session.destroy(() => {
+      res.clearCookie("connect.sid");
+      res.status(200).json({ message: "Logged out successfully" });
+    });
+  });
+});
+
 router.post("/login", function (req, res, next) {
   passport.authenticate("local", (err, user, info, status) => {
     if (err) return next(err);

@@ -6,7 +6,9 @@ import ReportIcon from "@mui/icons-material/Report";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Box, Divider, Drawer, IconButton, List } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
+import api from "../api";
 import NavItem from "./NavItem";
 
 //fully expanded sidebar width
@@ -15,6 +17,7 @@ const DRAWER_WIDTH = 240;
 const SideNavigation = () => {
   const [open, setOpen] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.pathname.includes("details")) {
@@ -26,6 +29,28 @@ const SideNavigation = () => {
 
   const handleExpandCollapse = () => {
     setOpen(!open);
+  };
+
+  const handleLogout = async () => {
+    try {
+      const confirmation = window.confirm("Are you sure?");
+      if (!confirmation) {
+        return;
+      }
+      const result = await api.post("/auth/logout");
+
+      if (result.status !== 200) {
+        toast.error("An error occurred. Please try again");
+      }
+
+      localStorage.removeItem("isLogged");
+      toast.success("Logout completed successfully");
+      navigate("/");
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message || "An error occurred. Please try again"
+      );
+    }
   };
 
   return (
@@ -85,7 +110,7 @@ const SideNavigation = () => {
       <Divider />
       <List>
         <NavItem
-          to="/logout"
+          onClick={handleLogout}
           text="Log out"
           icon={<LogoutIcon sx={{ color: "#CA3433" }} />}
           open={open}
