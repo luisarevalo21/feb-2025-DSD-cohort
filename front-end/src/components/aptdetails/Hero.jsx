@@ -8,8 +8,8 @@ const Hero = ({ apartmentData }) => {
     const {
         id,
         apartmentNumber,
-        status,
-        leaseEnd,
+        leaseStatus,
+        leaseEndDate,
         tenantName,
         floorPlanImg,
     } = apartmentData;
@@ -21,11 +21,11 @@ const Hero = ({ apartmentData }) => {
     const address2 = "Eugene, Oregon";
     const address3 = "97401"
 
-    const statusColor = status === "Occupied" ? "red" : "green";
+    const statusColor = leaseStatus === "Occupied" ? "red" : "green";
 
-    const leaseEndDate = new Date(leaseEnd);
+    const leaseEnd = new Date(leaseEndDate);
     const today = new Date();
-    const daysLeft = (leaseEndDate - today) / (1000 * 60 * 60 * 24);
+    const daysLeft = (leaseEnd - today) / (1000 * 60 * 60 * 24);
     const leaseExpirationColor = daysLeft <= 30 ? "red" : "green";
 
     return (
@@ -60,12 +60,12 @@ const Hero = ({ apartmentData }) => {
                     <Grid2 size={{ xs: 14, md: 5 }} sx={{ p:2 }}>
                         <Typography variant="h5" sx={{ mb: 1 }}>
                             <strong>Status: </strong>
-                            <span style={{ color: statusColor }}>{status}</span>
+                            <span style={{ color: statusColor }}>{leaseStatus}</span>
                         </Typography>
                         
                         <Typography variant="h5" sx={{ mb: 1 }}>
                             <strong>Lease Expires: </strong>
-                            <span style={{ color: leaseExpirationColor }}>{leaseEnd}</span>
+                            <span style={{ color: leaseExpirationColor }}>{leaseEndDate}</span>
                         </Typography>
 
                         <Typography variant="h5" sx={{ mb: 1 }}>

@@ -8,3 +8,12 @@ export async function fetchApartmentInformation() {
     return err;
   }
 }
+
+export async function fetchApartmentDetailsById(id) {
+  try {
+    const result = await api.get(`/api/apartment/${id}`);
+    return result.data;
+  } catch (err) {
+    return err;
+  }
+}

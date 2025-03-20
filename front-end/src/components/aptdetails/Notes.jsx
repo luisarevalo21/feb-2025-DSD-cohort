@@ -42,17 +42,17 @@ const Notes = ({ apartmentData }) => {
             flexDirection: "column",
             flex: 1
           }}>
-            <Box sx={{ textAlign: "center" , mb: 2 }}>
-                <Typography variant="h2" sx={{ fontWeight: "bold", mb: 1 }}>
+            <Box sx={{ textAlign: "center" }}>
+                <Typography variant="h2" sx={{ fontWeight: "bold"}}>
                     Notes
                 </Typography>
                 {!isEditing && (
-                    <Button variant="outlined" color="warning" onClick={handleEdit}>
-                        Add/remove Notes <EditIcon />
+                    <Button variant="outlined" color="primary" onClick={handleEdit}>
+                        Modify Notes <EditIcon />
                     </Button>
                 )}
             </Box>
-            <Divider sx={{mb: 2}}/>
+            <Divider sx={{my: 2}}/>
             {isEditing ? (
                 <>
                     <TextField
@@ -63,10 +63,10 @@ const Notes = ({ apartmentData }) => {
                         onChange={handleNotesChange}
                     />
                     <Box sx={{ mt: 2, display: "flex", gap: 2, justifyContent: "center" }}>
-                        <Button variant="contained" color="primary" onClick={handleSave}>
+                        <Button variant="contained" color="success" onClick={handleSave}>
                             Save
                         </Button>
-                        <Button variant="outlined" color="secondary" onClick={handleCancel}>
+                        <Button variant="outlined" color="error" onClick={handleCancel}>
                             Cancel
                         </Button>
                     </Box>

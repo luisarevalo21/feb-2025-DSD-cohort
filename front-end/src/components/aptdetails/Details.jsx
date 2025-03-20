@@ -24,11 +24,11 @@ const Details = ({ apartmentData }) => {
             flex: 1
           }}
         >
-            <Typography variant="h2" sx={{ fontWeight: "bold", mb: 1 }}>
+            <Typography variant="h2" sx={{ fontWeight: "bold" }}>
                 Details
             </Typography>
 
-            <Divider orientation="horizontal" flexItem sx={{mb: 2}}/>
+            <Divider sx={{my: 2}}/>
 
             <Typography variant="h4">Layout: {layout}</Typography>
             <Typography variant="h4">Sq. Ft: {squareFootage}</Typography>

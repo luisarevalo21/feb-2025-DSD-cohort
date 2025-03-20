@@ -55,7 +55,7 @@ const Features = ({ apartmentData }) => {
                 </Typography>
                 {!isEditing && (
                     <Button variant="outlined" color="warning" onClick={handleEdit}>
-                        Modify Features <EditIcon />
+                        Add/Remove Features <EditIcon />
                     </Button>
                 )}
             </Box>
@@ -73,10 +73,10 @@ const Features = ({ apartmentData }) => {
                       onChange={handleFeatureChange}
                     />
                     <Box sx={{ mt: 2, display: "flex", gap: 2, alignItems: "center", justifyContent: "center" }}>
-                        <Button variant="contained" onClick={handleSave}>
+                        <Button variant="contained" color="success" onClick={handleSave}>
                             Save
                         </Button>
-                        <Button variant="outlined" onClick={handleCancel}>
+                        <Button variant="outlined" color="error" onClick={handleCancel}>
                             Cancel
                         </Button>
                     </Box>
