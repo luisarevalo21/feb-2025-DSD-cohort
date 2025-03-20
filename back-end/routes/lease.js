@@ -79,7 +79,9 @@ router.put("/signLease/:leaseId", async (req, res, next) => {
     const leaseId = req.params.leaseId;
     const { signature } = req.body
     const signedLease = await AppDataSource.manager.findOneBy(Lease, { id: leaseId });
-
+    if(!signedLease) {
+      return next(new Error("Lease not found."));
+    }
     signedLease.signed_at = new Date();
     signedLease.signature = signature;
     await AppDataSource.manager.save(Lease, signedLease);
