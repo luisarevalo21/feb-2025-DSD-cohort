@@ -1,6 +1,7 @@
 import { Box, Typography, Button, TextField, Divider } from "@mui/material";
 import { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
+import { updateApartmentDetails } from "../../api/apartmentApi";
 
 const Features = ({ apartmentData }) => {
     const { features, id } = apartmentData;
@@ -29,6 +30,15 @@ const Features = ({ apartmentData }) => {
         //api call will go here
         console.log("Apartment id to be saved to:", id);
         console.log("Saving features to API:", localFeatures);
+        try {
+            const response = await updateApartmentDetails(id, { features: localFeatures });
+            console.log("Updated apartment with new features response:", response);
+            //give a visual confirmation to the user that the features were updated
+            alert("Features updated successfully!");
+        } catch (error) {
+            console.error("Error updating apartment features:", error);
+            alert("Failed to update features. Please try again.");
+        }
     }
 
     //Handler for cancel button so the features can be reverted

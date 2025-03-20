@@ -14,7 +14,7 @@ import floorPlan4 from '../../assets/floorplans/floorplan4.png'
 import floorPlan5 from '../../assets/floorplans/floorplan5.png'
 
 const ApartmentDetails = () => {
-  // Id took from the URL parameters, used to fetch the specific items
+  //Id took from the URL parameters, used to fetch the specific items
   const { id } = useParams();
   const floorPlans = [floorPlan1, floorPlan2, floorPlan3, floorPlan4, floorPlan5];
 
