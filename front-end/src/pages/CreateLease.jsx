@@ -40,11 +40,10 @@ const tenantSchema = z.object({
 
 // Zod schema for lease details
 const leaseSchema = z.object({
-  leaseStartDate: z.string().min(1, "Start date is required"),
-  leaseEndDate: z.string().min(1, "End date is required"),
+  // leaseStartDate: z.string(),
+  // leaseEndDate: z.string(),
   rentAmount: z.number().min(1, "Rent amount is required"),
   apartmentNumber: z.string().min(1, "Apartment number is required"),
-  apartmentAddress: z.string().min(1, "Apartment address is required"),
   notes: z.string().optional(),
 });
 
@@ -59,6 +58,13 @@ const CreateLease = () => {
     formState: { errors: tenantErrors },
   } = useForm({
     resolver: zodResolver(tenantSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      additionalInfo: "",
+      dob: "",
+    },
   });
 
   // Handling Lease form
@@ -68,6 +74,13 @@ const CreateLease = () => {
     formState: { errors: leaseErrors },
   } = useForm({
     resolver: zodResolver(leaseSchema),
+    defaultValues: {
+      leaseStartDate: "",
+      leaseEndDate: "",
+      rentAmount: 0,
+      apartmentNumber: "",
+      notes: "",
+    },
   });
 
   // Form Steps for Tenant and Lease Forms
@@ -75,20 +88,15 @@ const CreateLease = () => {
 
   // Submit Tenant Details
   const onSubmitTenant = (data) => {
-    console.log("Tenant Data Submitted: ", data);
-    // setFormData((prevData) => ({ ...prevData, ...data }));
+    setFormData((prevData) => ({ ...prevData, ...data }));
     setActiveStep((prevStep) => prevStep + 1);
   };
 
   // Submit Lease Details
   const onSubmitLease = (data) => {
-    // e.preventDefault();
-
     console.log("Lease Data Submitted: ", data);
-
-    // setFormData((prevData) => ({ ...prevData, ...data }));
-
-    // alert(JSON.stringify(data, null, 2));
+    setFormData((prevData) => ({ ...prevData, ...data }));
+    setActiveStep((prevStep) => prevStep + 1);
   };
 
   // Load creattie script when component mounts
@@ -97,16 +105,13 @@ const CreateLease = () => {
     script.src = "https://creattie.com/js/embed.js?id=3f6954fde297cd31b441";
     script.defer = true;
     document.body.appendChild(script);
-
     return () => {
       document.body.removeChild(script);
     };
   }, []);
 
-  // Render form step based on activeStep
   const renderFormStep = () => {
     switch (activeStep) {
-      // Tenant Details Form
       case 0:
         return (
           <form onSubmit={handleSubmitTenant(onSubmitTenant)}>
@@ -177,13 +182,16 @@ const CreateLease = () => {
           </form>
         );
       case 1:
-        // Lease Details Form
         return (
-          <form onSubmit={handleSubmitLease(onSubmitLease)}>
+          <form
+            onSubmit={handleSubmitLease((data) => {
+              console.log("Lease Form Submission Triggered", data);
+              onSubmitLease(data);
+            })}
+          >
             <Typography variant="h6" paddingBottom={1}>
               Lease Details
             </Typography>
-
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <Grid2 container spacing={2}>
                 <Grid2 item xs={6} size={6}>
@@ -227,7 +235,6 @@ const CreateLease = () => {
                 </Grid2>
               </Grid2>
             </LocalizationProvider>
-
             <TextField
               label="Monthly Rent (in dollars)"
               fullWidth
@@ -239,7 +246,6 @@ const CreateLease = () => {
               error={!!leaseErrors.rentAmount}
               helperText={leaseErrors.rentAmount?.message}
             />
-
             <TextField
               label="Apartment Number"
               fullWidth
@@ -248,16 +254,6 @@ const CreateLease = () => {
               error={!!leaseErrors.apartmentNumber}
               helperText={leaseErrors.apartmentNumber?.message}
             />
-
-            <TextField
-              label="Apartment Address"
-              fullWidth
-              margin="normal"
-              {...registerLease("apartmentAddress")}
-              error={!!leaseErrors.apartmentAddress}
-              helperText={leaseErrors.apartmentAddress?.message}
-            />
-
             <TextField
               label="Notes"
               fullWidth
@@ -268,7 +264,6 @@ const CreateLease = () => {
               error={!!leaseErrors.notes}
               helperText={leaseErrors.notes?.message}
             />
-
             <Box sx={{ textAlign: "right", paddingTop: 1, paddingRight: 2 }}>
               <Button type="submit" variant="contained" endIcon={<SendIcon />}>
                 Send Lease
