@@ -1,0 +1,28 @@
+{
+  "title": "Lease Agreement",
+  "date": "{{DATE}}",
+  "landlord": {
+    "name": "{{LANDLORD_NAME}}",
+    "address": "{{LANDLORD_ADDRESS}}"
+  },
+  "tenant": {
+    "name": "{{TENANT_NAME}}",
+    "address": "{{TENANT_ADDRESS}}"
+  },
+  "property": {
+    "address": "{{PROPERTY_ADDRESS}}",
+    "leaseTerm": "{{LEASE_TERM}} months",
+    "startDate": "{{START_DATE}}",
+    "endDate": "{{END_DATE}}",
+    "rentAmount": "${{RENT_AMOUNT}} per month",
+    "dueDate": "{{DUE_DATE}}"
+  },
+  "terms": [
+    "Tenant agrees to pay rent on time.",
+    "No illegal activities allowed on the premises.",
+    "Landlord is responsible for major repairs.",
+    " Failure to pay rent by the due date shall result in a late fee of $50. Any rent not received within 5 days of the due date shall be considered delinquent."
+  ]
+}
+
+//need an api route that returns json data 
