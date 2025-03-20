@@ -39,7 +39,7 @@ router.get("/renewals", async (req, res, next) => {
   }
 });
 
-router.get("/pendingLeases", async (req, res) => {
+router.get("/pendingLeases", async (req, res, next) => {
   try {
     const currentLeases = await AppDataSource.manager.find(Lease, {
       relations: ["tenant", "apartment"],
@@ -53,13 +53,13 @@ router.get("/pendingLeases", async (req, res) => {
         const { apartment } = lease;
         const { tenant } = lease;
 
-        if (lease.status === "pending")
+        if (lease.signed_at === null)
           return {
             id: lease.id,
             leaseId: lease.id,
             apartmentNumber: apartment.apartment_number,
             tenantName: `${tenant.first_name} ${tenant.last_name}`,
-            leaseEnd: lease.lease_end_date.toLocalDateString("en-US"),
+            leaseEnd: new Date(lease.lease_end_date).toLocaleDateString("en-US"),
           };
       })
       .filter(lease => lease !== undefined);
@@ -73,5 +73,22 @@ router.get("/pendingLeases", async (req, res) => {
     return next(error);
   }
 });
+
+router.put("/signLease/:leaseId", async (req, res, next) => {
+  try {
+    const leaseId = req.params.leaseId;
+    const { signature } = req.body
+    const signedLease = await AppDataSource.manager.findOneBy(Lease, { id: leaseId });
+    if(!signedLease) {
+      return next(new Error("Lease not found."));
+    }
+    signedLease.signed_at = new Date();
+    signedLease.signature = signature;
+    await AppDataSource.manager.save(Lease, signedLease);
+    return res.status(200).json(signedLease);
+  } catch (error) {
+    return next(error);
+  }
+})
 
 module.exports = router;

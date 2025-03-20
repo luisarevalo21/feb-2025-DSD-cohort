@@ -5,6 +5,7 @@ const Apartment = require("../database/entities/apartment");
 const AppDataSource = require("../database/data-source");
 const { calculateLeaseExpiration } = require("../utilis/calculateLeaseExpiration");
 const tenant = require("../database/entities/tenant");
+const { determineLeaseStatus } = require("../utilis/determineLeaseStatus");
 router.get("/", async (req, res, next) => {
   try {
     const apartments = await AppDataSource.manager.find(Apartment, {
@@ -24,6 +25,9 @@ router.get("/", async (req, res, next) => {
       if (leaseInformation?.lease_end_date !== undefined) {
         leaseExpired = calculateLeaseExpiration(leaseInformation.lease_end_date);
       }
+      if(leaseInformation?.signed_at !== undefined) {
+        leaseInformation.status = determineLeaseStatus(leaseInformation)
+      }
       return {
         id: apartment.id,
         apartmentNumber: apartment.apartment_number,
@@ -31,7 +35,7 @@ router.get("/", async (req, res, next) => {
         leaseStart: leaseInformation ? new Date(leaseInformation.lease_start_date).toLocaleDateString("en") : "",
         leaseEnd: leaseInformation ? new Date(leaseInformation.lease_end_date).toLocaleDateString("en") : "",
         setToExpire: leaseExpired,
-        leaseStatus: leaseInformation ? leaseInformation.status : "",
+        leaseStatus: leaseInformation ? leaseInformation.status : "Vacant",
         tenantName: leaseInformation ? `${leaseInformation.tenant.first_name} ${leaseInformation.tenant.last_name}` : "Vacant",
         tenantId: leaseInformation ? leaseInformation.tenant.id : "",
       };
@@ -64,13 +68,16 @@ router.get("/:apartmentId", async (req, res, next) => {
     const { lease } = apartment;
 
     const leaseInformation = lease[0];
+    if(leaseInformation) {
+      leaseInformation.status = determineLeaseStatus(leaseInformation)
+    }
 
     const apartmentInformation = {
       apartmentAddress: "1600 Pennsylvania Avenue NW, Washington, DC 20500",
       apartmentNumber: apartment.apartment_number,
       leaseStartDate: leaseInformation ? new Date(leaseInformation.lease_start_date).toLocaleDateString("en") : "",
       leaseEndDate: leaseInformation ? new Date(leaseInformation.lease_end_date).toLocaleDateString("en") : "",
-      leaseStatus: leaseInformation ? leaseInformation.status : "",
+      leaseStatus: leaseInformation ? leaseInformation.status : "Vacant",
       tenantName: leaseInformation ? `${leaseInformation.tenant.first_name} ${leaseInformation.tenant.last_name}` : "",
       squareFootage: apartment.square_footage,
       bedrooms: apartment.bedrooms,
