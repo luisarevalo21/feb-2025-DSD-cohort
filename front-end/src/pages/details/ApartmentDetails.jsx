@@ -17,6 +17,7 @@ const ApartmentDetails = () => {
   //Id took from the URL parameters, used to fetch the specific items
   const { id } = useParams();
   const floorPlans = [floorPlan1, floorPlan2, floorPlan3, floorPlan4, floorPlan5];
+  const floorPlanNames = ["1 Bed - 1 Bath A", "2 Bed - 1 Bath B", "2 Bed - 2 Bath C", "3 Bed - 2 Bath D", "Studio E"];
 
   const [apartmentData, setApartmentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,9 +26,9 @@ const ApartmentDetails = () => {
     const fetchData = async () => {
       try {
         const data = await fetchApartmentDetailsById(id);
-        //get random floor plan image
+        //get random floor plan image and name
         const randIndex = Math.floor(Math.random() * floorPlans.length);
-        setApartmentData({ ...data, floorPlanImg: floorPlans[randIndex], id: id });
+        setApartmentData({ ...data, floorPlanImg: floorPlans[randIndex], id: id, floorPlanName: floorPlanNames[randIndex] });
       } catch (error) {
         console.error("Error fetching apartment details:", error);
       } finally {

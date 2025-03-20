@@ -4,7 +4,7 @@ import React from "react";
 const Details = ({ apartmentData }) => {
 
     const {
-        layout,
+        floorPlanName,
         squareFootage,
         bedrooms,
         bathrooms,
@@ -31,7 +31,7 @@ const Details = ({ apartmentData }) => {
 
             <Divider sx={{my: 2}}/>
 
-            <Typography variant="h4">Layout: {layout}</Typography>
+            <Typography variant="h4">Layout: {floorPlanName}</Typography>
             <Typography variant="h4">Sq. Ft: {squareFootage}</Typography>
             <Typography variant="h4">Beds: {bedrooms}</Typography>
             <Typography variant="h4">Baths: {bathrooms}</Typography>
