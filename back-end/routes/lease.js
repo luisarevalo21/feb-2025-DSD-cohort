@@ -131,7 +131,6 @@ router.post("/", async (req, res, next) => {
 
     return res.status(200);
   } catch (err) {
-    console.log(err);
     return next(new Error(err));
   }
 });
