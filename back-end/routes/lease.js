@@ -16,20 +16,22 @@ router.get("/renewals", async (req, res, next) => {
     if (currentLeases.length === 0) {
       return res.status(200).json([]);
     }
-    const renewableLeases = currentLeases.map(lease => {
-      const { apartment } = lease;
-      const { tenant } = lease;
+    const renewableLeases = currentLeases
+      .map(lease => {
+        const { apartment } = lease;
+        const { tenant } = lease;
 
-      if (calculateLeaseExpiration(lease.lease_end_date)) {
-        return {
-          id: lease.id,
-          leaseId: lease.id,
-          apartmentNumber: apartment.apartment_number,
-          tenantName: `${tenant.first_name} ${tenant.last_name}`,
-          leaseEnd: new Date(lease.lease_end_date).toLocaleDateString("en"),
-        };
-      }
-    });
+        if (calculateLeaseExpiration(lease.lease_end_date)) {
+          return {
+            id: lease.id,
+            leaseId: lease.id,
+            apartmentNumber: apartment.apartment_number,
+            tenantName: `${tenant.first_name} ${tenant.last_name}`,
+            leaseEnd: new Date(lease.lease_end_date).toLocaleDateString("en"),
+          };
+        }
+      })
+      .filter(lease => lease !== undefined);
 
     if (renewableLeases.length === 0) {
       return res.status(200).json([]);
