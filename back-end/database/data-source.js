@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { DataSource } = require("typeorm");
 const dbConfig = require("../ormconfig.js");
 

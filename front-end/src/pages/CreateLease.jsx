@@ -16,15 +16,15 @@ import SendIcon from "@mui/icons-material/Send";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import api from "../api";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"; 
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"; 
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"; 
+import { createLease } from "../api/leaseApi";
 
 const darkTheme = createTheme({
   palette: {
     primary: {
-      main: "#000000", // Change primary color to black
+      main: "#000000", 
     },
   },
 });
@@ -59,7 +59,6 @@ const CreateLease = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState({});
 
-  // Handling Tenant form
   const {
     register: registerTenant,
     handleSubmit: handleSubmitTenant,
@@ -75,7 +74,6 @@ const CreateLease = () => {
     },
   });
 
-  // Handling Lease form
   const {
     control,
     register: registerLease,
@@ -102,16 +100,11 @@ const CreateLease = () => {
     setActiveStep((prevStep) => prevStep + 1);
   };
 
-  // Submit Lease Details
-  const onSubmitLease = (data) => {
-    console.log("Lease Data Submitted: ", data);
-    setFormData((prevData) => ({ ...prevData, ...data }));
+  const onSubmitLease = async data => {
+    setFormData(prevData => ({ ...prevData, ...data }));
+    setActiveStep(prevStep => prevStep + 1);
 
-    alert(JSON.stringify(formData, null, 2)); //Remove this and will be redirected to modal with link for lease
-  };
-
-  const onError = (errors) => {
-    console.log("Validation Errors:", errors);
+    const response = await createLease(formData);
   };
 
   // Load creattie script when component mounts

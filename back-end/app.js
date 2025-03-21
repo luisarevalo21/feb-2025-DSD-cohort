@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -15,6 +16,13 @@ const complaintsRouter = require("./routes/complaints");
 
 const app = express();
 
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN_BASE || "http://localhost:5173",
+    credentials: true,
+  })
+);
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -22,14 +30,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
-app.use(
   session({
-    secret: "your_secret_key",
+    secret: process.env.SESSION_SECRET_KEY || "your_secret_key",
     resave: false,
     saveUninitialized: false,
   })
@@ -40,7 +42,6 @@ app.use(passport.session());
 
 app.use("/users", ensureAuthenticated, usersRouter);
 app.use("/auth", authRouter);
-app.use("/leases", leaseRouter);
 
 app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
 app.use("/api/lease", ensureAuthenticated, leaseRouter);
