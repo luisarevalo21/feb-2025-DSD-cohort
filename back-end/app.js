@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -15,6 +16,13 @@ const complaintsRouter = require("./routes/complaints");
 
 const app = express();
 
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN_BASE || "http://localhost:5173",
+    credentials: true,
+  })
+);
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -22,14 +30,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
-app.use(
   session({
-    secret: "your_secret_key",
+    secret: process.env.SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: false,
   })
@@ -38,13 +40,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/users", usersRouter);
+app.use("/users", ensureAuthenticated, usersRouter);
 app.use("/auth", authRouter);
+app.use("/leases", leaseRouter);
 
-app.use("/api/complaints", complaintsRouter);
-app.use("/api/lease", leaseRouter);
-app.use("/api/tenant", tenantRouter);
-app.use("/api/apartment", apartmentRouter);
+app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
+app.use("/api/lease", ensureAuthenticated, leaseRouter);
+app.use("/api/tenant", ensureAuthenticated, tenantRouter);
+app.use("/api/apartment", ensureAuthenticated, apartmentRouter);
 
 app.use(errorHandler);
 
@@ -54,7 +57,9 @@ app.listen(4000, () => {
 
 function errorHandler(err, req, res, next) {
   //simple error response
-  return res.status(res.statusCode !== 200 ? res.statusCode : 500).json({ message: err.message });
+  return res
+    .status(res.statusCode !== 200 ? res.statusCode : 500)
+    .json({ message: err.message });
 }
 
 function ensureAuthenticated(req, res, next) {

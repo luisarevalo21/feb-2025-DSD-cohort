@@ -21,12 +21,18 @@ module.exports = new EntitySchema({
     },
     date_of_birth: {
       type: "date",
-    },
-    lease_id: {
-      type: "int",
       nullable: true,
     },
-    tenant_details_id: {
+    phone_number: {
+      type: "varchar",
+      nullable: true,
+    },
+    additional_information: {
+      type: "varchar",
+      nullable: true,
+    },
+
+    lease_id: {
       type: "int",
       nullable: true,
     },
@@ -37,14 +43,6 @@ module.exports = new EntitySchema({
       type: "one-to-one",
       joinColumn: {
         name: "lease_id",
-      },
-      inverseSide: "tenant",
-    },
-    tenant_details: {
-      target: "TenantDetails",
-      type: "one-to-one",
-      joinColumn: {
-        name: "tenant_details_id",
       },
       inverseSide: "tenant",
     },

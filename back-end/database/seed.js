@@ -1,10 +1,10 @@
 require("dotenv").config();
+const bcrypt = require("bcryptjs");
 const AppDataSource = require("./data-source");
 const Admin = require("./entities/admin");
 const Apartment = require("./entities/apartment");
 const Lease = require("./entities/lease");
 const Tenant = require("./entities/tenant");
-const TenantDetails = require("./entities/tenantDetails");
 const Complaint = require("./entities/complaint");
 
 AppDataSource.initialize()
@@ -25,7 +25,7 @@ AppDataSource.initialize()
           first_name: "John",
           last_name: "Doe",
           email: "john.doe@email.com",
-          password: "password123",
+          password: bcrypt.hashSync("password123"),
         },
       ]);
       console.log("✅ Admin table seeded.");
@@ -168,6 +168,8 @@ AppDataSource.initialize()
           last_name: "Doe",
           email: "john.doe@email.com",
           date_of_birth: "1990-01-15",
+          phone_number: "555-555-5555",
+          additional_information: "No pets",
         },
         {
           id: 2,
@@ -175,6 +177,8 @@ AppDataSource.initialize()
           last_name: "Smith",
           email: "emma.smith@email.com",
           date_of_birth: "1985-05-20",
+          phone_number: "111-222-3333",
+          additional_information: "Allergic to peanuts",
         },
         {
           id: 3,
@@ -182,50 +186,14 @@ AppDataSource.initialize()
           last_name: "Johnson",
           email: "liam.johnson@email.com",
           date_of_birth: "1992-07-10",
+          phone_number: "444-333-2222",
+          additional_information: "Prefers ground floor units",
         },
       ]);
       console.log("✅ Tenant table seeded.");
     } else {
       console.log("⚠️ Tenant table already has data.");
     }
-
-    // --------- Seed Tenant Details Table --------- //
-    const tenantDetailsRepo = AppDataSource.getRepository(TenantDetails);
-    const existingTenantDetails = await tenantDetailsRepo.count();
-
-    if (existingTenantDetails === 0) {
-      await tenantDetailsRepo.insert([
-        {
-          id: 1,
-          tenant_id: 1,
-          phone_number: "123-456-7890",
-          profile_photo: "john_profile.jpg",
-          additional_information: "John's tenant details",
-        },
-        {
-          id: 2,
-          tenant_id: 2,
-          phone_number: "123-456-7890",
-          profile_photo: "emma_profile.jpg",
-          additional_information: "Emma's tenant details",
-        },
-        {
-          id: 3,
-          tenant_id: 3,
-          phone_number: "123-456-7890",
-          profile_photo: "liam_profile.jpg",
-          additional_information: "Liam's tenant details",
-        },
-      ]);
-      console.log("✅ Tenant Details table seeded.");
-    } else {
-      console.log("⚠️ Tenant Details table already has data.");
-    }
-
-    // --------- Update Tenant Table with Tenant Details --------- //
-    await tenantRepo.update({ id: 1 }, { tenant_details_id: 1 });
-    await tenantRepo.update({ id: 2 }, { tenant_details_id: 2 });
-    await tenantRepo.update({ id: 3 }, { tenant_details_id: 3 });
 
     // --------- Seed Lease Table --------- //
     const leaseRepo = AppDataSource.getRepository(Lease);

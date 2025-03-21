@@ -3,20 +3,22 @@ const Admin = require("./database/entities/admin");
 const Lease = require("./database/entities/lease");
 const Apartment = require("./database/entities/apartment");
 const Tenant = require("./database/entities/tenant");
-const TenantDetails = require("./database/entities/tenantDetails");
 const Complaint = require("./database/entities/complaint");
 
+const { DB_USER, DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } =
+  process.env;
+
 module.exports = {
-  name: "default",
   type: "postgres",
-  host: "localhost",
-  port: 5432,
-  username: "postgres",
-  password: "password",
-  database: "tenant_portal",
+  user: DB_USER,
+  host: DB_HOST || "localhost",
+  port: Number(DB_PORT || 5432),
+  username: DB_USERNAME || "postgres",
+  password: DB_PASSWORD || "password",
+  database: DB_DATABASE || "tenant_portal",
   synchronize: false,
   logging: false,
-  entities: [Admin, Lease, Apartment, Tenant, TenantDetails, Complaint],
+  entities: [Admin, Lease, Apartment, Tenant, Complaint],
   migrations: ["./database/migrations/**/*.js"],
   experimentalDecorators: true,
   emitDecoratorMetadata: true,
