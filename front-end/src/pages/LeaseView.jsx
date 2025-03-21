@@ -7,7 +7,6 @@ import SignatureCanvas from "react-signature-canvas";
 import LeaseAgreementPdf from "../../lib/LeaseAgreementPdf";
 
 function LeaseView() {
-  const location = useLocation();
   const leaseData = {
     tenantName: "John Doe",
     landlordName: "Jane Smith",
