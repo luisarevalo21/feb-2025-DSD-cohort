@@ -5,14 +5,15 @@ import SendIcon from "@mui/icons-material/Send";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker"; // Import MUI DatePicker
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"; // Import date adapter
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"; // Import LocalizationProvider
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"; 
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"; 
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"; 
+import { createLease } from "../api/leaseApi";
 
 const darkTheme = createTheme({
   palette: {
     primary: {
-      main: "#000000", // Change primary color to black
+      main: "#000000", 
     },
   },
 });
@@ -26,8 +27,6 @@ const tenantSchema = z.object({
 
 // Zod schema for lease details
 const leaseSchema = z.object({
-  // leaseStartDate: z.string(),
-  // leaseEndDate: z.string(),
   rentAmount: z.number().min(1, "Rent amount is required"),
   apartmentNumber: z.string().min(1, "Apartment number is required"),
   notes: z.string().optional(),
@@ -37,7 +36,6 @@ const CreateLease = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState({});
 
-  // Handling Tenant form
   const {
     register: registerTenant,
     handleSubmit: handleSubmitTenant,
@@ -53,7 +51,6 @@ const CreateLease = () => {
     },
   });
 
-  // Handling Lease form
   const {
     register: registerLease,
     handleSubmit: handleSubmitLease,
@@ -72,17 +69,16 @@ const CreateLease = () => {
   // Form Steps for Tenant and Lease Forms
   const steps = ["Enter Tenant Details", "Enter Lease Details"];
 
-  // Submit Tenant Details
   const onSubmitTenant = data => {
     setFormData(prevData => ({ ...prevData, ...data }));
     setActiveStep(prevStep => prevStep + 1);
   };
 
-  // Submit Lease Details
-  const onSubmitLease = data => {
-    console.log("Lease Data Submitted: ", data);
+  const onSubmitLease = async data => {
     setFormData(prevData => ({ ...prevData, ...data }));
     setActiveStep(prevStep => prevStep + 1);
+
+    const response = await createLease(formData);
   };
 
   // Load creattie script when component mounts
@@ -158,7 +154,6 @@ const CreateLease = () => {
         return (
           <form
             onSubmit={handleSubmitLease(data => {
-              console.log("Lease Form Submission Triggered", data);
               onSubmitLease(data);
             })}
           >
