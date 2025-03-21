@@ -13,6 +13,8 @@ import ApartmentDetails from "./pages/details/ApartmentDetails";
 import ComplaintDetails from "./pages/details/ComplaintDetails";
 import LeaseDetails from "./pages/details/LeaseDetails";
 import TenantDetails from "./pages/details/TenantDetails";
+import CreateLeasePage from "./pages/CreateLease";
+import LeaseView from "./pages/LeaseView";
 
 function App() {
   return (
@@ -31,17 +33,13 @@ function App() {
           <Route path="register" element={<Register />}></Route>
           <Route path="access-control" element={<AccessControlPage />}></Route>
           <Route path="settings" element={<SettingsPage />}></Route>
-          <Route
-            path="apartment-details/:id"
-            element={<ApartmentDetails />}
-          ></Route>
+          <Route path="apartment-details/:id" element={<ApartmentDetails />}></Route>
           <Route path="lease-details/:id" element={<LeaseDetails />}></Route>
           <Route path="tenant-details/:id" element={<TenantDetails />}></Route>
-          <Route
-            path="complaint-details/:id"
-            element={<ComplaintDetails />}
-          ></Route>
+          <Route path="complaint-details/:id" element={<ComplaintDetails />}></Route>
         </Route>
+        <Route path="/create-lease" element={<CreateLeasePage />}></Route>
+        <Route path="/lease-view" element={<LeaseView />}></Route>
       </Route>
     </Routes>
   );
