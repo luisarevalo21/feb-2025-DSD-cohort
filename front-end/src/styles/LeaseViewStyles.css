@@ -1,0 +1,48 @@
+.page {
+    background-color: "#f2f2f2";
+    padding: 20px;
+}
+.section {
+    margin-bottom: 10px;
+}
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.content {
+    font-size: 12;
+    margin-bottom: 10px;
+}
+.bold-content {
+    font-size: 12;
+    font-weight: bold;
+}
+.viewer-container {
+    height: 600px;
+    width: 80%;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.layout-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px,
+}
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.pdf-viewer {
+    width: 100%;
+    height: 100%;
+}

@@ -1,24 +1,21 @@
+require("dotenv").config();
 const { Client } = require("pg");
 const { DataSource } = require("typeorm");
 const dbConfig = require("../ormconfig.js");
 
 const createDatabase = async () => {
-  const dbName = process.env.DB_NAME || "tenant_portal";
-  const client = new Client({
-    ...dbConfig,
-    database: "postgres",
-  });
+  const client = new Client(dbConfig);
 
   try {
     await client.connect();
     console.log("✅ Connected to Postgres. Checking if database exists...");
 
     // Check if the database exists
-    const result = await client.query(`SELECT 1 FROM pg_database WHERE datname = '${dbName}';`);
+    const result = await client.query(`SELECT 1 FROM pg_database WHERE datname = '${dbConfig.database}';`);
 
     if (result.rowCount === 0) {
-      console.log(`🛠 Database '${dbName}' does not exist. Creating it...`);
-      await client.query(`CREATE DATABASE "${dbName}";`);
+      console.log(`🛠 Database '${dbConfig.database}' does not exist. Creating it...`);
+      await client.query(`CREATE DATABASE "${dbConfig.database}";`);
       console.log("✅ Database created.");
     } else {
       console.log("✅ Database already exists. Skipping creation.");
