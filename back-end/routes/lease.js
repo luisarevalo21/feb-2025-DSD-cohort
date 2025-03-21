@@ -193,7 +193,6 @@ router.post("/new-lease", async (req, res, next) => {
       apartment_id: leaseData.apartmentId,
       tenant_id: newTenant.id,
     });
-    console.log("newLease", newLease);
 
     await AppDataSource.manager.update(Tenant, newTenant.id, {
       lease_id: newLease,
