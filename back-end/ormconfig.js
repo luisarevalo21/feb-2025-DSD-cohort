@@ -5,10 +5,11 @@ const Apartment = require("./database/entities/apartment");
 const Tenant = require("./database/entities/tenant");
 const Complaint = require("./database/entities/complaint");
 
-const { DB_USER, DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } =
+const { DB_USER, DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE, NODE_ENV } =
   process.env;
 
 module.exports = {
+  name: NODE_ENV === "production" ? undefined : "default",
   type: "postgres",
   user: DB_USER,
   host: DB_HOST || "localhost",
