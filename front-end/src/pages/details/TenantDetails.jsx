@@ -24,7 +24,7 @@ const TenantDetails = () => {
   }, [id]);
 
   if (!tenant) {
-    <Spinner />;
+    return <Spinner />;
   }
 
   return (
