@@ -35,7 +35,7 @@ const columns = [
       params.row.leaseStatus === "Vacant" ? (
         <span>{params.row.leaseStatus}</span>
       ) : (
-        <a href={`/lease-details/${params.row.leaseId}`} className="underline">
+        <a href={`/lease/${params.row.leaseId}`} className="underline">
           {params.row.leaseStatus}
         </a>
       ),
