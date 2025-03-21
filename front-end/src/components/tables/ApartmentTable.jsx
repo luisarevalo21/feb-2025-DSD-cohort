@@ -69,11 +69,11 @@ const columns = [
       return (
         <div className="flex justify-center items-center gap-2 h-full">
           {params.row.leaseStatus === "Vacant" ? (
-            <Button component={Link} to={`/leases/${params.row.leaseId}`} color="primary" variant="contained">
+            <Button component={Link} to={"/create-lease"} color="primary" variant="contained">
               Create Lease
             </Button>
           ) : daysUntilEnd < 30 ? (
-            <Button component={Link} to={`/leases/${params.row.leaseId}`} color="warning" variant="contained">
+            <Button component={Link} to={"/create-lease"} color="warning" variant="contained">
               Renew Lease
             </Button>
           ) : null}
