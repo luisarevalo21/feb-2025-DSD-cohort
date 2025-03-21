@@ -15,9 +15,8 @@ const Hero = ({ apartmentData }) => {
         return {
             address1: `${parts[0] || "Street Address"} #${apartmentData.apartmentNumber}`,
             address2: parts[1] || "City",
-            address3: parts[2] || "State Zip Code",
-            //need backend folks to make the address in street address, city, state, zip format with commas my prefferred formatting, but this is fine for now
-            //address4: parts[3] || "ZIP Code"
+            address3: parts[2] || "State",
+            address4: parts[3] || "ZIP Code"
         };
     };
 
@@ -31,10 +30,10 @@ const Hero = ({ apartmentData }) => {
         apartmentAddress
     } = apartmentData;
 
-    const { address1, address2, address3 } = parseAddress(apartmentAddress);
+    const { address1, address2, address3, address4 } = parseAddress(apartmentAddress);
 
     //for the modal
-    const [open, setOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const statusColor = leaseStatus === "Occupied" ? "red" : "green";
 
@@ -47,7 +46,7 @@ const Hero = ({ apartmentData }) => {
         <Box>
             <Box sx={{
                 width: "100%",
-                border: "3px solid #ccc",
+                border: "3px solid #4527a0",
                 borderRadius: 1,
                 overflow: "hidden",
             }}
@@ -64,8 +63,8 @@ const Hero = ({ apartmentData }) => {
                         </Typography>
 
                         <Typography variant="h6">{address1}</Typography>
-                        <Typography variant="h6">{address2}</Typography>
-                        <Typography variant="h6">{address3}</Typography>
+                        <Typography variant="h6">{address2},{address3}</Typography>
+                        <Typography variant="h6">{address4}</Typography>
                     </Grid2>
                     
                     <Grid2 size={{ xs: 14, md: 1 }}>
@@ -112,7 +111,7 @@ const Hero = ({ apartmentData }) => {
                         }}
                         />
 
-                        <IconButton aria-label="Zoom Floor Plan" onClick={() => setOpen(true)}>
+                        <IconButton aria-label="Zoom Floor Plan" onClick={() => setIsModalOpen(true)}>
                             <AddCircleOutlineIcon sx={{ color: "green" }} />
                         </IconButton>
                     </Grid2>
@@ -120,7 +119,7 @@ const Hero = ({ apartmentData }) => {
             </Box>
 
             {/* Dialog/modal for enlarged image */}
-            <Dialog open={open} onClose={() => setOpen(false)}>
+            <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <img
                   src={floorPlanImg}
                   alt="Floor Plan Large"

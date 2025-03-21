@@ -15,7 +15,7 @@ const Details = ({ apartmentData }) => {
     return (
         <Box
           sx={{
-            border: "3px solid #ccc",
+            border: "3px solid #4527a0",
             borderRadius: 1,
             p: 2,
             display: "flex",
@@ -29,7 +29,7 @@ const Details = ({ apartmentData }) => {
                 Details
             </Typography>
 
-            <Divider sx={{my: 2}}/>
+            <Divider sx={{ bgcolor: "#ede7f6", my: 2}}/>
 
             <Typography variant="h4">Layout: {floorPlanName}</Typography>
             <Typography variant="h4">Sq. Ft: {squareFootage}</Typography>

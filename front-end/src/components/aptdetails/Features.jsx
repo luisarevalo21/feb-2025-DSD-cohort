@@ -27,16 +27,10 @@ const Features = ({ apartmentData }) => {
     const handleSave = async () => {
         setIsEditing(false);
         
-        //api call will go here
-        console.log("Apartment id to be saved to:", id);
-        console.log("Saving features to API:", localFeatures);
         try {
             const response = await updateApartmentDetails(id, { features: localFeatures });
-            console.log("Updated apartment with new features response:", response);
-            //give a visual confirmation to the user that the features were updated
             alert("Features updated successfully!");
         } catch (error) {
-            console.error("Error updating apartment features:", error);
             alert("Failed to update features. Please try again.");
         }
     }
@@ -51,7 +45,7 @@ const Features = ({ apartmentData }) => {
     return (
         <Box
           sx={{
-            border: "3px solid #ccc",
+            border: "3px solid rgb(157, 127, 246)",
             borderRadius: 1,
             p: 2,
             display: "flex",
@@ -71,9 +65,8 @@ const Features = ({ apartmentData }) => {
                 )}
             </Box>
 
-            <Divider sx={{ my: 2 }} />
+            <Divider sx={{ bgcolor: "#ede7f6", my: 2 }} />
 
-            {/* conditional to show a multi line text field if editing, otherwise a list of features  */}
             {isEditing ? (
                 <>
                     <TextField

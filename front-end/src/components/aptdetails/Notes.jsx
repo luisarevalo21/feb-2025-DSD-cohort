@@ -24,16 +24,10 @@ const Notes = ({ apartmentData }) => {
 
     const handleSave = async () => {
         setIsEditing(false);
-        //api call will go here
-        console.log("Apartment id to be saved to:", id);
-        console.log("Saving notes to API:",  id, localNotes);
         try {
             const response = await updateApartmentDetails(id, { notes: localNotes });
-            console.log("Updated apartment with new notes response:", response);
-            //give a visual confirmation to the user that the notes were updated
             alert("Notes updated successfully!");
         } catch (error) {
-            console.error("Error updating apartment notes:", error);
             alert("Failed to update notes. Please try again.");
         }
     }
@@ -45,7 +39,7 @@ const Notes = ({ apartmentData }) => {
     return (
         <Box
           sx={{
-            border: "3px solid #ccc",
+            border: "3px solid #4527a0",
             borderRadius: 1,
             p: 2,
             display: "flex",

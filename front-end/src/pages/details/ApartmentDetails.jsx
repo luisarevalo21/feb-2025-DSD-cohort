@@ -6,12 +6,12 @@ import Details from '../../components/aptdetails/Details';
 import Features from "../../components/aptdetails/Features";
 import Notes from "../../components/aptdetails/Notes";
 import { fetchApartmentDetailsById } from "../../api/apartmentApi";
-//import floor plan photos
 import floorPlan1 from '../../assets/floorplans/floorplan1.png';
 import floorPlan2 from '../../assets/floorplans/floorplan2.png'
 import floorPlan3 from '../../assets/floorplans/floorplan3.png';
 import floorPlan4 from '../../assets/floorplans/floorplan4.png'
 import floorPlan5 from '../../assets/floorplans/floorplan5.png'
+import Spinner from "../../components/Spinner";
 
 const ApartmentDetails = () => {
   //Id took from the URL parameters, used to fetch the specific items
@@ -42,7 +42,7 @@ const ApartmentDetails = () => {
   if (isLoading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "90vh" }}>
-        <CircularProgress />
+        <Spinner />
       </Box>
     );
   }
