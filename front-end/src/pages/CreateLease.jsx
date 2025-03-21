@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import {
   Button,
   TextField,
@@ -16,9 +16,10 @@ import SendIcon from "@mui/icons-material/Send";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker"; // Import MUI DatePicker
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"; // Import date adapter
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"; // Import LocalizationProvider
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import api from "../api";
 
 const darkTheme = createTheme({
   palette: {
@@ -39,14 +40,21 @@ const tenantSchema = z.object({
 });
 
 // Zod schema for lease details
-const leaseSchema = z.object({
-  // leaseStartDate: z.string(),
-  // leaseEndDate: z.string(),
-  rentAmount: z.number().min(1, "Rent amount is required"),
-  apartmentNumber: z.string().min(1, "Apartment number is required"),
-  notes: z.string().optional(),
-});
-
+const leaseSchema = z
+  .object({
+    leaseStartDate: z.date({ message: "Start date is required" }),
+    leaseEndDate: z.date({ message: "End date is required" }),
+    rentAmount: z
+      .number()
+      .min(1, "Rent amount is required")
+      .or(z.string().transform((val) => Number(val))),
+    apartmentNumber: z.string().min(1, "Apartment number is required"),
+    notes: z.string().optional(),
+  })
+  .refine((data) => data.leaseEndDate > data.leaseStartDate, {
+    message: "Lease end date must be after the start date",
+    path: ["leaseEndDate"],
+  });
 const CreateLease = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState({});
@@ -69,14 +77,15 @@ const CreateLease = () => {
 
   // Handling Lease form
   const {
+    control,
     register: registerLease,
     handleSubmit: handleSubmitLease,
     formState: { errors: leaseErrors },
   } = useForm({
     resolver: zodResolver(leaseSchema),
     defaultValues: {
-      leaseStartDate: "",
-      leaseEndDate: "",
+      leaseStartDate: null,
+      leaseEndDate: null,
       rentAmount: 0,
       apartmentNumber: "",
       notes: "",
@@ -99,6 +108,10 @@ const CreateLease = () => {
     setFormData((prevData) => ({ ...prevData, ...data }));
 
     alert(JSON.stringify(formData, null, 2)); //Remove this and will be redirected to modal with link for lease
+  };
+
+  const onError = (errors) => {
+    console.log("Validation Errors:", errors);
   };
 
   // Load creattie script when component mounts
@@ -185,58 +198,60 @@ const CreateLease = () => {
         );
       case 1:
         return (
-          <form
-            onSubmit={handleSubmitLease((data) => {
-              console.log("Lease Form Submission Triggered", data);
-              onSubmitLease(data);
-            })}
-          >
+          <form onSubmit={handleSubmitLease(onSubmitLease, onError)}>
             <Typography variant="h6" paddingBottom={1}>
               Lease Details
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <Grid2 container spacing={2}>
                 <Grid2 item xs={6} size={6}>
-                  <DatePicker
-                    label="Lease Start Date"
-                    value={formData.leaseStartDate || null}
-                    onChange={(newValue) =>
-                      setFormData({ ...formData, leaseStartDate: newValue })
-                    }
-                    sx={{ width: "100%" }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!leaseErrors.leaseStartDate}
-                        helperText={leaseErrors.leaseStartDate?.message}
-                        fullWidth
-                        margin="normal"
+                  <Controller
+                    name="leaseStartDate"
+                    control={control}
+                    render={({ field }) => (
+                      <DatePicker
+                        label="Lease Start Date"
+                        value={field.value || null}
+                        onChange={(newValue) => field.onChange(newValue)}
+                        sx={{ width: "100%" }}
+                        slotProps={{
+                          textField: {
+                            error: !!leaseErrors.leaseStartDate,
+                            helperText: leaseErrors.leaseStartDate?.message,
+                            fullWidth: true,
+                            margin: "normal",
+                          },
+                        }}
                       />
                     )}
                   />
                 </Grid2>
 
                 <Grid2 item xs={6} size={6}>
-                  <DatePicker
-                    label="Lease End Date"
-                    value={formData.leaseEndDate || null}
-                    onChange={(newValue) =>
-                      setFormData({ ...formData, leaseEndDate: newValue })
-                    }
-                    sx={{ width: "100%" }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!leaseErrors.leaseEndDate}
-                        helperText={leaseErrors.leaseEndDate?.message}
-                        fullWidth
-                        margin="normal"
+                  <Controller
+                    name="leaseEndDate"
+                    control={control}
+                    render={({ field }) => (
+                      <DatePicker
+                        label="Lease End Date"
+                        value={field.value || null}
+                        onChange={(newValue) => field.onChange(newValue)}
+                        sx={{ width: "100%" }}
+                        slotProps={{
+                          textField: {
+                            error: !!leaseErrors.leaseEndDate,
+                            helperText: leaseErrors.leaseEndDate?.message,
+                            fullWidth: true,
+                            margin: "normal",
+                          },
+                        }}
                       />
                     )}
                   />
                 </Grid2>
               </Grid2>
             </LocalizationProvider>
+
             <TextField
               label="Monthly Rent (in dollars)"
               fullWidth
