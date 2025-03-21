@@ -2,6 +2,7 @@ import { Box, Typography, Button, TextField, Divider } from "@mui/material";
 import { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { updateApartmentDetails } from "../../api/apartmentApi";
+import toast from "react-hot-toast";
 
 const Features = ({ apartmentData }) => {
     const { features, id } = apartmentData;
@@ -29,9 +30,9 @@ const Features = ({ apartmentData }) => {
         
         try {
             const response = await updateApartmentDetails(id, { features: localFeatures });
-            alert("Features updated successfully!");
+            toast.success("Features updated successfully!");
         } catch (error) {
-            alert("Failed to update features. Please try again.");
+            toast.error("Failed to update features. Please try again.");
         }
     }
 
@@ -45,8 +46,8 @@ const Features = ({ apartmentData }) => {
     return (
         <Box
           sx={{
-            border: "3px solid rgb(157, 127, 246)",
-            borderRadius: 1,
+            border: "5px ridge rgb(157, 127, 246)",
+            borderRadius: 2.5,
             p: 2,
             display: "flex",
             flexDirection: "column",

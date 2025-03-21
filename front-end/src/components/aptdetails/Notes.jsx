@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Box, Typography, Button, TextField, Divider } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit";
 import { updateApartmentDetails } from "../../api/apartmentApi";
+import toast from "react-hot-toast";
 
 const Notes = ({ apartmentData }) => {
     const { notes, id } = apartmentData;
@@ -26,9 +27,9 @@ const Notes = ({ apartmentData }) => {
         setIsEditing(false);
         try {
             const response = await updateApartmentDetails(id, { notes: localNotes });
-            alert("Notes updated successfully!");
+            toast.success("Notes updated successfully!");
         } catch (error) {
-            alert("Failed to update notes. Please try again.");
+            toast.error("Failed to update notes. Please try again.");
         }
     }
 
@@ -39,8 +40,8 @@ const Notes = ({ apartmentData }) => {
     return (
         <Box
           sx={{
-            border: "3px solid #4527a0",
-            borderRadius: 1,
+            border: "5px ridge rgb(157, 127, 246)",
+            borderRadius: 2.5,
             p: 2,
             display: "flex",
             flexDirection: "column",
@@ -57,7 +58,7 @@ const Notes = ({ apartmentData }) => {
                     </Button>
                 )}
             </Box>
-            <Divider sx={{my: 2}}/>
+            <Divider sx={{ my: 2, bgcolor: "#ede7f6" }}/>
             {isEditing ? (
                 <>
                     <TextField

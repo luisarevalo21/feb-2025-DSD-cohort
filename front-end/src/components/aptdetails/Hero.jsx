@@ -46,14 +46,14 @@ const Hero = ({ apartmentData }) => {
         <Box>
             <Box sx={{
                 width: "100%",
-                border: "3px solid #4527a0",
-                borderRadius: 1,
+                border: "10px ridge rgb(157, 127, 246)",
+                borderRadius: 5,
                 overflow: "hidden",
             }}
             >
-                <Grid2 container columns={14}>
+                <Grid2 container>
                     {/* Left section  */}
-                    <Grid2 size={{ xs: 14, md: 5 }} sx={{ p: 2, position: "relative" }}>
+                    <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 2, position: "relative" }}>
                         <Typography variant="body1">
                             ID: {id}
                         </Typography>
@@ -67,11 +67,7 @@ const Hero = ({ apartmentData }) => {
                         <Typography variant="h6">{address4}</Typography>
                     </Grid2>
                     
-                    <Grid2 size={{ xs: 14, md: 1 }}>
-                        <Divider orientation="vertical" />
-                    </Grid2>
-                    
-                    <Grid2 size={{ xs: 14, md: 5 }} sx={{ p:2 }}>
+                    <Grid2 size={{ xs: 12, md: 5 }} sx={{ p:2, mt:3}}>
                         <Typography variant="h5" sx={{ mb: 1 }}>
                             <strong>Status: </strong>
                             <span style={{ color: statusColor }}>{leaseStatus}</span>
@@ -88,17 +84,12 @@ const Hero = ({ apartmentData }) => {
                         </Typography>
                     </Grid2>
 
-                    <Grid2 size={{ xs: 14, md: 1 }}>
-                        <Divider orientation="vertical" />
-                    </Grid2>
-
                     <Grid2
-                        size={{ xs: 14, md: 2 }}
+                        size={{ xs: 12, md: 2 }}
                         sx={{
                             p: 2,
                             display: "flex",
                             alignItems: "center",
-                            justifyContent: "space-between",
                         }}
                     >
                         <img

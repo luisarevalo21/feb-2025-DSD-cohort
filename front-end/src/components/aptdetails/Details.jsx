@@ -15,8 +15,8 @@ const Details = ({ apartmentData }) => {
     return (
         <Box
           sx={{
-            border: "3px solid #4527a0",
-            borderRadius: 1,
+            border: "5px ridge rgb(157, 127, 246)",
+            borderRadius: 2.5,
             p: 2,
             display: "flex",
             flexDirection: "column",
