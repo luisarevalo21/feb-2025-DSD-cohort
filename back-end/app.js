@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -42,7 +42,6 @@ app.use(passport.session());
 
 app.use("/users", ensureAuthenticated, usersRouter);
 app.use("/auth", authRouter);
-app.use("/leases", leaseRouter);
 
 app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
 app.use("/api/lease", ensureAuthenticated, leaseRouter);
@@ -57,9 +56,7 @@ app.listen(4000, () => {
 
 function errorHandler(err, req, res, next) {
   //simple error response
-  return res
-    .status(res.statusCode !== 200 ? res.statusCode : 500)
-    .json({ message: err.message });
+  return res.status(res.statusCode !== 200 ? res.statusCode : 500).json({ message: err.message });
 }
 
 function ensureAuthenticated(req, res, next) {
