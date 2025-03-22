@@ -39,7 +39,7 @@ const Lease = () => {
         component={Link} 
         to={`/lease-details/${id}`}
         variant="contained"
-        sx={{ display: "flex", justifyItem: "flex-end", width: "15%", p: 1 }}
+        sx={{ display: "flex", marginLeft: "auto", marginBottom: "5px", width: "15%", p: 1 }}
       >
         View PDF
       </Button>
