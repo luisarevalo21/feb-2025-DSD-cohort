@@ -23,7 +23,8 @@ router.get("/renewals", async (req, res, next) => {
       if (calculateLeaseExpiration(lease.lease_end_date)) {
         return {
           id: lease.id,
-          leaseId: lease.id,
+          tenantId: tenant.id,
+          apartmentId: apartment.id,
           apartmentNumber: apartment.apartment_number,
           tenantName: `${tenant.first_name} ${tenant.last_name}`,
           leaseEnd: new Date(lease.lease_end_date).toLocaleDateString("en"),
@@ -58,7 +59,8 @@ router.get("/pendingLeases", async (req, res, next) => {
         if (lease.signed_at === null)
           return {
             id: lease.id,
-            leaseId: lease.id,
+            tenantId: tenant.id,
+            apartmentId: apartment.id,
             apartmentNumber: apartment.apartment_number,
             tenantName: `${tenant.first_name} ${tenant.last_name}`,
             leaseEnd: new Date(lease.lease_end_date).toLocaleDateString("en-US"),
