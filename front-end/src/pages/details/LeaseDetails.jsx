@@ -15,7 +15,7 @@ const LeaseDetails = () => {
         const lease = await fetchLeaseDetails(id);
         setLeaseDetails(lease);
       } catch (err) {
-        console.error(err);
+        return err;
       }
     };
     fetchLease();
