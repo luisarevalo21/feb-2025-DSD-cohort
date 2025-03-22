@@ -20,7 +20,7 @@ const LeaseRent = ({ rent }) => {
         </Grid2>
         <Grid2 size={{ xs: 12, md: 20 }}>
           <Typography>Current Rent</Typography>
-          <p>{rent}</p>
+          <p>${rent} per month</p>
         </Grid2>
       </Box>
     </Box>

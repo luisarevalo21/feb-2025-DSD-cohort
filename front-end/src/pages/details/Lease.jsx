@@ -1,6 +1,7 @@
-import { Box, Grid2 } from "@mui/material";
+import { Box, Grid2, Button } from "@mui/material";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import { fetchLease } from "../../api/leaseApi";
 import Spinner from "../../components/Spinner";
 import LeaseDetailsHeader from "../../components/leaseDetails/LeaseDetailsHeader";
@@ -15,11 +16,9 @@ const Lease = () => {
   const [lease, setLease] = useState(null);
 
   useEffect(() => {
-    console.log("useEffect");
     async function fetchLeaseInfo() {
       try {
         const lease = await fetchLease(id);
-        console.log(lease)
         setLease(lease);
       } catch (err) {
         return err;
@@ -33,53 +32,38 @@ const Lease = () => {
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p:2 }}>
-      {/* <Grid2 container spacing={2} padding={2} className="min-h-screen"> */}
-        {/* <Grid2 size={{ xs: 12, md: 6 }}>
-          Lease Summary : 
-          <p>Status: {lease.leaseStatus}</p>
-        </Grid2> */}
-        <LeaseDetailsHeader status={lease.leaseStatus} />
+    <Box
+      sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p: 2 }}
+    >
+      <Button
+        component={Link} 
+        to={`/lease-details/${id}`}
+        variant="contained"
+        sx={{ display: "flex", justifyItem: "flex-end", width: "15%", p: 1 }}
+      >
+        View PDF
+      </Button>
 
+      <LeaseDetailsHeader status={lease.leaseStatus} />
 
-        {/* <Grid2 size={{ xs: 12, md: 6 }}>
-          Apartment Details:
-          <p>Apt. #: {lease.apartmentInformation.apartmentNumber}</p>
-          <p>Address: {lease.apartmentInformation.apartmentAddress}</p>
-        </Grid2> */}
-        
-        
-        {/* <Grid2 size={{ xs: 12, md: 6 }}>
-          Tenant:
-          <p>Name: {lease.tenantInformation.tenantName}</p>
-        </Grid2> */}
-
-        <Box sx={{ 
-          display: "flex", 
-          justifyContent: 'space-between', 
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
           border: 1,
-          p:2 }}
-        >
-          <LeaseApartmentDetails apartment={lease.apartmentInformation}/>
-          <LeaseTenantDetails tenant={lease.tenantInformation}/>
-        </Box>
+          p: 2,
+        }}
+      >
+        <LeaseApartmentDetails apartment={lease.apartmentInformation} />
+        <LeaseTenantDetails tenant={lease.tenantInformation} />
+      </Box>
 
+      <LeaseDuration
+        startDate={lease.leaseStartDate}
+        endDate={lease.leaseEndDate}
+      />
 
-        {/* <Grid2 size={{ xs: 12, md: 6 }}>
-          Length of Agreement:
-          <p>Start Date: {lease.leaseStartDate}</p>
-          <p>End Date: {lease.leaseEndDate}</p>
-        </Grid2> */}
-        <LeaseDuration startDate={lease.leaseStartDate} endDate={lease.leaseEndDate}/>
-
-
-        {/* <Grid2 size={{ xs: 12, md: 6 }}>
-          Rent:
-          <p>Payable on: I dunno how to determine this</p>
-          <p>Current Rent: ${lease.monthlyRent} per month</p>
-        </Grid2> */}
-        <LeaseRent rent={lease.monthlyRent}/>
-      {/* </Grid2> */}
+      <LeaseRent rent={lease.monthlyRent} />
     </Box>
   );
 };
