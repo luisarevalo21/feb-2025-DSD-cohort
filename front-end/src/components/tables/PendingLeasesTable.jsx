@@ -12,9 +12,9 @@ const columns = [
     flex: 1,
     minWidth: 150,
     renderCell: (params) => (
-      <a href={`/apartment-details/${params.row.apartmentId}`} className="underline">
+      <Link to={`/apartment-details/${params.row.apartmentId}`} className="underline">
         {params.row.apartmentNumber}
-      </a>
+      </Link>
     ),
   },
   {
@@ -23,9 +23,9 @@ const columns = [
     flex: 2,
     minWidth: 150,
     renderCell: (params) => (
-      <a href={`/tenant-details/${params.row.tenantId}`} className="underline">
+      <Link to={`/tenant-details/${params.row.tenantId}`} className="underline">
         {params.row.tenantName}
-      </a>
+      </Link>
     ),
   },
   { field: "leaseEnd", headerName: "Lease End", flex: 2, minWidth: 150 },

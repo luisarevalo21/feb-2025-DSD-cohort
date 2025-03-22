@@ -11,7 +11,6 @@ const TenantDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log("useEffect");
     async function fetchTenantInfo() {
       try {
         const tenant = await fetchTenantInformation(id);
