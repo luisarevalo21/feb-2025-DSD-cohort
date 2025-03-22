@@ -104,7 +104,7 @@ const CreateLease = () => {
     setFormData((prevData) => ({ ...prevData, ...data }));
     setActiveStep((prevStep) => prevStep + 1);
 
-    const response = await createLease(formData);
+    const response = await createLease(data);
 
     if (response.status === 200) {
       alert("Lease created successfully!");
