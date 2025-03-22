@@ -30,7 +30,7 @@ const ApartmentDetails = () => {
         const randIndex = Math.floor(Math.random() * floorPlans.length);
         setApartmentData({ ...data, floorPlanImg: floorPlans[randIndex], id: id, floorPlanName: floorPlanNames[randIndex] });
       } catch (error) {
-        console.error("Error fetching apartment details:", error);
+        toast.error("Failed to fetch apartment details", error);
       } finally {
         setIsLoading(false);
       }
