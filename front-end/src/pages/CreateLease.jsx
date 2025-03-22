@@ -16,15 +16,15 @@ import SendIcon from "@mui/icons-material/Send";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker"; 
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"; 
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"; 
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { createLease } from "../api/leaseApi";
 
 const darkTheme = createTheme({
   palette: {
     primary: {
-      main: "#000000", 
+      main: "#000000",
     },
   },
 });
@@ -100,11 +100,21 @@ const CreateLease = () => {
     setActiveStep((prevStep) => prevStep + 1);
   };
 
-  const onSubmitLease = async data => {
-    setFormData(prevData => ({ ...prevData, ...data }));
-    setActiveStep(prevStep => prevStep + 1);
+  const onSubmitLease = async (data) => {
+    setFormData((prevData) => ({ ...prevData, ...data }));
+    setActiveStep((prevStep) => prevStep + 1);
 
     const response = await createLease(formData);
+
+    if (response.status === 200) {
+      alert("Lease created successfully!");
+    } else {
+      alert("Error creating lease");
+    }
+  };
+
+  const onError = (errors) => {
+    console.log(errors);
   };
 
   // Load creattie script when component mounts
