@@ -1,17 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography, TextField, Paper, Button } from '@mui/material';
 import Grid2 from '@mui/material/Grid2';
 import DeleteAccountFlow from '../components/DeleteAccountFlow';
 import toast from 'react-hot-toast';
+import { fetchCurrentUser } from '../api/userApi';
+
 
 const AccountSettings = () => {
     const [email, setEmail] = useState('admin@example.com');
-    const [tempEmail, setTempEmail] = useState(email);
+    const [tempEmail, setTempEmail] = useState('');
     const [propertyName, setPropertyName] = useState('Unnamed Property');
-    const [tempPropertyName, setTempPropertyName] = useState(propertyName);
-    const firstName = "John";
-    const lastName = "Doe";
-
+    const [tempPropertyName, setTempPropertyName] = useState('');
+    const [firstName, setFirstName] = useState('John');
+    const [lastName, setLastName] = useState('Doe');
+    
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const userInfo = await fetchCurrentUser();
+                setEmail(userInfo.email);
+                setFirstName(userInfo.first_name);
+                setLastName(userInfo.last_name);
+            } catch (error) {
+                toast.error("Failed to fetch user info. Please try again later.");
+            }
+        };
+        fetchUserInfo();
+    }, []);
+        
     const handleEmailSave = (e) => {
         setEmail(tempEmail);
         toast.success('Email updated successfully!');
@@ -52,7 +68,6 @@ const AccountSettings = () => {
                             sx={{ mt: 2 }}
                         />
                         <Button
-                            cariant="contained"
                             color='primary'
                             onClick={() => handleEmailSave(tempEmail)}
                             sx={{ mt: 1 }}
@@ -79,7 +94,6 @@ const AccountSettings = () => {
                             sx={{ mt: 2 }}
                         />
                         <Button
-                            cariant="contained"
                             color='primary'
                             onClick={() => handlePropertyNameSave(tempPropertyName)}
                             sx={{ mt: 1 }}
