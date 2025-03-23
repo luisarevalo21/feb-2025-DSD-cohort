@@ -5,6 +5,12 @@ import { PDFViewer } from "@react-pdf/renderer";
 import { useLocation } from "react-router-dom";
 import SignatureCanvas from "react-signature-canvas";
 import LeaseAgreementPdf from "../../lib/LeaseAgreementPdf";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import DrawIcon from "@mui/icons-material/Draw";
+import { Stack } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 function LeaseView() {
   const leaseData = {
@@ -27,25 +33,45 @@ function LeaseView() {
         </PDFViewer>
       </div>
 
-      <div className="mt-4 flex justify-center">
-        <SignatureCanvas
-          penColor="black"
-          canvasProps={{
-            width: 200,
-            height: 80,
-            className: "border-2 border-green-500 bg-green-100 rounded-md",
-          }}
-        />
-      </div>
+      <div className="signature-panel flex justify-between items-center ">
+        <div className="mt-4 flex flex-col gap-4 ml-[5%]">
+          <div>
+            <p className=" ">Please sign the lease agreement below:</p>
+          </div>
 
-      <div className="mt-4 flex justify-end">
-        <Button
-          variant="contained"
-          endIcon={<SendIcon />}
-          className="bg-blue-600 text-white"
-        >
-          Email Lease
-        </Button>
+          <div>
+            <Tooltip
+              title={
+                <Stack direction="row" alignItems="center">
+                  <DrawIcon fontSize="x-small" />
+                  <Typography variant="body5">Draw signature</Typography>
+                </Stack>
+              }
+              placement="bottom-start"
+              arrow
+            >
+              <div>
+                <SignatureCanvas
+                  penColor="black"
+                  canvasProps={{
+                    width: 400,
+                    height: 80,
+                    className: "border border-black bg-white rounded-md",
+                  }}
+                />
+              </div>
+            </Tooltip>
+          </div>
+        </div>
+        <div className="px-[5%] pt-2">
+          <Button
+            variant="contained"
+            endIcon={<SendIcon />}
+            className="!bg-black text-white"
+          >
+            Email Lease
+          </Button>
+        </div>
       </div>
     </div>
   );
