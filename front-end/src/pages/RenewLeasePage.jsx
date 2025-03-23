@@ -16,7 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useParams } from "react-router";
 import { z } from "zod";
-import { fetchLease } from "../api/leaseApi";
+import { fetchLeaseRenewal } from "../api/leaseApi";
 import Spinner from "../components/Spinner";
 
 const leaseSchema = z.object({
@@ -39,7 +39,7 @@ const LeaseRenewPage = () => {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["leaseInfo", leaseId],
-    queryFn: () => fetchLease(leaseId),
+    queryFn: () => fetchLeaseRenewal(leaseId),
   });
 
   if (error) {

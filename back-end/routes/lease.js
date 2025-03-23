@@ -25,8 +25,9 @@ router.get("/renewals", async (req, res, next) => {
 
         if (calculateLeaseExpiration(lease.lease_end_date)) {
           return {
-            id: lease.id,
+            id: lease.apartment_id,
             leaseId: lease.id,
+            tenantId: lease.tenant_id,
             apartmentNumber: apartment.apartment_number,
             tenantName: `${tenant.first_name} ${tenant.last_name}`,
             leaseEnd: new Date(lease.lease_end_date).toLocaleDateString("en"),

@@ -4,7 +4,7 @@ import EnsureGuest from "./auth/EnsureGuest";
 import RootLayout from "./layouts/RootLayout";
 import AccessControlPage from "./pages/AccessControlPage";
 import Complaints from "./pages/Complaints";
-import CreateLeasePage from "./pages/CreateLease";
+import CreateLeasePage from "./pages/CreateLeasePage";
 import Dashboard from "./pages/Dashboard";
 import HomePageLogin from "./pages/HomePageLogin";
 import LeaseView from "./pages/LeaseView";

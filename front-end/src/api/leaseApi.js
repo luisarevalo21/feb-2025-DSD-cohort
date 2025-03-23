@@ -29,6 +29,15 @@ export async function fetchPending() {
 
 export async function fetchLeaseDetails(leaseId) {
   try {
+    const result = await api.get(`/api/lease/${leaseId}`);
+    return result.data;
+  } catch (err) {
+    return err;
+  }
+}
+
+export async function fetchLeaseRenewal(leaseId) {
+  try {
     const result = await api.get(`/api/lease/renew/${leaseId}`);
     return result.data;
   } catch (err) {

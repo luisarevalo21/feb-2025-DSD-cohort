@@ -1,9 +1,8 @@
-import React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import Spinner from "../Spinner";
+import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router";
+import Spinner from "../Spinner";
 
 const columns = [
   {
@@ -12,7 +11,10 @@ const columns = [
     flex: 1,
     minWidth: 150,
     renderCell: (params) => (
-      <Link to={`/apartment-details/${params.row.apartmentId}`} className="underline">
+      <Link
+        to={`/apartment-details/${params.row.apartmentId}`}
+        className="underline"
+      >
         {params.row.apartmentNumber}
       </Link>
     ),
@@ -37,7 +39,7 @@ const columns = [
     renderCell: (params) => (
       <Button
         component={Link}
-        to={`/lease/${params.row.leaseId}`}
+        to={`/lease-details/${params.row.id}`}
         variant="contained"
         color="warning"
       >
@@ -58,7 +60,7 @@ export default function PendingLeasesTable({ isLoading, pendingLeases }) {
     <Paper sx={{ height: 370, width: "100%" }}>
       <DataGrid
         rows={pendingLeases}
-        columns={columns.map(col => ({
+        columns={columns.map((col) => ({
           ...col,
           align: "center",
           headerAlign: "center",
@@ -75,4 +77,3 @@ export default function PendingLeasesTable({ isLoading, pendingLeases }) {
     </Paper>
   );
 }
-

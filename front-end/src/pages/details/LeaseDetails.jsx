@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import { fetchLease } from "../../api/leaseApi";
+import { fetchLeaseDetails } from "../../api/leaseApi";
 import Spinner from "../../components/Spinner";
 import LeaseApartmentDetails from "../../components/leaseDetails/LeaseApartmentDetails";
 import LeaseDetailsHeader from "../../components/leaseDetails/LeaseDetailsHeader";
@@ -17,7 +17,7 @@ const Lease = () => {
   useEffect(() => {
     async function fetchLeaseInfo() {
       try {
-        const lease = await fetchLease(id);
+        const lease = await fetchLeaseDetails(id);
         setLease(lease);
       } catch (err) {
         return err;
@@ -30,21 +30,6 @@ const Lease = () => {
     return <Spinner />;
   }
 
-  useEffect(() => {
-    const fetchLease = async () => {
-      try {
-        const lease = await fetchLeaseDetails(id);
-        setLeaseDetails(lease);
-      } catch (err) {
-        return err;
-      }
-    };
-    fetchLease();
-  }, []);
-
-  if (!LeaseDetails) {
-    return <Spinner />;
-  }
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p: 2 }}
