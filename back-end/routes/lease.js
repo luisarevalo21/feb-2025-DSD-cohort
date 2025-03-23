@@ -5,7 +5,9 @@ const { determineLeaseStatus } = require("../utilis/determineLeaseStatus");
 const Apartment = require("../database/entities/apartment");
 
 const AppDataSource = require("../database/data-source");
-const { calculateLeaseExpiration } = require("../utilis/calculateLeaseExpiration");
+const {
+  calculateLeaseExpiration,
+} = require("../utilis/calculateLeaseExpiration");
 
 router.get("/renewals", async (req, res, next) => {
   try {
@@ -16,7 +18,7 @@ router.get("/renewals", async (req, res, next) => {
     if (currentLeases.length === 0) {
       return res.status(200).json([]);
     }
-    const renewableLeases = currentLeases.map(lease => {
+    const renewableLeases = currentLeases.map((lease) => {
       const { apartment } = lease;
       const { tenant } = lease;
 
@@ -52,7 +54,7 @@ router.get("/pendingLeases", async (req, res, next) => {
       return res.status(200).json([]);
     }
     const pendingLeases = currentLeases
-      .map(lease => {
+      .map((lease) => {
         const { apartment } = lease;
         const { tenant } = lease;
 
@@ -63,16 +65,39 @@ router.get("/pendingLeases", async (req, res, next) => {
             apartmentId: apartment.id,
             apartmentNumber: apartment.apartment_number,
             tenantName: `${tenant.first_name} ${tenant.last_name}`,
-            leaseEnd: new Date(lease.lease_end_date).toLocaleDateString("en-US"),
+            leaseEnd: new Date(lease.lease_end_date).toLocaleDateString(
+              "en-US"
+            ),
           };
       })
-      .filter(lease => lease !== undefined);
+      .filter((lease) => lease !== undefined);
 
     if (pendingLeases.length === 0) {
       return res.status(200).json([]);
     }
 
     return res.status(200).json(pendingLeases);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.get("/renew/:leaseId", async (req, res, next) => {
+  const leaseId = req.params.leaseId;
+  console.log(leaseId);
+
+  try {
+    const lease = await AppDataSource.manager.findOne(Lease, {
+      where: { id: leaseId },
+    });
+
+    if (!lease) {
+      return next(new Error("Lease not found."));
+    }
+
+    const { monthly_rent_in_dollars, notes } = lease;
+
+    return res.status(200).json({ monthly_rent_in_dollars, notes });
   } catch (error) {
     return next(error);
   }
@@ -129,7 +154,9 @@ router.put("/signLease/:leaseId", async (req, res, next) => {
     const leaseId = req.params.leaseId;
     const { signature } = req.body;
 
-    const signedLease = await AppDataSource.manager.findOneBy(Lease, { id: leaseId });
+    const signedLease = await AppDataSource.manager.findOneBy(Lease, {
+      id: leaseId,
+    });
 
     if (!signedLease) {
       return next(new Error("Lease not found."));
