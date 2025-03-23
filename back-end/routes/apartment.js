@@ -22,12 +22,11 @@ router.get("/", async (req, res, next) => {
       const leaseInformation = lease[0];
 
       let leaseExpired = null;
-      if (leaseInformation?.lease_end_date !== undefined) {
+      if (leaseInformation) {
         leaseExpired = calculateLeaseExpiration(leaseInformation.lease_end_date);
+        leaseInformation.status = determineLeaseStatus(leaseInformation);
       }
-      if(leaseInformation?.signed_at !== undefined) {
-        leaseInformation.status = determineLeaseStatus(leaseInformation)
-      }
+      
       return {
         id: apartment.id,
         apartmentNumber: apartment.apartment_number,
