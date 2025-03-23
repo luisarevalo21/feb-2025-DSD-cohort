@@ -86,7 +86,6 @@ router.get("/pendingLeases", async (req, res, next) => {
 
 router.get("/renew/:leaseId", async (req, res, next) => {
   const leaseId = req.params.leaseId;
-  console.log(leaseId);
 
   try {
     const lease = await AppDataSource.manager.findOne(Lease, {
@@ -100,6 +99,34 @@ router.get("/renew/:leaseId", async (req, res, next) => {
     const { monthly_rent_in_dollars, notes } = lease;
 
     return res.status(200).json({ monthly_rent_in_dollars, notes });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.put("/renew/:leaseId", async (req, res, next) => {
+  const leaseId = req.params.leaseId;
+  const renewChanges = req.body;
+
+  try {
+    const currentLease = await AppDataSource.manager.findOne(Lease, {
+      where: { id: leaseId },
+    });
+
+    if (!currentLease) {
+      return next(new Error("Lease not found."));
+    }
+
+    if (renewChanges.notes === "") {
+      delete renewChanges.notes;
+    }
+
+    await AppDataSource.manager.save(Lease, {
+      ...currentLease,
+      ...renewChanges,
+    });
+
+    return res.status(200).json({ message: "Lease renewed successfully" });
   } catch (error) {
     return next(error);
   }

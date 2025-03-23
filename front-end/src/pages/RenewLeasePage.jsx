@@ -11,12 +11,12 @@ import {
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { z } from "zod";
-import { fetchLeaseRenewal } from "../api/leaseApi";
+import { fetchLeaseRenewal, renewLease } from "../api/leaseApi";
 import Spinner from "../components/Spinner";
 
 const leaseSchema = z.object({
@@ -36,6 +36,7 @@ const leaseSchema = z.object({
 
 const LeaseRenewPage = () => {
   const { id: leaseId } = useParams();
+  const navigate = useNavigate();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["leaseInfo", leaseId],
@@ -54,27 +55,28 @@ const LeaseRenewPage = () => {
     formState: { errors },
   } = useForm({
     values: {
-      monthly_rent_in_dollars: data?.monthly_rent_in_dollars.toString(),
+      monthly_rent_in_dollars: data?.monthly_rent_in_dollars?.toString(),
       notes: data?.notes,
     },
     resolver: zodResolver(leaseSchema),
   });
 
-  //   const { mutate } = useMutation({
-  //     mutationFn: (data) => createLease(data),
-  //     onMutate: () => {
-  //       return <Spinner />;
-  //     },
-  //     onSuccess: () => {
-  //       setActiveStep((prevStep) => prevStep + 1);
-  //     },
-  //     onError: (error) => {
-  //       toast.error(error.message || "An error occurred. Please try again");
-  //     },
-  //   });
+  const { mutate: sendNewLease } = useMutation({
+    mutationFn: ({ leaseId, formData }) => renewLease(leaseId, formData),
+    onMutate: () => {
+      return <Spinner />;
+    },
+    onSuccess: () => {
+      toast.success("Lease renewed successfully");
+      navigate("/dashboard");
+    },
+    onError: (error) => {
+      toast.error(error.message || "An error occurred. Please try again");
+    },
+  });
 
-  const onSubmit = async (data) => {
-    console.log(data);
+  const onSubmit = (formData) => {
+    sendNewLease({ leaseId, formData });
   };
 
   return (
