@@ -1,13 +1,34 @@
-import { Box, Typography } from "@mui/material";
-import { useParams } from "react-router";
+import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import LeaseView from "../LeaseView";
+import { Link, useParams } from "react-router";
+import { fetchLease } from "../../api/leaseApi";
 import Spinner from "../../components/Spinner";
-import { fetchLeaseDetails } from "../../api/leaseApi";
-const LeaseDetails = () => {
+import LeaseApartmentDetails from "../../components/leaseDetails/LeaseApartmentDetails";
+import LeaseDetailsHeader from "../../components/leaseDetails/LeaseDetailsHeader";
+import LeaseDuration from "../../components/leaseDetails/LeaseDuration";
+import LeaseRent from "../../components/leaseDetails/LeaseRent";
+import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
+
+const Lease = () => {
   // Id took from the URL parameters, used to fetch the specific item
   const { id } = useParams();
-  const [LeaseDetails, setLeaseDetails] = useState(null);
+  const [lease, setLease] = useState(null);
+
+  useEffect(() => {
+    async function fetchLeaseInfo() {
+      try {
+        const lease = await fetchLease(id);
+        setLease(lease);
+      } catch (err) {
+        return err;
+      }
+    }
+    fetchLeaseInfo(id);
+  }, [id]);
+
+  if (!lease) {
+    return <Spinner />;
+  }
 
   useEffect(() => {
     const fetchLease = async () => {
@@ -25,13 +46,46 @@ const LeaseDetails = () => {
     return <Spinner />;
   }
   return (
-    <Box>
-      <Typography component="h1" align="left" sx={{ fontWeight: "bold", fontSize: "2rem" }}>
-        Lease Details for: {id}
-        <LeaseView leaseData={LeaseDetails} />
-      </Typography>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p: 2 }}
+    >
+      <Button
+        component={Link}
+        to={`/lease-details/${id}`}
+        variant="contained"
+        sx={{
+          display: "flex",
+          marginLeft: "auto",
+          marginBottom: "5px",
+          width: "15%",
+          p: 1,
+        }}
+      >
+        View PDF
+      </Button>
+
+      <LeaseDetailsHeader status={lease.leaseStatus} />
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          border: 1,
+          p: 2,
+        }}
+      >
+        <LeaseApartmentDetails apartment={lease.apartmentInformation} />
+        <LeaseTenantDetails tenant={lease.tenantInformation} />
+      </Box>
+
+      <LeaseDuration
+        startDate={lease.leaseStartDate}
+        endDate={lease.leaseEndDate}
+      />
+
+      <LeaseRent rent={lease.monthlyRent} />
     </Box>
   );
 };
 
-export default LeaseDetails;
+export default Lease;
