@@ -1,13 +1,26 @@
 import { useState } from 'react';
-import { Box, Typography, TextField, Paper } from '@mui/material';
+import { Box, Typography, TextField, Paper, Button } from '@mui/material';
 import Grid2 from '@mui/material/Grid2';
 import DeleteAccountFlow from '../components/DeleteAccountFlow';
+import toast from 'react-hot-toast';
 
 const AccountSettings = () => {
     const [email, setEmail] = useState('admin@example.com');
+    const [tempEmail, setTempEmail] = useState(email);
     const [propertyName, setPropertyName] = useState('Unnamed Property');
+    const [tempPropertyName, setTempPropertyName] = useState(propertyName);
     const firstName = "John";
     const lastName = "Doe";
+
+    const handleEmailSave = (e) => {
+        setEmail(tempEmail);
+        toast.success('Email updated successfully!');
+    }
+
+    const handlePropertyNameSave = (e) => {
+        setPropertyName(tempPropertyName);
+        toast.success('Property name updated successfully!');
+    }
 
     return (
         <Box sx={{ p: 4 }}>
@@ -17,7 +30,7 @@ const AccountSettings = () => {
 
             <Paper elevation={3} sx={{ p: 2, mb: 2 }}>
                 <Typography variant='h6'>
-                    Welcome, {firstName} {lastName}!
+                    Welcome, {firstName} {lastName}! How are things at {propertyName}?
                 </Typography>
             </Paper>
 
@@ -33,10 +46,19 @@ const AccountSettings = () => {
                         <TextField
                             label="Change Email"
                             variant="outlined"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={tempEmail}
+                            onChange={(e) => setTempEmail(e.target.value)}
                             fullWidth
+                            sx={{ mt: 2 }}
                         />
+                        <Button
+                            cariant="contained"
+                            color='primary'
+                            onClick={() => handleEmailSave(tempEmail)}
+                            sx={{ mt: 1 }}
+                        >
+                            Save Email
+                        </Button>
                     </Paper>
                 </Grid2>
 
@@ -51,10 +73,19 @@ const AccountSettings = () => {
                         <TextField
                             label="Set Property Name"
                             variant='outlined'
-                            value={propertyName}
-                            onChange={(e) => setPropertyName(e.target.value)}
+                            value={tempPropertyName}
+                            onChange={(e) => setTempPropertyName(e.target.value)}
                             fullWidth
+                            sx={{ mt: 2 }}
                         />
+                        <Button
+                            cariant="contained"
+                            color='primary'
+                            onClick={() => handlePropertyNameSave(tempPropertyName)}
+                            sx={{ mt: 1 }}
+                        >
+                            Save Property Name
+                        </Button>
                     </Paper>
                 </Grid2>
             </Grid2>
