@@ -166,7 +166,7 @@ const SignupForm = () => {
           {isSubmitting ? "Submitting..." : "Create new account"}
         </Button>
       </Stack>
-      <p className="mt-4 text-center">
+      <p className="mt-4 text-center helper-font">
         Already have an account? <Link href="/">Login</Link>
       </p>
     </form>

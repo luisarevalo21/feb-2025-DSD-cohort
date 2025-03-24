@@ -120,7 +120,7 @@ const LoginForm = () => {
           {isSubmitting ? "Submitting..." : "Login"}
         </Button>
       </Stack>
-      <p className="mt-4 text-center">
+      <p className="mt-4 text-center helper-font">
         Don&apos;t have an account? <Link href="/register">Signup</Link>
       </p>
     </form>

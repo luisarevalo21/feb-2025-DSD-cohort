@@ -24,7 +24,10 @@ const columns = [
       params.row.tenantName === "Vacant" ? (
         <span>{params.row.tenantName}</span>
       ) : (
-        <Link to={`/tenant-details/${params.row.tenantId}`} className="underline">
+        <Link
+          to={`/tenant-details/${params.row.tenantId}`}
+          className="underline"
+        >
           {params.row.tenantName}
         </Link>
       ),
@@ -106,7 +109,7 @@ const ApartmentTable = ({ isLoading, apartmentInfo }) => {
     <Paper>
       <DataGrid
         rows={apartmentInfo}
-        columns={columns.map(col => ({
+        columns={columns.map((col) => ({
           ...col,
           align: "center",
           headerAlign: "center",
