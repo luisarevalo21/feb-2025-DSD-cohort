@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { PDFViewer } from "@react-pdf/renderer";
+
 import { useLocation } from "react-router-dom";
 import SignatureCanvas from "react-signature-canvas";
 import LeaseAgreementPdf from "../../lib/LeaseAgreementPdf";
@@ -22,6 +23,7 @@ function LeaseView() {
     leaseEndDate: "December 31, 2025",
   };
 
+
   return (
     <div className="p-4 rounded-md">
       <div className="h-[600px] w-[90%] mx-auto border border-gray-300 rounded-md overflow-hidden ">
@@ -32,6 +34,7 @@ function LeaseView() {
           <LeaseAgreementPdf {...leaseData} />
         </PDFViewer>
       </div>
+
 
       <div className="signature-panel flex justify-between items-center ">
         <div className="mt-4 flex flex-col gap-4 ml-[5%]">
@@ -72,6 +75,7 @@ function LeaseView() {
             Email Lease
           </Button>
         </div>
+
       </div>
     </div>
   );
