@@ -39,9 +39,9 @@ function App() {
           <Route path="lease/:id" element={<Lease />}></Route>
           <Route path="tenant-details/:id" element={<TenantDetails />}></Route>
           <Route path="complaint-details/:id" element={<ComplaintDetails />}></Route>
+          <Route path="/create-lease" element={<CreateLeasePage />}></Route>
         </Route>
-        <Route path="/create-lease" element={<CreateLeasePage />}></Route>
-        <Route path="/lease-view" element={<LeaseView />}></Route>
+        {/* <Route path="/lease-view" element={<LeaseView />}></Route> */}
       </Route>
     </Routes>
   );

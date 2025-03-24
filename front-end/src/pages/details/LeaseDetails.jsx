@@ -5,7 +5,6 @@ import LeaseView from "../LeaseView";
 import Spinner from "../../components/Spinner";
 import { fetchLeaseDetails } from "../../api/leaseApi";
 const LeaseDetails = () => {
-  // Id took from the URL parameters, used to fetch the specific item
   const { id } = useParams();
   const [LeaseDetails, setLeaseDetails] = useState(null);
 
@@ -24,12 +23,27 @@ const LeaseDetails = () => {
   if (!LeaseDetails) {
     return <Spinner />;
   }
+  console.log(LeaseDetails);
   return (
     <Box>
       <Typography component="h1" align="left" sx={{ fontWeight: "bold", fontSize: "2rem" }}>
         Lease Details for: {id}
-        <LeaseView leaseData={LeaseDetails} />
       </Typography>
+      <Typography>
+        Lease Status
+        <Typography
+          sx={{
+            borderRadius: "5px",
+            color: "white",
+            display: "inline",
+            padding: "0.5rem",
+            backgroundColor: LeaseDetails.leaseStatus ? "green" : "red",
+          }}
+        >
+          {LeaseDetails.leaseStatus ? "Active" : "Not Active"}
+        </Typography>
+      </Typography>
+      <LeaseView leaseData={LeaseDetails} />
     </Box>
   );
 };

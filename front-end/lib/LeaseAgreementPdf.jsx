@@ -1,6 +1,6 @@
 import { Page, Text, View, Document } from "@react-pdf/renderer";
 import styles from "../src/styles/leaseViewStyles.js";
-const LeaseAgreementPdf = ({ tenantName, landlordName, propertyAddress, rentAmount, leaseStartDate, leaseEndDate }) => (
+const LeaseAgreementPdf = ({ apartmentInformation, propertyAddress, leaseStatus, monthlyRent, leaseStartDate, leaseEndDate, tenantInformation }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <Text style={styles.title}>RESIDENTIAL LEASE AGREEMENT</Text>
@@ -10,16 +10,13 @@ const LeaseAgreementPdf = ({ tenantName, landlordName, propertyAddress, rentAmou
           This Lease Agreement is made and entered into this <Text style={styles.bold}>{new Date().toLocaleDateString()}</Text>, by and between:
         </Text>
         <Text>
-          <Text style={styles.bold}>Landlord:</Text> {landlordName}
-        </Text>
-        <Text>
-          <Text style={styles.bold}>Tenant:</Text> {tenantName}
+          <Text style={styles.bold}>Tenant:</Text> {tenantInformation.tenantName}
         </Text>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.bold}>1. PROPERTY ADDRESS:</Text>
-        <Text>{propertyAddress}</Text>
+        <Text>{apartmentInformation.apartmentAddress}</Text>
       </View>
 
       <View style={styles.section}>
@@ -31,7 +28,7 @@ const LeaseAgreementPdf = ({ tenantName, landlordName, propertyAddress, rentAmou
 
       <View style={styles.section}>
         <Text style={styles.bold}>3. RENT:</Text>
-        <Text>Tenant shall pay to Landlord a monthly rent of ${rentAmount}, payable on the first day of each month.</Text>
+        <Text>Tenant shall pay to Landlord a monthly rent of ${monthlyRent}, payable on the first day of each month.</Text>
         <Text>
           Failure to pay rent by the due date shall result in a late fee of $50. Any rent not received within 5 days of the due date shall be
           considered delinquent.
@@ -43,8 +40,8 @@ const LeaseAgreementPdf = ({ tenantName, landlordName, propertyAddress, rentAmou
       <View style={styles.section}>
         <Text style={styles.bold}>4. SECURITY DEPOSIT:</Text>
         <Text>
-          Tenant shall pay a security deposit of ${rentAmount * 1.5} prior to occupancy. The deposit shall be held to cover damages beyond normal wear
-          and tear.
+          Tenant shall pay a security deposit of ${monthlyRent * 1.5} prior to occupancy. The deposit shall be held to cover damages beyond normal
+          wear and tear.
         </Text>
       </View>
 

@@ -35,3 +35,12 @@ export async function fetchLeaseDetails(leaseId) {
     return err;
   }
 }
+
+export async function signLease(leaseId, checked) {
+  try {
+    const result = await api.put(`/api/lease/signLease/${leaseId}`, { signature: checked });
+    return result.data;
+  } catch (err) {
+    return err;
+  }
+}
