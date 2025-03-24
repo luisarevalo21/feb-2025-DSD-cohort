@@ -20,9 +20,6 @@
   "terms": [
     "Tenant agrees to pay rent on time.",
     "No illegal activities allowed on the premises.",
-    "Landlord is responsible for major repairs.",
-    " Failure to pay rent by the due date shall result in a late fee of $50. Any rent not received within 5 days of the due date shall be considered delinquent."
+    "Landlord is responsible for major repairs."
   ]
 }
-
-//need an api route that returns json data 
