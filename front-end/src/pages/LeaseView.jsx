@@ -1,33 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Box, Checkbox, Stack, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { PDFViewer } from "@react-pdf/renderer";
-
+import { useParams } from "react-router";
 import SignatureCanvas from "react-signature-canvas";
 import LeaseAgreementPdf from "../../lib/LeaseAgreementPdf";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import DrawIcon from "@mui/icons-material/Draw";
-import { signLease } from "../api/leaseApi";
+import { signLease, fetchLeaseDetails } from "../api/leaseApi";
+import Spinner from "../components/Spinner";
+import { useNavigate } from "react-router-dom";
+function LeaseView() {
+  const { id } = useParams();
+  const [lease, setLease] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function fetchLeaseInfo() {
+      try {
+        const lease = await fetchLeaseDetails(id);
+        setLease(lease);
+      } catch (err) {
+        return err;
+      }
+    }
+    fetchLeaseInfo(id);
+  }, [id]);
 
-function LeaseView({ leaseData }) {
+  if (!lease) {
+    return <Spinner />;
+  }
   const handleSubmitForm = async e => {
     e.preventDefault();
-    if (leaseData.leaseStatus !== "Active") {
-      await signLease(leaseData.leaseId, true);
+    if (lease.leaseStatus !== "Active") {
+      await signLease(lease.leaseId, true);
+      navigate(`/lease-details/${lease.leaseId}`, {
+        state: { message: "Lease signed successfully" },
+      });
     }
   };
-  console.log(leaseData);
   return (
     <Box className="p-4 rounded-md">
       <Box className="h-[600px] w-[90%] mx-auto border border-gray-300 rounded-md overflow-hidden ">
         <PDFViewer className="w-full h-full " style={{ border: "none", backgroundColor: "white" }}>
-          <LeaseAgreementPdf {...leaseData} />
+          <LeaseAgreementPdf {...lease} />
         </PDFViewer>
       </Box>
 
-      {leaseData.leaseStatus !== "Active" ? (
+      {lease.leaseStatus !== "Active" ? (
         <Box display="flex" justifyContent="center" alignItems="center" flexDirection={"column"}>
           <Box className="mt-4 flex flex-col gap-4 ml-[5%]">
             <Box>
@@ -59,7 +78,7 @@ function LeaseView({ leaseData }) {
             </Box>
 
             <form onSubmit={e => handleSubmitForm(e)}>
-              <Checkbox value={leaseData.leaseStatus === "Active" ? true : false} />
+              <Checkbox value={lease.leaseStatus === "Active" ? true : false} />
               <Button variant="contained" type="submit" endIcon={<SendIcon />}>
                 Sign Lease
               </Button>
