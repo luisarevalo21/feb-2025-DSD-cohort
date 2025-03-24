@@ -46,7 +46,11 @@ AppDataSource.initialize()
           bedrooms: 2,
           bathrooms: 1,
           floor: 1,
-          features: ["hardwood floors", "stainless steel appliances", "spacious living area"],
+          features: [
+            "hardwood floors",
+            "stainless steel appliances",
+            "spacious living area",
+          ],
           notes: "Corner unit",
         },
 
@@ -309,6 +313,6 @@ AppDataSource.initialize()
     console.log("connection closed");
   })
 
-  .catch(error => {
+  .catch((error) => {
     console.error("❌ Error seeding database:", error);
   });

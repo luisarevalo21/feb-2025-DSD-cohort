@@ -1,10 +1,8 @@
-import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, Paper, Typography } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import Spinner from "../Spinner";
 import { Link } from "react-router";
 
-//Defining the columns
 const columns = [
   {
     field: "apartmentNumber",
@@ -12,7 +10,10 @@ const columns = [
     flex: 1,
     minWidth: 150,
     renderCell: (params) => (
-      <a href={`/apartment-details/${params.row.apartmentId}`} className="underline">
+      <a
+        href={`/apartment-details/${params.row.apartmentId}`}
+        className="underline"
+      >
         {params.row.apartmentNumber}
       </a>
     ),
@@ -57,7 +58,7 @@ export default function RenewLeaseTable({ isLoading, renewableLeases }) {
     <Paper sx={{ height: 370, width: "100%" }}>
       <DataGrid
         rows={renewableLeases}
-        columns={columns.map(col => ({
+        columns={columns.map((col) => ({
           ...col,
           align: "center",
           headerAlign: "center",

@@ -9,7 +9,6 @@ export async function fetchApartmentInformation() {
   }
 }
 
-//fetching for the apartment details page
 export async function fetchApartmentDetailsById(id) {
   try {
     const result = await api.get(`/api/apartment/${id}`);
@@ -19,8 +18,6 @@ export async function fetchApartmentDetailsById(id) {
   }
 }
 
-
-//function for using put endpoint for notes and features, works with both
 export async function updateApartmentDetails(id, updatedData) {
   try {
     const result = await api.put(`/api/apartment/${id}`, updatedData);

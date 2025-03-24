@@ -1,4 +1,4 @@
-import { Box, Grid2, Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
@@ -11,7 +11,6 @@ import LeaseDuration from "../../components/leaseDetails/LeaseDuration";
 import LeaseRent from "../../components/leaseDetails/LeaseRent";
 
 const Lease = () => {
-  // Id took from the URL parameters, used to fetch the specific item
   const { id } = useParams();
   const [lease, setLease] = useState(null);
 
@@ -32,12 +31,20 @@ const Lease = () => {
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p: 2 }}>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p: 2 }}
+    >
       <Button
         component={Link}
         to={`/lease-details/${id}`}
         variant="contained"
-        sx={{ display: "flex", marginLeft: "auto", marginBottom: "5px", width: "15%", p: 1 }}
+        sx={{
+          display: "flex",
+          marginLeft: "auto",
+          marginBottom: "5px",
+          width: "15%",
+          p: 1,
+        }}
       >
         View PDF
       </Button>
@@ -56,7 +63,10 @@ const Lease = () => {
         <LeaseTenantDetails tenant={lease.tenantInformation} />
       </Box>
 
-      <LeaseDuration startDate={lease.leaseStartDate} endDate={lease.leaseEndDate} />
+      <LeaseDuration
+        startDate={lease.leaseStartDate}
+        endDate={lease.leaseEndDate}
+      />
 
       <LeaseRent rent={lease.monthlyRent} />
     </Box>

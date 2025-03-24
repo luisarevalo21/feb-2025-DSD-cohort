@@ -127,7 +127,6 @@ const LoginForm = () => {
   );
 };
 
-// Zod schema to validate inputs and display error messages
 const loginSchema = z.object({
   email: z
     .string()

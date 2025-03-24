@@ -1,21 +1,21 @@
 import { Box, Typography } from "@mui/material";
-import Grid from '@mui/material/Grid2';
-import ComplaintCard from '../components/ComplaintCard';
+import Grid from "@mui/material/Grid2";
+import ComplaintCard from "../components/ComplaintCard";
 import { useQuery } from "@tanstack/react-query";
 import api from "../api";
 
-
 const Complaints = () => {
   const { isPending, error, data } = useQuery({
-    queryKey: ['repoData'],
+    queryKey: ["repoData"],
     queryFn: async () => {
-      const result = await api.get('/api/complaints')
+      const result = await api.get("/api/complaints");
       return result.data;
-    }
-  })
-  if (isPending) return <Typography>Loading...</Typography>
+    },
+  });
+  if (isPending) return <Typography>Loading...</Typography>;
 
-  if (error) return <Typography>An error has occurred:  {error.message} </Typography>
+  if (error)
+    return <Typography>An error has occurred: {error.message} </Typography>;
   return (
     <Box>
       <Typography
@@ -26,7 +26,6 @@ const Complaints = () => {
         Tenant Complaints
       </Typography>
 
-      {/* Scrollable grid of complaint cards */}
       <Grid
         container
         spacing={2}
