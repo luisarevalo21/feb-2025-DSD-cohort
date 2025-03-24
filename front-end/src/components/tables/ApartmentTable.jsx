@@ -41,7 +41,7 @@ const columns = [
       params.row.leaseStatus === "Vacant" ? (
         <span>{params.row.leaseStatus}</span>
       ) : (
-        <Link to={`/lease/${params.row.leaseId}`} className="underline">
+        <Link to={`/lease-details/${params.row.leaseId}`} className="underline">
           {params.row.leaseStatus}
         </Link>
       ),
@@ -77,7 +77,7 @@ const columns = [
           {params.row.leaseStatus === "Vacant" ? (
             <Button
               component={Link}
-              to={"/create-lease"}
+              to={`/create-lease/${params.row.id}`}
               color="primary"
               variant="contained"
             >
@@ -86,7 +86,7 @@ const columns = [
           ) : daysUntilEnd < 30 ? (
             <Button
               component={Link}
-              to={"/create-lease"}
+              to={`/renew-lease/${params.row.leaseId}`}
               color="warning"
               variant="contained"
             >
