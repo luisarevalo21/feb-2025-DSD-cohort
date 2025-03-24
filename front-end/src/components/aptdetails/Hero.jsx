@@ -2,6 +2,7 @@ import { Box, Typography, Divider, Grid2, IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
+import { Link } from "react-router";
 
 const Hero = ({ apartmentData }) => {
     const parseAddress = (fullAddress) => {
@@ -23,8 +24,10 @@ const Hero = ({ apartmentData }) => {
     const {
         id,
         apartmentNumber,
+        leaseId,
         leaseStatus = "No Status",
         leaseEndDate,
+        tenantId,
         tenantName,
         floorPlanImg,
         apartmentAddress
@@ -35,7 +38,7 @@ const Hero = ({ apartmentData }) => {
     //for the modal
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const statusColor = leaseStatus === "Occupied" ? "red" : "green";
+    const statusColor = leaseStatus === "Vacant" || leaseStatus === "Pending" ? "red" : "green";
 
     const leaseEnd = new Date(leaseEndDate);
     const today = new Date();
@@ -70,17 +73,35 @@ const Hero = ({ apartmentData }) => {
                     <Grid2 size={{ xs: 12, md: 5 }} sx={{ p:2, mt:3}}>
                         <Typography variant="h5" sx={{ mb: 1 }}>
                             <strong>Status: </strong>
-                            <span style={{ color: statusColor }}>{leaseStatus}</span>
+                            { leaseId ? (
+                                <Link to={`/lease/${leaseId}`} className="underline">
+                                    <span style={{ color: statusColor }}>{leaseStatus}</span>
+                                </Link>
+                                ) : (
+                                <span style={{ color: statusColor }}>{leaseStatus}</span>
+                                )}
+                            
                         </Typography>
                         
                         <Typography variant="h5" sx={{ mb: 1 }}>
                             <strong>Lease Expires: </strong>
-                            <span style={{ color: leaseExpirationColor }}>{leaseEndDate}</span>
+                            { leaseEndDate ? (
+                                <span style={{ color: leaseExpirationColor }}>{leaseEndDate}</span>
+                            ) : (
+                                <span style={{ color: "black" }}>N/A</span>
+                            )}
+                            
                         </Typography>
 
                         <Typography variant="h5" sx={{ mb: 1 }}>
                             <strong>Current Occupant: </strong>
-                            <span style={{ color: "green" }}>{tenantName}</span>
+                            { tenantId ? (
+                                <Link to={`/tenant-details/${tenantId}`} className="underline">
+                                    <span style={{ color: "green" }}>{tenantName}</span>
+                                </Link>
+                                ) : (
+                                <span style={{ color: "black" }}>N/A</span>
+                                )}
                         </Typography>
                     </Grid2>
 
