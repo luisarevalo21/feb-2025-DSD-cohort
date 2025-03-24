@@ -255,6 +255,28 @@ AppDataSource.initialize()
           apartment_id: 4,
           notes: "Lease renewal under review.",
         },
+        {
+          id: 4,
+          tenant_id: 4,
+          lease_start_date: "2023-09-01",
+          lease_end_date: "2025-06-25",
+          monthly_rent_in_dollars: 2000,
+          apartment_id: 6,
+          signed_at: "2024-4-15",
+          signature: "signed",
+          notes: "Lease is active.",
+        },
+        {
+          id: 5,
+          tenant_id: 5,
+          lease_start_date: "2023-09-01",
+          lease_end_date: "2025-09-25",
+          monthly_rent_in_dollars: 1600,
+          apartment_id: 8,
+          signed_at: "2024-4-15",
+          signature: "signed",
+          notes: "Lease is active",
+        },
       ]);
       console.log("✅ Lease table seeded.");
     } else {
@@ -264,6 +286,8 @@ AppDataSource.initialize()
     await tenantRepo.update({ id: 1 }, { lease_id: 1 });
     await tenantRepo.update({ id: 2 }, { lease_id: 2 });
     await tenantRepo.update({ id: 3 }, { lease_id: 3 });
+    await tenantRepo.update({ id: 4 }, { lease_id: 4 });
+    await tenantRepo.update({ id: 5 }, { lease_id: 5 });
 
     // // --------- Seed Complaint Table --------- //
     const complaintRepo = AppDataSource.getRepository(Complaint);
