@@ -1,8 +1,8 @@
-import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import Spinner from "../Spinner";
+import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router";
+import Spinner from "../Spinner";
 
 const columns = [
   {
@@ -39,7 +39,7 @@ const columns = [
     renderCell: (params) => (
       <Button
         component={Link}
-        to={`/lease/${params.row.leaseId}`}
+        to={`/lease-details/${params.row.id}`}
         variant="contained"
         color="warning"
       >

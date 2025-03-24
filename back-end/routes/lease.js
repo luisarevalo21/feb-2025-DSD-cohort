@@ -25,8 +25,9 @@ router.get("/renewals", async (req, res, next) => {
 
         if (calculateLeaseExpiration(lease.lease_end_date)) {
           return {
-            id: lease.id,
+            id: lease.apartment_id,
             leaseId: lease.id,
+            tenantId: lease.tenant_id,
             apartmentNumber: apartment.apartment_number,
             tenantName: `${tenant.first_name} ${tenant.last_name}`,
             leaseEnd: new Date(lease.lease_end_date).toLocaleDateString("en"),
@@ -78,6 +79,54 @@ router.get("/pendingLeases", async (req, res, next) => {
     }
 
     return res.status(200).json(pendingLeases);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.get("/renew/:leaseId", async (req, res, next) => {
+  const leaseId = req.params.leaseId;
+
+  try {
+    const lease = await AppDataSource.manager.findOne(Lease, {
+      where: { id: leaseId },
+    });
+
+    if (!lease) {
+      return next(new Error("Lease not found."));
+    }
+
+    const { monthly_rent_in_dollars, notes } = lease;
+
+    return res.status(200).json({ monthly_rent_in_dollars, notes });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.put("/renew/:leaseId", async (req, res, next) => {
+  const leaseId = req.params.leaseId;
+  const renewChanges = req.body;
+
+  try {
+    const currentLease = await AppDataSource.manager.findOne(Lease, {
+      where: { id: leaseId },
+    });
+
+    if (!currentLease) {
+      return next(new Error("Lease not found."));
+    }
+
+    if (renewChanges.notes === "") {
+      delete renewChanges.notes;
+    }
+
+    await AppDataSource.manager.save(Lease, {
+      ...currentLease,
+      ...renewChanges,
+    });
+
+    return res.status(200).json({ message: "Lease renewed successfully" });
   } catch (error) {
     return next(error);
   }

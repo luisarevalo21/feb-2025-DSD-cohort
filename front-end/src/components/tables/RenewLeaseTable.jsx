@@ -1,7 +1,7 @@
-import { DataGrid } from "@mui/x-data-grid";
 import { Button, Paper } from "@mui/material";
-import Spinner from "../Spinner";
+import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router";
+import Spinner from "../Spinner";
 
 const columns = [
   {
@@ -10,10 +10,7 @@ const columns = [
     flex: 1,
     minWidth: 150,
     renderCell: (params) => (
-      <a
-        href={`/apartment-details/${params.row.apartmentId}`}
-        className="underline"
-      >
+      <a href={`/apartment-details/${params.row.id}`} className="underline">
         {params.row.apartmentNumber}
       </a>
     ),
@@ -35,10 +32,10 @@ const columns = [
     headerName: "Status",
     flex: 2,
     width: 150,
-    renderCell: () => (
+    renderCell: (params) => (
       <Button
         component={Link}
-        to={"/create-lease"}
+        to={`/renew-lease/${params.row.leaseId}`}
         color="warning"
         variant="contained"
       >
@@ -54,6 +51,7 @@ export default function RenewLeaseTable({ isLoading, renewableLeases }) {
   if (isLoading) {
     return <Spinner />;
   }
+
   return (
     <Paper sx={{ height: 370, width: "100%" }}>
       <DataGrid
