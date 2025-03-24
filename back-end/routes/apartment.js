@@ -6,7 +6,6 @@ const AppDataSource = require("../database/data-source");
 const {
   calculateLeaseExpiration,
 } = require("../utilis/calculateLeaseExpiration");
-const tenant = require("../database/entities/tenant");
 const { determineLeaseStatus } = require("../utilis/determineLeaseStatus");
 router.get("/", async (req, res, next) => {
   try {
