@@ -3,30 +3,33 @@ import { Box, Typography, TextField, Paper, Button } from '@mui/material';
 import Grid2 from '@mui/material/Grid2';
 import DeleteAccountFlow from '../components/DeleteAccountFlow';
 import toast from 'react-hot-toast';
-import { fetchCurrentUser } from '../api/userApi';
+import { useQuery } from '@tanstack/react-query';
+import api from '../api';
 
 
 const AccountSettings = () => {
-    const [email, setEmail] = useState('admin@example.com');
+    const [email, setEmail] = useState('');
     const [tempEmail, setTempEmail] = useState('');
     const [propertyName, setPropertyName] = useState('Unnamed Property');
     const [tempPropertyName, setTempPropertyName] = useState('');
-    const [firstName, setFirstName] = useState('John');
-    const [lastName, setLastName] = useState('Doe');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+
+    const { isLoading, data: user, error } = useQuery({
+        queryKey: ['user'],
+        queryFn: () => api.get('/users/me').then((res) => res.data.user),
+    });
     
     useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const userInfo = await fetchCurrentUser();
-                setEmail(userInfo.email);
-                setFirstName(userInfo.first_name);
-                setLastName(userInfo.last_name);
-            } catch (error) {
-                toast.error("Failed to fetch user info. Please try again later.");
-            }
-        };
-        fetchUserInfo();
-    }, []);
+        if (user) {
+            setEmail(user.email);
+            setFirstName(user.first_name);
+            setLastName(user.last_name);
+        }
+        if (error) {
+            toast.error('Failed to fetch user info. Please try again later.');
+        }
+    }, [user, error]);
         
     const handleEmailSave = (e) => {
         setEmail(tempEmail);
