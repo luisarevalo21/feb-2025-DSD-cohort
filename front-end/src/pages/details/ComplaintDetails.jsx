@@ -129,13 +129,15 @@ const ComplaintDetails = () => {
           </CardContent>
 
           <CardActions sx={{ justifyContent: "flex-end", p: 2 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSolveIssue}
-            >
-              Solve Issue
-            </Button>
+            {complaint?.status !== "Resolved" && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSolveIssue}
+              >
+                Solve Issue
+              </Button>
+            )}
           </CardActions>
         </Card>
       </Box>
