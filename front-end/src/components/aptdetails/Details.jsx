@@ -23,7 +23,6 @@ const Details = ({ apartmentData }) => {
 
       <Divider sx={{ bgcolor: "#ede7f6", my: 2 }} />
 
-      <Typography variant="h4">Layout: {floorPlanName}</Typography>
       <Typography variant="h4">Sq. Ft: {squareFootage}</Typography>
       <Typography variant="h4">Beds: {bedrooms}</Typography>
       <Typography variant="h4">Baths: {bathrooms}</Typography>
