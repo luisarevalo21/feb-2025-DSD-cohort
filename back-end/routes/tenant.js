@@ -70,7 +70,9 @@ router.post("/", async (req, res, next) => {
     return res.status(200).json("no data found");
   }
 
-  const foundTenant = await AppDataSource.manager.findOne(Tenant, { where: { email: tenantDetails.email } });
+  const foundTenant = await AppDataSource.manager.findOne(Tenant, {
+    where: { email: tenantDetails.email },
+  });
 
   if (foundTenant) {
     return res.status(200).json({ message: "tenant already exists" });

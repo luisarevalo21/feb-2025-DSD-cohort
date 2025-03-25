@@ -36,6 +36,14 @@ export async function fetchLeaseDetails(leaseId) {
   }
 }
 
+export async function signLease(leaseId, checked) {
+  try {
+    const result = await api.put(`/api/lease/signLease/${leaseId}`, { signature: checked });
+    return result;
+  } catch (err) {
+    return err;
+  }
+}
 export async function fetchLeaseRenewal(leaseId) {
   try {
     const result = await api.get(`/api/lease/renew/${leaseId}`);

@@ -1,12 +1,18 @@
-// This file is used to configure the database connection for TypeORM.
 const Admin = require("./database/entities/admin");
 const Lease = require("./database/entities/lease");
 const Apartment = require("./database/entities/apartment");
 const Tenant = require("./database/entities/tenant");
 const Complaint = require("./database/entities/complaint");
 
-const { DB_USER, DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE, NODE_ENV } =
-  process.env;
+const {
+  DB_USER,
+  DB_HOST,
+  DB_PORT,
+  DB_USERNAME,
+  DB_PASSWORD,
+  DB_DATABASE,
+  NODE_ENV,
+} = process.env;
 
 module.exports = {
   name: NODE_ENV === "production" ? undefined : "default",

@@ -17,7 +17,7 @@ router.post("/logout", function (req, res, next) {
 });
 
 router.post("/login", function (req, res, next) {
-  passport.authenticate("local", (err, user, info, status) => {
+  passport.authenticate("local", (err, user) => {
     if (err) return next(err);
     else {
       req.logIn(user, function () {
@@ -30,7 +30,6 @@ router.post("/login", function (req, res, next) {
 router.post("/signup", async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
 
-  //If any fields are missing, for now throw a general error to error handling middleware in app.js. As a seperate later task we can add in a validation library.
   if (!firstName || !lastName || !email || !password) {
     return next(new Error("Missing required fields"));
   }
@@ -55,7 +54,6 @@ router.post("/signup", async (req, res, next) => {
 
     await AppDataSource.manager.save(admin, newUser);
 
-    //Logs in the user with passport's req.logIn method.
     req.logIn(newUser, (err) => {
       if (err) return next(err);
 

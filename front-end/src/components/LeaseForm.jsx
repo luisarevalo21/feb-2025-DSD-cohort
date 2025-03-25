@@ -55,7 +55,6 @@ const LeaseForm = ({ setActiveStep, tenantFormData, apartmentId }) => {
   });
 
   const onSubmit = async (leaseFormData) => {
-    setActiveStep((prevStep) => prevStep + 1);
     mutate({ ...tenantFormData, ...leaseFormData });
   };
 
@@ -68,7 +67,7 @@ const LeaseForm = ({ setActiveStep, tenantFormData, apartmentId }) => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Grid2 container spacing={2}>
           <Grid2 item xs={6} size={6}>
-            {/* Controller needed to manage the mui input state via react hook form with custom error element */}
+            {/* Controllers needed to manage the mui input state via react hook form with custom error element */}
             <Controller
               name="lease_start_date"
               control={control}
@@ -89,7 +88,6 @@ const LeaseForm = ({ setActiveStep, tenantFormData, apartmentId }) => {
             </p>
           </Grid2>
           <Grid2 item xs={6} size={6}>
-            {/* Controller needed to manage the mui input state via react hook form with custom error element */}
             <Controller
               name="lease_end_date"
               control={control}

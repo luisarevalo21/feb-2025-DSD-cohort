@@ -1,4 +1,4 @@
-import { Box, Typography, Divider, Grid2, IconButton } from "@mui/material";
+import { Box, Typography, Grid2, IconButton } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useState } from "react";
 import Dialog from "@mui/material/Dialog";
@@ -37,7 +37,6 @@ const Hero = ({ apartmentData }) => {
   const { address1, address2, address3, address4 } =
     parseAddress(apartmentAddress);
 
-  //for the modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const statusColor =
@@ -59,7 +58,6 @@ const Hero = ({ apartmentData }) => {
         }}
       >
         <Grid2 container>
-          {/* Left section  */}
           <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 2, position: "relative" }}>
             <Typography variant="body1">ID: {id}</Typography>
 
@@ -137,7 +135,6 @@ const Hero = ({ apartmentData }) => {
         </Grid2>
       </Box>
 
-      {/* Dialog/modal for enlarged image */}
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <img
           src={floorPlanImg}

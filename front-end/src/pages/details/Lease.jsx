@@ -1,43 +1,32 @@
 import { Box, Button } from "@mui/material";
+import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate, useLocation } from "react-router";
+import { Link } from "react-router";
 import { fetchLeaseDetails } from "../../api/leaseApi";
 import Spinner from "../../components/Spinner";
-import LeaseApartmentDetails from "../../components/leaseDetails/LeaseApartmentDetails";
 import LeaseDetailsHeader from "../../components/leaseDetails/LeaseDetailsHeader";
+import LeaseApartmentDetails from "../../components/leaseDetails/LeaseApartmentDetails";
+import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
 import LeaseDuration from "../../components/leaseDetails/LeaseDuration";
 import LeaseRent from "../../components/leaseDetails/LeaseRent";
-import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
-import toast from "react-hot-toast";
+
 const Lease = () => {
   const { id } = useParams();
   const [lease, setLease] = useState(null);
-  const location = useLocation();
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchLeaseInfo() {
       try {
-        // if (location.state && location.state.message) {
-        //   toast.success("Lease signed successfully");
-        // }
         const lease = await fetchLeaseDetails(id);
-        if (lease?.response?.data?.message === "Lease not found.") {
-          return navigate("/not-found");
-        }
         setLease(lease);
-        setIsLoading(false);
       } catch (err) {
         return err;
-      } finally {
-        setIsLoading(false);
       }
     }
     fetchLeaseInfo(id);
-  }, [id, navigate]);
+  }, [id]);
 
-  if (isLoading) {
+  if (!lease) {
     return <Spinner />;
   }
 
@@ -47,7 +36,7 @@ const Lease = () => {
     >
       <Button
         component={Link}
-        to={`/lease-pdf-details/${id}`}
+        to={`/lease-details/${id}`}
         variant="contained"
         sx={{
           display: "flex",
@@ -60,7 +49,7 @@ const Lease = () => {
         View PDF
       </Button>
 
-      <LeaseDetailsHeader status={lease?.leaseStatus} />
+      <LeaseDetailsHeader status={lease.leaseStatus} />
 
       <Box
         sx={{
@@ -70,16 +59,16 @@ const Lease = () => {
           p: 2,
         }}
       >
-        <LeaseApartmentDetails apartment={lease?.apartmentInformation} />
-        <LeaseTenantDetails tenant={lease?.tenantInformation} />
+        <LeaseApartmentDetails apartment={lease.apartmentInformation} />
+        <LeaseTenantDetails tenant={lease.tenantInformation} />
       </Box>
 
       <LeaseDuration
-        startDate={lease?.leaseStartDate}
-        endDate={lease?.leaseEndDate}
+        startDate={lease.leaseStartDate}
+        endDate={lease.leaseEndDate}
       />
 
-      <LeaseRent rent={lease?.monthlyRent} />
+      <LeaseRent rent={lease.monthlyRent} />
     </Box>
   );
 };
