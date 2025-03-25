@@ -64,7 +64,7 @@ const SideNavigation = () => {
           overflowX: "hidden",
           transition: "width 0.3s",
           boxShadow: "2px 5px 10px #4A5460",
-          backgroundColor: "#697A21",
+          backgroundColor: "#206129",
         },
       }}
     >

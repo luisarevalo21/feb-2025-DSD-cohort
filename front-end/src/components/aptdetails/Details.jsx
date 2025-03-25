@@ -1,4 +1,11 @@
-import { Typography, Grid2, Card, CardContent } from "@mui/material";
+import {
+  Typography,
+  Grid2,
+  Card,
+  CardContent,
+  Box,
+  Divider,
+} from "@mui/material";
 import React from "react";
 
 // const Details = ({ apartmentData }) => {

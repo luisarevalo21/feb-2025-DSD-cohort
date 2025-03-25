@@ -1,5 +1,5 @@
-import { Grid2, Typography } from "@mui/material";
-import apartmentPhoto from "../assets/ApartmentPhoto.jpeg";
+import { Grid2 } from "@mui/material";
+import logo1 from "../assets/dwellify-high-resolution-logo.png";
 
 import SignupForm from "../components/SignupForm";
 
@@ -15,18 +15,7 @@ const Register = () => {
       </Grid2>
       <Grid2 size={{ xs: 12, md: 6 }}>
         <div className="h-full flex flex-col items-center justify-center p-6 login-page-right">
-          <h1
-            className="login-font"
-            // component="h1"
-            // sx={{
-            //   fontWeight: "bold",
-            //   fontSize: "2rem",
-            //   color: "white",
-            //   marginBottom: "1rem",
-            // }}
-          >
-            Signup
-          </h1>
+          <h1 className="login-font">Signup</h1>
           <SignupForm />
         </div>
       </Grid2>
