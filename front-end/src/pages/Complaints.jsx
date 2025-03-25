@@ -1,18 +1,20 @@
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import ComplaintCard from "../components/ComplaintCard";
 import { useQuery } from "@tanstack/react-query";
 import api from "../api";
+import ComplaintCard from "../components/ComplaintCard";
+import Spinner from "../components/Spinner";
 
 const Complaints = () => {
   const { isPending, error, data } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["complaints"],
     queryFn: async () => {
       const result = await api.get("/api/complaints");
       return result.data;
     },
   });
-  if (isPending) return <Typography>Loading...</Typography>;
+
+  if (isPending) return <Spinner />;
 
   if (error)
     return <Typography>An error has occurred: {error.message} </Typography>;
