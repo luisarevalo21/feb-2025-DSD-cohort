@@ -10,32 +10,42 @@ import DrawIcon from "@mui/icons-material/Draw";
 import { signLease, fetchLeaseDetails } from "../api/leaseApi";
 import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 function LeaseView() {
   const { id } = useParams();
   const [lease, setLease] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchLeaseInfo() {
       try {
         const lease = await fetchLeaseDetails(id);
         setLease(lease);
+        setIsLoading(false);
       } catch (err) {
         return err;
+      } finally {
+        setIsLoading(false);
       }
     }
+
     fetchLeaseInfo(id);
   }, [id]);
 
-  if (!lease) {
+  if (isLoading) {
     return <Spinner />;
   }
   const handleSubmitForm = async e => {
     e.preventDefault();
     if (lease.leaseStatus !== "Active") {
-      await signLease(lease.leaseId, true);
-      navigate(`/lease-details/${lease.leaseId}`, {
-        state: { message: "Lease signed successfully" },
-      });
+      const response = await signLease(lease.leaseId, true);
+
+      console.log(response);
+      if (response) {
+        navigate(`/lease-details/${lease.leaseId}`, {
+          state: { message: "Lease signed successfully" },
+        });
+      } else toast.error("Error signing lease");
     }
   };
   return (
