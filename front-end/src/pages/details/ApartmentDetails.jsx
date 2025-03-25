@@ -12,6 +12,7 @@ import floorPlan3 from "../../assets/floorplans/floorplan3.png";
 import floorPlan4 from "../../assets/floorplans/floorplan4.png";
 import floorPlan5 from "../../assets/floorplans/floorplan5.png";
 import Spinner from "../../components/Spinner";
+import toast from "react-hot-toast";
 
 const ApartmentDetails = () => {
   const { id } = useParams();
@@ -36,10 +37,14 @@ const ApartmentDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchApartmentDetailsById(id);
+        const response = await fetchApartmentDetailsById(id);
         const randIndex = Math.floor(Math.random() * floorPlans.length);
+        if (response.status !== 200) {
+          toast.error("Failed to fetch apartment details");
+          return;
+        }
         setApartmentData({
-          ...data,
+          ...response.data,
           floorPlanImg: floorPlans[randIndex],
           id: id,
           floorPlanName: floorPlanNames[randIndex],
@@ -70,7 +75,7 @@ const ApartmentDetails = () => {
   }
 
   if (!apartmentData) {
-    return <div>Error loading apartment data</div>;
+    return <div>Error loading apartment data from apartment with id: {id}</div>;
   }
 
   return (

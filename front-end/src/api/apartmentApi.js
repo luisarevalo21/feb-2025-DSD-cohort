@@ -12,7 +12,7 @@ export async function fetchApartmentInformation() {
 export async function fetchApartmentDetailsById(id) {
   try {
     const result = await api.get(`/api/apartment/${id}`);
-    return result.data;
+    return result;
   } catch (err) {
     return err;
   }
