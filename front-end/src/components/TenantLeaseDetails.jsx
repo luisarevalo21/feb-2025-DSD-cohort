@@ -17,7 +17,7 @@ const TenantLeaseDetails = ({ tenant }) => {
           <Grid2 container spacing={2} padding={2}>
             <Grid2 size={{ xs: 12, md: 6 }}>
               <p>
-                Apartment Number:
+                <strong>Apartment Number: </strong>
                 <Link
                   className="underline"
                   to={`/apartment-details/${tenant.apartment.apartmentId}`}
