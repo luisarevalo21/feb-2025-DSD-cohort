@@ -8,34 +8,41 @@ import LeaseDetailsHeader from "../../components/leaseDetails/LeaseDetailsHeader
 import LeaseDuration from "../../components/leaseDetails/LeaseDuration";
 import LeaseRent from "../../components/leaseDetails/LeaseRent";
 import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
-
+import { useLocation } from "react-router";
+import toast from "react-hot-toast";
 const Lease = () => {
   const { id } = useParams();
   const [lease, setLease] = useState(null);
+  const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchLeaseInfo() {
       try {
+        // if (location.state && location.state.message) {
+        //   toast.success("Lease signed successfully");
+        // }
         const lease = await fetchLeaseDetails(id);
         setLease(lease);
+        setIsLoading(false);
       } catch (err) {
         return err;
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchLeaseInfo(id);
   }, [id]);
 
-  if (!lease) {
+  if (isLoading) {
     return <Spinner />;
   }
 
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p: 2 }}
-    >
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p: 2 }}>
       <Button
         component={Link}
-        to={`/lease-details/${id}`}
+        to={`/lease-pdf-details/${id}`}
         variant="contained"
         sx={{
           display: "flex",
@@ -62,10 +69,7 @@ const Lease = () => {
         <LeaseTenantDetails tenant={lease.tenantInformation} />
       </Box>
 
-      <LeaseDuration
-        startDate={lease.leaseStartDate}
-        endDate={lease.leaseEndDate}
-      />
+      <LeaseDuration startDate={lease.leaseStartDate} endDate={lease.leaseEndDate} />
 
       <LeaseRent rent={lease.monthlyRent} />
     </Box>
