@@ -2,7 +2,7 @@ import { Button, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router";
 import Spinner from "../Spinner";
-// Columns Definition
+
 const columns = [
   {
     field: "apartmentNumber",
@@ -24,7 +24,10 @@ const columns = [
       params.row.tenantName === "Vacant" ? (
         <span>{params.row.tenantName}</span>
       ) : (
-        <Link to={`/tenant-details/${params.row.tenantId}`} className="underline">
+        <Link
+          to={`/tenant-details/${params.row.tenantId}`}
+          className="underline"
+        >
           {params.row.tenantName}
         </Link>
       ),
@@ -38,7 +41,7 @@ const columns = [
       params.row.leaseStatus === "Vacant" ? (
         <span>{params.row.leaseStatus}</span>
       ) : (
-        <Link to={`/lease/${params.row.leaseId}`} className="underline">
+        <Link to={`/lease-details/${params.row.leaseId}`} className="underline">
           {params.row.leaseStatus}
         </Link>
       ),
@@ -63,7 +66,6 @@ const columns = [
     flex: 1,
     minWidth: 200,
     disableColumnMenu: true,
-    // Customizes the content of this column based on lease status
     renderCell: (params) => {
       const leaseEndDate = new Date(params.row.leaseEnd);
       const today = new Date();
@@ -74,7 +76,7 @@ const columns = [
           {params.row.leaseStatus === "Vacant" ? (
             <Button
               component={Link}
-              to={"/create-lease"}
+              to={`/create-lease/${params.row.id}`}
               color="primary"
               variant="contained"
             >
@@ -83,7 +85,7 @@ const columns = [
           ) : daysUntilEnd < 30 ? (
             <Button
               component={Link}
-              to={"/create-lease"}
+              to={`/renew-lease/${params.row.leaseId}`}
               color="warning"
               variant="contained"
             >
@@ -106,7 +108,7 @@ const ApartmentTable = ({ isLoading, apartmentInfo }) => {
     <Paper>
       <DataGrid
         rows={apartmentInfo}
-        columns={columns.map(col => ({
+        columns={columns.map((col) => ({
           ...col,
           align: "center",
           headerAlign: "center",

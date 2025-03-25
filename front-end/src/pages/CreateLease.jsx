@@ -1,31 +1,43 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Button, TextField, Box, Stepper, Step, StepLabel, LinearProgress, Grid2, Paper, Typography } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  LinearProgress,
+  Grid2,
+  Paper,
+  Typography,
+} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker"; 
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"; 
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"; 
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { createLease } from "../api/leaseApi";
 
 const darkTheme = createTheme({
   palette: {
     primary: {
-      main: "#000000", 
+      main: "#000000",
     },
   },
 });
 
-// Zod schema for tenant details
 const tenantSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email").min(1, "Email is required"),
-  phone: z.string().min(10, "Phone number is required").max(15, "Phone number is too long"),
+  phone: z
+    .string()
+    .min(10, "Phone number is required")
+    .max(15, "Phone number is too long"),
 });
 
-// Zod schema for lease details
 const leaseSchema = z.object({
   rentAmount: z.number().min(1, "Rent amount is required"),
   apartmentNumber: z.string().min(1, "Apartment number is required"),
@@ -66,22 +78,20 @@ const CreateLease = () => {
     },
   });
 
-  // Form Steps for Tenant and Lease Forms
   const steps = ["Enter Tenant Details", "Enter Lease Details"];
 
-  const onSubmitTenant = data => {
-    setFormData(prevData => ({ ...prevData, ...data }));
-    setActiveStep(prevStep => prevStep + 1);
+  const onSubmitTenant = (data) => {
+    setFormData((prevData) => ({ ...prevData, ...data }));
+    setActiveStep((prevStep) => prevStep + 1);
   };
 
-  const onSubmitLease = async data => {
-    setFormData(prevData => ({ ...prevData, ...data }));
-    setActiveStep(prevStep => prevStep + 1);
+  const onSubmitLease = async (data) => {
+    setFormData((prevData) => ({ ...prevData, ...data }));
+    setActiveStep((prevStep) => prevStep + 1);
 
     const response = await createLease(formData);
   };
 
-  // Load creattie script when component mounts
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://creattie.com/js/embed.js?id=3f6954fde297cd31b441";
@@ -130,7 +140,9 @@ const CreateLease = () => {
               <DatePicker
                 label="Date of Birth"
                 value={formData.dob || null}
-                onChange={newValue => setFormData({ ...formData, dob: newValue })}
+                onChange={(newValue) =>
+                  setFormData({ ...formData, dob: newValue })
+                }
                 sx={{ width: "100%" }}
                 slotProps={{
                   textField: {
@@ -142,9 +154,20 @@ const CreateLease = () => {
                 }}
               />
             </LocalizationProvider>
-            <TextField label="Additional Info" fullWidth margin="dense" multiline rows={3} {...registerTenant("additionalInfo")} />
+            <TextField
+              label="Additional Info"
+              fullWidth
+              margin="dense"
+              multiline
+              rows={3}
+              {...registerTenant("additionalInfo")}
+            />
             <Box sx={{ textAlign: "right", paddingTop: 1, paddingRight: 2 }}>
-              <Button type="submit" variant="contained" className="!bg-black text-white !text-center ">
+              <Button
+                type="submit"
+                variant="contained"
+                className="!bg-black text-white !text-center "
+              >
                 Next
               </Button>
             </Box>
@@ -153,7 +176,7 @@ const CreateLease = () => {
       case 1:
         return (
           <form
-            onSubmit={handleSubmitLease(data => {
+            onSubmit={handleSubmitLease((data) => {
               onSubmitLease(data);
             })}
           >
@@ -166,9 +189,11 @@ const CreateLease = () => {
                   <DatePicker
                     label="Lease Start Date"
                     value={formData.leaseStartDate || null}
-                    onChange={newValue => setFormData({ ...formData, leaseStartDate: newValue })}
+                    onChange={(newValue) =>
+                      setFormData({ ...formData, leaseStartDate: newValue })
+                    }
                     sx={{ width: "100%" }}
-                    renderInput={params => (
+                    renderInput={(params) => (
                       <TextField
                         {...params}
                         error={!!leaseErrors.leaseStartDate}
@@ -184,9 +209,11 @@ const CreateLease = () => {
                   <DatePicker
                     label="Lease End Date"
                     value={formData.leaseEndDate || null}
-                    onChange={newValue => setFormData({ ...formData, leaseEndDate: newValue })}
+                    onChange={(newValue) =>
+                      setFormData({ ...formData, leaseEndDate: newValue })
+                    }
                     sx={{ width: "100%" }}
-                    renderInput={params => (
+                    renderInput={(params) => (
                       <TextField
                         {...params}
                         error={!!leaseErrors.leaseEndDate}
@@ -205,7 +232,7 @@ const CreateLease = () => {
               margin="normal"
               type="number"
               {...registerLease("rentAmount", {
-                setValueAs: value => parseFloat(value) || 0,
+                setValueAs: (value) => parseFloat(value) || 0,
               })}
               error={!!leaseErrors.rentAmount}
               helperText={leaseErrors.rentAmount?.message}
@@ -259,7 +286,11 @@ const CreateLease = () => {
                 </Step>
               ))}
             </Stepper>
-            <LinearProgress variant="determinate" value={(activeStep / steps.length) * 100} sx={{ marginBottom: 2, marginTop: 2 }} />
+            <LinearProgress
+              variant="determinate"
+              value={(activeStep / steps.length) * 100}
+              sx={{ marginBottom: 2, marginTop: 2 }}
+            />
             {renderFormStep()}
           </Paper>
         </Grid2>
