@@ -23,7 +23,6 @@ const Hero = ({ apartmentData }) => {
   };
 
   const {
-    id,
     apartmentNumber,
     leaseId,
     leaseStatus = "No Status",

@@ -1,7 +1,7 @@
 import { Box, Typography, Divider } from "@mui/material";
 
 const Details = ({ apartmentData }) => {
-  const { floorPlanName, squareFootage, bedrooms, bathrooms, floor } =
+  const { squareFootage, bedrooms, bathrooms, floor } =
     apartmentData;
 
   return (
