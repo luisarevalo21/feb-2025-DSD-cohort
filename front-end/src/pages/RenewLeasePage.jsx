@@ -61,7 +61,7 @@ const LeaseRenewPage = () => {
     resolver: zodResolver(leaseSchema),
   });
 
-  const { mutate: sendNewLease } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: ({ leaseId, formData }) => renewLease(leaseId, formData),
     onMutate: () => {
       return <Spinner />;
@@ -76,7 +76,7 @@ const LeaseRenewPage = () => {
   });
 
   const onSubmit = (formData) => {
-    sendNewLease({ leaseId, formData });
+    mutate({ leaseId, formData });
   };
 
   return (

@@ -5,21 +5,26 @@ import api from "../api";
 
 const EnsureAuth = () => {
   const navigate = useNavigate();
-  const isLogged = localStorage.getItem("isLogged");
 
-  const { isLoading, data: user } = useQuery({
+  const {
+    isLoading,
+    error,
+    data: user,
+  } = useQuery({
     queryKey: ["user"],
     queryFn: () => api.get("/users/me").then((res) => res.data.user),
+    retry: false,
   });
 
   useEffect(() => {
-    if (!isLoading && !user) {
+    if ((!isLoading && !user) || error) {
       localStorage.removeItem("isLogged");
       navigate("/");
     }
-  }, [navigate, user, isLoading]);
+  }, [navigate, user, isLoading, error]);
 
-  return isLogged ? <Outlet /> : <Navigate to={"/"} />;
+  if (isLoading) return null;
+  return user ? <Outlet /> : <Navigate to={"/"} />;
 };
 
 export default EnsureAuth;

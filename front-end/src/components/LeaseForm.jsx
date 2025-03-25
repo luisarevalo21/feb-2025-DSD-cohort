@@ -55,7 +55,6 @@ const LeaseForm = ({ setActiveStep, tenantFormData, apartmentId }) => {
   });
 
   const onSubmit = async (leaseFormData) => {
-    setActiveStep((prevStep) => prevStep + 1);
     mutate({ ...tenantFormData, ...leaseFormData });
   };
 
