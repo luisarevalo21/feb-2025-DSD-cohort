@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useParams, useNavigate } from "react-router";
 import { fetchLeaseDetails } from "../../api/leaseApi";
 import Spinner from "../../components/Spinner";
 import LeaseApartmentDetails from "../../components/leaseDetails/LeaseApartmentDetails";
@@ -13,18 +13,24 @@ const Lease = () => {
   // Id took from the URL parameters, used to fetch the specific item
   const { id } = useParams();
   const [lease, setLease] = useState(null);
+  const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchLeaseInfo() {
       try {
         const lease = await fetchLeaseDetails(id);
+        if (lease?.response?.data?.message === "Lease not found.") {
+          return navigate("/lease-not-found");
+        }
         setLease(lease);
       } catch (err) {
         return err;
       }
     }
     fetchLeaseInfo(id);
-  }, [id]);
+  }, [id, navigate]);
 
   if (!lease) {
     return <Spinner />;
@@ -49,7 +55,7 @@ const Lease = () => {
         View PDF
       </Button>
 
-      <LeaseDetailsHeader status={lease.leaseStatus} />
+      <LeaseDetailsHeader status={lease?.leaseStatus} />
 
       <Box
         sx={{
@@ -59,16 +65,16 @@ const Lease = () => {
           p: 2,
         }}
       >
-        <LeaseApartmentDetails apartment={lease.apartmentInformation} />
-        <LeaseTenantDetails tenant={lease.tenantInformation} />
+        <LeaseApartmentDetails apartment={lease?.apartmentInformation} />
+        <LeaseTenantDetails tenant={lease?.tenantInformation} />
       </Box>
 
       <LeaseDuration
-        startDate={lease.leaseStartDate}
-        endDate={lease.leaseEndDate}
+        startDate={lease?.leaseStartDate}
+        endDate={lease?.leaseEndDate}
       />
 
-      <LeaseRent rent={lease.monthlyRent} />
+      <LeaseRent rent={lease?.monthlyRent} />
     </Box>
   );
 };

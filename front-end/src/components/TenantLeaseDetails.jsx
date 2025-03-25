@@ -15,16 +15,19 @@ const TenantLeaseDetails = ({ tenant }) => {
             <Grid2 size={{ xs: 12, md: 6 }}>
               <p>
                 Apartment Number:
-                <Link className="underline" to={`/apartment-details/${tenant.apartment.apartmentId}`}>
-                  {tenant.apartment.apartmentNumber}
+                <Link
+                  className="underline"
+                  to={`/apartment-details/${tenant?.apartment?.apartmentId}`}
+                >
+                  {tenant?.apartment?.apartmentNumber}
                 </Link>
               </p>
-              <p>Monthly Rent: {tenant.leaseInformation.rentAmount}</p>
-              <p>Additional Info:{tenant.leaseInformation.notes}</p>
+              <p>Monthly Rent: {tenant?.leaseInformation?.rentAmount}</p>
+              <p>Additional Info:{tenant?.leaseInformation?.notes}</p>
             </Grid2>
             <Grid2 size={{ xs: 12, md: 6 }}>
-              <p>Lease Start: {tenant.leaseInformation.leaseStartDate}</p>
-              <p>Lease End: {tenant.leaseInformation.leaseEndDate}</p>
+              <p>Lease Start: {tenant?.leaseInformation?.leaseStartDate}</p>
+              <p>Lease End: {tenant?.leaseInformation?.leaseEndDate}</p>
             </Grid2>
           </Grid2>
         </CardContent>

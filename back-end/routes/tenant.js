@@ -26,8 +26,8 @@ router.get("/:tenantId", async (req, res, next) => {
       relations: ["lease", "lease.apartment"],
     });
 
-    if (tenant === null) {
-      return res.status(200).json(null);
+    if (!tenant) {
+      return next(new Error("Tenant not found."));
     }
 
     const tenantInformation = {
