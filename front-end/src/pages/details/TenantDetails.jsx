@@ -17,7 +17,7 @@ const TenantDetails = () => {
       try {
         const tenant = await fetchTenantInformation(id);
         if (tenant?.response?.data?.message === "Tenant not found.") {
-          return navigate("/tenant-not-found");
+          return navigate("/not-found");
         }
         setTenant(tenant);
       } catch (err) {

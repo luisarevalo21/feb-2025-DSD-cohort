@@ -14,7 +14,6 @@ import floorPlan5 from "../../assets/floorplans/floorplan5.png";
 import Spinner from "../../components/Spinner";
 
 const ApartmentDetails = () => {
-  //Id took from the URL parameters, used to fetch the specific items
   const { id } = useParams();
   const floorPlans = [
     floorPlan1,
@@ -39,10 +38,9 @@ const ApartmentDetails = () => {
     const fetchData = async () => {
       try {
         const data = await fetchApartmentDetailsById(id);
-        //get random floor plan image and name
         const randIndex = Math.floor(Math.random() * floorPlans.length);
         if (data?.response?.data?.message === "Apartment not found.") {
-          return navigate("/apartment-not-found");
+          return navigate("/not-found");
         }
         setApartmentData({
           ...data,

@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router";
+import { Link, useParams, useNavigate, useLocation } from "react-router";
 import { fetchLeaseDetails } from "../../api/leaseApi";
 import Spinner from "../../components/Spinner";
 import LeaseApartmentDetails from "../../components/leaseDetails/LeaseApartmentDetails";
@@ -10,7 +10,6 @@ import LeaseRent from "../../components/leaseDetails/LeaseRent";
 import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
 
 const Lease = () => {
-  // Id took from the URL parameters, used to fetch the specific item
   const { id } = useParams();
   const [lease, setLease] = useState(null);
   const location = useLocation();
@@ -22,17 +21,19 @@ const Lease = () => {
       try {
         const lease = await fetchLeaseDetails(id);
         if (lease?.response?.data?.message === "Lease not found.") {
-          return navigate("/lease-not-found");
+          return navigate("/not-found");
         }
         setLease(lease);
       } catch (err) {
         return err;
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchLeaseInfo(id);
   }, [id, navigate]);
 
-  if (!lease) {
+  if (isLoading) {
     return <Spinner />;
   }
 
