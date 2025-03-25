@@ -11,7 +11,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import api from "../api";
 import NavItem from "./NavItem";
 
-//fully expanded sidebar width
 const DRAWER_WIDTH = 240;
 
 const SideNavigation = () => {

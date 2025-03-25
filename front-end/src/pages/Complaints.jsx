@@ -13,6 +13,7 @@ const Complaints = () => {
       return result.data;
     },
   });
+
   if (isPending) return <Spinner />;
 
   if (error)
@@ -27,7 +28,6 @@ const Complaints = () => {
         Tenant Complaints
       </Typography>
 
-      {/* Scrollable grid of complaint cards */}
       <Grid
         container
         spacing={2}

@@ -42,7 +42,6 @@ const ComplaintCard = ({ complaint }) => {
     year: "numeric",
   });
 
-  //Cut down description to 250 chars
   const shortDescription =
     description && description.length > 250
       ? description.slice(0, 250) + "..."

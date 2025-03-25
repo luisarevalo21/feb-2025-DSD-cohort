@@ -94,7 +94,7 @@ const LeaseRenewPage = () => {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <Grid2 container spacing={2}>
                   <Grid2 item xs={6} size={6}>
-                    {/* Controller needed to manage the mui input state via react hook form with custom error element */}
+                    {/* Controllers needed to manage the mui input state via react hook form with custom error element */}
                     <Controller
                       name="lease_start_date"
                       control={control}
@@ -117,7 +117,6 @@ const LeaseRenewPage = () => {
                     </p>
                   </Grid2>
                   <Grid2 item xs={6} size={6}>
-                    {/* Controller needed to manage the mui input state via react hook form with custom error element */}
                     <Controller
                       name="lease_end_date"
                       control={control}

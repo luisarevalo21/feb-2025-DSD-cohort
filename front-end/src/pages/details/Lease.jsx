@@ -1,13 +1,14 @@
 import { Box, Button } from "@mui/material";
+import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link } from "react-router";
 import { fetchLeaseDetails } from "../../api/leaseApi";
 import Spinner from "../../components/Spinner";
-import LeaseApartmentDetails from "../../components/leaseDetails/LeaseApartmentDetails";
 import LeaseDetailsHeader from "../../components/leaseDetails/LeaseDetailsHeader";
+import LeaseApartmentDetails from "../../components/leaseDetails/LeaseApartmentDetails";
+import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
 import LeaseDuration from "../../components/leaseDetails/LeaseDuration";
 import LeaseRent from "../../components/leaseDetails/LeaseRent";
-import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
 
 const Lease = () => {
   const { id } = useParams();

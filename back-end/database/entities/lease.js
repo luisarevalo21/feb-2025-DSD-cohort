@@ -56,7 +56,6 @@ module.exports = new EntitySchema({
     tenant: {
       target: "Tenant",
       type: "one-to-one",
-      //foreign key used to reference the pirmary key of the target entity
       joinColumn: {
         name: "tenant_id",
       },

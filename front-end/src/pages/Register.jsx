@@ -1,7 +1,6 @@
 import { Grid2, Typography } from "@mui/material";
 import apartmentPhoto from "../assets/ApartmentPhoto.jpeg";
 
-
 import SignupForm from "../components/SignupForm";
 
 const Register = () => {

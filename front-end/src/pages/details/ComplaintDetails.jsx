@@ -14,6 +14,7 @@ import {
 import Spinner from "../../components/Spinner";
 
 const ComplaintDetails = () => {
+  
   const { id: complaintId } = useParams();
   const navigate = useNavigate();
 

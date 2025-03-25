@@ -3,7 +3,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router";
 import Spinner from "../Spinner";
 
-//Defining the columns
 const columns = [
   {
     field: "apartmentNumber",
