@@ -6,8 +6,8 @@ module.exports = new EntitySchema({
   columns: {
     id: {
       primary: true,
-      type: "int",
-      generated: true,
+      type: "uuid",
+      generated: "uuid",
     },
     lease_start_date: {
       type: "date",
@@ -34,11 +34,11 @@ module.exports = new EntitySchema({
       nullable: true,
     },
     apartment_id: {
-      type: "int",
+      type: "uuid",
       nullable: false,
     },
     tenant_id: {
-      type: "int",
+      type: "uuid",
       nullable: false,
       unique: true,
     },

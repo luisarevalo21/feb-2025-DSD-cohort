@@ -10,12 +10,12 @@ const LeaseApartmentDetails = ({ apartment }) => {
           Apt. #:{" "}
           <Link
             className="underline"
-            to={`/apartment-details/${apartment.apartmentId}`}
+            to={`/apartment-details/${apartment?.apartmentId}`}
           >
-            {apartment.apartmentNumber}
+            {apartment?.apartmentNumber}
           </Link>
         </p>
-        <p>Address: {apartment.apartmentAddress}</p>
+        <p>Address: {apartment?.apartmentAddress}</p>
       </Grid2>
     </Box>
   );

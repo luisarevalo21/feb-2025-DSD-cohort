@@ -15,7 +15,7 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 import { Link } from "react-router";
 
-const complaintTypeIcons = {
+export const complaintTypeIcons = {
   Noise: <VolumeUpIcon fontSize="small" sx={{ color: "purple" }} />,
   Disturbance: <WarningIcon fontSize="small" sx={{ color: "red" }} />,
   Emergency: <PriorityHighIcon fontSize="small" sx={{ color: "orange" }} />,
@@ -23,7 +23,7 @@ const complaintTypeIcons = {
   Other: <HelpOutlineIcon fontSize="small" sx={{ color: "gray" }} />,
 };
 
-const statusColors = {
+export const statusColors = {
   New: "blue",
   "In Progress": "orange",
   Resolved: "green",

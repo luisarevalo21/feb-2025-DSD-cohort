@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Grid2 } from "@mui/material";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import Hero from "../../components/aptdetails/Hero";
 import Details from "../../components/aptdetails/Details";
 import Features from "../../components/aptdetails/Features";
@@ -32,12 +32,16 @@ const ApartmentDetails = () => {
 
   const [apartmentData, setApartmentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await fetchApartmentDetailsById(id);
         const randIndex = Math.floor(Math.random() * floorPlans.length);
+        if (data?.response?.data?.message === "Apartment not found.") {
+          return navigate("/not-found");
+        }
         setApartmentData({
           ...data,
           floorPlanImg: floorPlans[randIndex],
@@ -52,7 +56,7 @@ const ApartmentDetails = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, navigate]);
 
   if (isLoading) {
     return (

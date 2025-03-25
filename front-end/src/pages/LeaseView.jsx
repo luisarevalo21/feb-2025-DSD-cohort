@@ -1,72 +1,106 @@
-import Button from "@mui/material/Button";
+import React, { useState, useEffect } from "react";
+import { Button, Box, Checkbox, Stack, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { PDFViewer } from "@react-pdf/renderer";
-import { Page, Text, View, Document } from "@react-pdf/renderer";
+import { useParams } from "react-router";
 import SignatureCanvas from "react-signature-canvas";
-import "../styles/LeaseViewStyles.css";
+import LeaseAgreementPdf from "../../lib/LeaseAgreementPdf";
+import Tooltip from "@mui/material/Tooltip";
+import DrawIcon from "@mui/icons-material/Draw";
+import { signLease, fetchLeaseDetails } from "../api/leaseApi";
+import Spinner from "../components/Spinner";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+function LeaseView() {
+  const { id } = useParams();
+  const [lease, setLease] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function fetchLeaseInfo() {
+      try {
+        const lease = await fetchLeaseDetails(id);
+        setLease(lease);
+        setIsLoading(false);
+      } catch (err) {
+        return err;
+      } finally {
+        setIsLoading(false);
+      }
+    }
 
-function LeaseView({ leaseData }) {
-  if (!leaseData) {
-    return <div>No lease data available</div>;
+    fetchLeaseInfo(id);
+  }, [id]);
+
+  if (isLoading) {
+    return <Spinner />;
   }
+  const handleSubmitForm = async e => {
+    e.preventDefault();
+    if (lease.leaseStatus !== "Active") {
+      const response = await signLease(lease.leaseId, true);
 
-  const { tenantInformation } = leaseData;
-
-  const MyDocument = () => (
-    <Document>
-      <Page size="A4" className="page">
-        <Text className="title">Lease Agreement</Text>
-        <View className="section">
-          <Text className="bold-content">Parties Involved:</Text>
-          <Text className="content">
-            Tenant Name : {tenantInformation.tenantName}
-          </Text>
-        </View>
-        <View ClassName="section">
-          <Text className="bold-content">Lease Start Date:</Text>
-          <Text className="content">{leaseData.leaseStartDate}</Text>
-        </View>
-        <View className="section">
-          <Text className="bold-content">Lease End Date:</Text>
-          <Text className="content">
-            {leaseData.leaseEndDate || "December 31, 2025"}
-          </Text>
-        </View>
-        <View className="section">
-          <Text className="bold-content">Rent Amount:</Text>
-          <Text className="content">
-            ${leaseData.rentAmount || "1500"} per month
-          </Text>
-        </View>
-        <View className="section">
-          <Text className="bold-content">Terms and Conditions:</Text>
-          <Text className="content">
-            The tenant agrees to maintain the property in good condition...
-          </Text>
-        </View>
-      </Page>
-    </Document>
-  );
-
+      if (response.status === 200) {
+        toast.success("Lease signed successfully");
+        navigate(`/lease-details/${lease.leaseId}`);
+      } else toast.error("Error signing lease");
+    }
+  };
   return (
-    <div className="layout-container">
-      <h1 className="header">Lease Agreement Preview</h1>
-      <div className="viewer-container">
-        <PDFViewer className="pdf-viewer">
-          <MyDocument />
+    <Box className="p-4 rounded-md">
+      <Box className="h-[600px] w-[90%] mx-auto border border-gray-300 rounded-md overflow-hidden ">
+        <PDFViewer className="w-full h-full " style={{ border: "none", backgroundColor: "white" }}>
+          <LeaseAgreementPdf {...lease} />
         </PDFViewer>
-      </div>
-      <SignatureCanvas
-        penColor="green"
-        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
-      />
+      </Box>
 
-      <div className="button-container">
-        <Button variant="contained" endIcon={<SendIcon />}>
-          Email Lease
-        </Button>
-      </div>
-    </div>
+      {lease.leaseStatus !== "Active" ? (
+        <Box display="flex" justifyContent="center" alignItems="center" flexDirection={"column"}>
+          <Box className="mt-4 flex flex-col gap-4 ml-[5%]">
+            <Box>
+              <p>Please sign the lease agreement below:</p>
+            </Box>
+
+            <Box>
+              <Tooltip
+                title={
+                  <Stack direction="row" alignItems="center">
+                    <DrawIcon fontSize="x-small" />
+                    <Typography variant="body5">Draw signature</Typography>
+                  </Stack>
+                }
+                placement="bottom-start"
+                arrow
+              >
+                <Box>
+                  <SignatureCanvas
+                    penColor="black"
+                    canvasProps={{
+                      width: 400,
+                      height: 80,
+                      className: "border border-black bg-white rounded-md",
+                    }}
+                  />
+                </Box>
+              </Tooltip>
+            </Box>
+
+            <form onSubmit={e => handleSubmitForm(e)}>
+              <Checkbox value={lease.leaseStatus === "Active" ? true : false} />
+              <Button variant="contained" type="submit" endIcon={<SendIcon />}>
+                Sign Lease
+              </Button>
+            </form>
+          </Box>
+        </Box>
+      ) : (
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"} flexDirection={"column"}>
+          <Typography color="green" fontWeight={"bold"} variant="h3">
+            Lease is already signed
+          </Typography>
+        </Box>
+      )}
+    </Box>
   );
 }
 
