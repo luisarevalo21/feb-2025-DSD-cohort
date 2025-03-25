@@ -2,17 +2,21 @@ import { Box, Typography, Grid2 } from "@mui/material";
 
 const LeaseRent = ({ rent }) => {
   return (
-    <Box sx={{ 
-      display: "flex", 
-      flexDirection: "column",
-      justifyContent: 'space-between', 
-      border: 1,
-      p:2 }}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        border: 1,
+        p: 2,
+      }}
     >
       <Typography>Rent</Typography>
-      <Box sx={{ 
-        display: "flex", 
-        justifyContent: 'space-between'}}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
       >
         <Grid2 size={{ xs: 12, md: 20 }}>
           <Typography>Payable on</Typography>

@@ -213,8 +213,6 @@ router.post("/", async (req, res, next) => {
     });
   }
 
-  //check if the dates ranges are correct
-
   const leaseStart = new Date(leaseData.leaseStartDate);
   const leaseEnd = new Date(leaseData.leaseEndDate);
 
@@ -245,7 +243,7 @@ router.post("/", async (req, res, next) => {
 router.post("/new-lease", async (req, res, next) => {
   const leaseData = req.body;
   const apartmentId = req.body.apartmentId;
-  //update the lease for renewals
+
   if (leaseData.leaseId) {
     await AppDataSource.manager.update(Lease, leaseData.leaseId, {
       lease_start_date: leaseData.leaseStartDate,
