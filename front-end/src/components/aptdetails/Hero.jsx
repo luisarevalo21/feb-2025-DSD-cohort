@@ -76,7 +76,7 @@ const Hero = ({ apartmentData }) => {
             <Typography variant="h5" sx={{ mb: 1 }}>
               <strong>Status: </strong>
               {leaseId ? (
-                <Link to={`/lease/${leaseId}`} className="underline">
+                <Link to={`/lease-details/${leaseId}`} className="underline">
                   <span style={{ color: statusColor }}>{leaseStatus}</span>
                 </Link>
               ) : (

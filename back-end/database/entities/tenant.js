@@ -6,8 +6,8 @@ module.exports = new EntitySchema({
   columns: {
     id: {
       primary: true,
-      type: "int",
-      generated: true,
+      type: "uuid",
+      generated: "uuid",
     },
     first_name: {
       type: "varchar",
@@ -33,7 +33,7 @@ module.exports = new EntitySchema({
     },
 
     lease_id: {
-      type: "int",
+      type: "uuid",
       nullable: true,
     },
   },
