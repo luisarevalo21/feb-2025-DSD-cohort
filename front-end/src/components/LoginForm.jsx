@@ -116,7 +116,6 @@ const LoginForm = () => {
           variant="contained"
           disabled={isSubmitting || Object.keys(errors).length > 0}
         >
-          {/* Submit */}
           {isSubmitting ? "Submitting..." : "Login"}
         </Button>
       </Stack>
