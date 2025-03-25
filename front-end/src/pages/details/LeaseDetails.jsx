@@ -14,25 +14,30 @@ const Lease = () => {
   const { id } = useParams();
   const [lease, setLease] = useState(null);
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchLeaseInfo() {
-      if (location.state && location.state.message) {
-        toast.success("Lease signed successfully");
-      }
       try {
+        // if (location.state && location.state.message) {
+        //   toast.success("Lease signed successfully");
+        // }
         const lease = await fetchLeaseDetails(id);
         setLease(lease);
+        setIsLoading(false);
       } catch (err) {
         return err;
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchLeaseInfo(id);
   }, [id]);
 
-  if (!lease) {
+  if (isLoading) {
     return <Spinner />;
   }
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "90vh", p: 2 }}>
       <Button

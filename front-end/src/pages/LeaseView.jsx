@@ -40,11 +40,9 @@ function LeaseView() {
     if (lease.leaseStatus !== "Active") {
       const response = await signLease(lease.leaseId, true);
 
-      console.log(response);
-      if (response) {
-        navigate(`/lease-details/${lease.leaseId}`, {
-          state: { message: "Lease signed successfully" },
-        });
+      if (response.status === 200) {
+        toast.success("Lease signed successfully");
+        navigate(`/lease-details/${lease.leaseId}`);
       } else toast.error("Error signing lease");
     }
   };
@@ -107,12 +105,3 @@ function LeaseView() {
 }
 
 export default LeaseView;
-
-{
-  /* <Box className="px-[5%] pt-2"></Box> */
-}
-{
-  /* <Button variant="contained" endIcon={<SendIcon />} className="!bg-black text-white">
-    Email Lease
-  </Button> */
-}
