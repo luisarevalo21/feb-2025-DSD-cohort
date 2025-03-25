@@ -3,26 +3,33 @@ import TenantLeaseDetails from "../../components/TenantLeaseDetails";
 import TenantProfileDetails from "../../components/TenantProfileDetails";
 import { fetchTenantInformation } from "../../api/tenantApi";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 
 const TenantDetails = () => {
   const [tenant, setTenant] = useState(null);
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchTenantInfo() {
       try {
         const tenant = await fetchTenantInformation(id);
+        if (tenant?.response?.data?.message === "Tenant not found.") {
+          return navigate("/not-found");
+        }
         setTenant(tenant);
       } catch (err) {
         return err;
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchTenantInfo(id);
-  }, [id]);
+  }, [id, navigate]);
 
-  if (!tenant) {
+  if (isLoading) {
     return <Spinner />;
   }
 
