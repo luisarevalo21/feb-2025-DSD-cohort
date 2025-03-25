@@ -39,7 +39,7 @@ const Notes = ({ apartmentData }) => {
   return (
     <Box
       sx={{
-        border: "5px ridge black    ",
+        border: "2px solid black",
         p: 2,
         display: "flex",
         flexDirection: "column",

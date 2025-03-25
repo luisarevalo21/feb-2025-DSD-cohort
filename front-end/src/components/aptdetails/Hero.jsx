@@ -49,7 +49,7 @@ const Hero = ({ apartmentData }) => {
       <Box
         sx={{
           width: "100%",
-          border: "5px ridge black",
+          border: "2px solid black",
           overflow: "hidden",
         }}
       >
