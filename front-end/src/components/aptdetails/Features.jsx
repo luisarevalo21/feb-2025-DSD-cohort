@@ -8,18 +8,15 @@ const Features = ({ apartmentData }) => {
   const { features, id } = apartmentData;
   const initialFeatures = features || [];
 
-  //state for editing
   const [isEditing, setIsEditing] = useState(false);
   const [localFeatures, setLocalFeatures] = useState(initialFeatures);
   const [backupFeatures, setBackupFeatures] = useState(initialFeatures);
 
   const handleEdit = () => {
     setIsEditing(true);
-    //save the current features as a backup in case the user hits the cancel button
     setBackupFeatures(localFeatures);
   };
 
-  //handler for changing features. Will be edited as multiline text, with each line corresponding to a feature.
   const handleFeatureChange = (e) => {
     const lines = e.target.value.split("\n");
     setLocalFeatures(lines);
@@ -38,9 +35,7 @@ const Features = ({ apartmentData }) => {
     }
   };
 
-  //Handler for cancel button so the features can be reverted
   const handleCancel = () => {
-    //Use the backed up features state to revert local features to what they were before edit button was clicked
     setLocalFeatures(backupFeatures);
     setIsEditing(false);
   };
@@ -48,7 +43,8 @@ const Features = ({ apartmentData }) => {
   return (
     <Box
       sx={{
-        border: "2px solid black",
+        border: "5px ridge rgb(157, 127, 246)",
+        borderRadius: 2.5,
         p: 2,
         display: "flex",
         flexDirection: "column",

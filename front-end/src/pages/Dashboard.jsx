@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-// import api from "../api";
 import ApartmentTable from "../components/tables/ApartmentTable";
 import PendingLeasesTable from "../components/tables/PendingLeasesTable";
 import RenewLeaseTable from "../components/tables/RenewLeaseTable";
@@ -13,7 +12,6 @@ const Dashboard = () => {
   const [pendingLeases, setPendingLeases] = useState([]);
   const [apartmentInfo, setApartmentInfo] = useState([]);
   const [loadingDashboardData, setLoadingDashboardData] = useState(true);
-  //fetches expired leases from backend
 
   useEffect(() => {
     async function InitialFetch() {

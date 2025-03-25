@@ -2,7 +2,7 @@ import { Button, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router";
 import Spinner from "../Spinner";
-// Columns Definition
+
 const columns = [
   {
     field: "apartmentNumber",
@@ -66,7 +66,6 @@ const columns = [
     flex: 1,
     minWidth: 200,
     disableColumnMenu: true,
-    // Customizes the content of this column based on lease status
     renderCell: (params) => {
       const leaseEndDate = new Date(params.row.leaseEnd);
       const today = new Date();

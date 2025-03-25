@@ -8,7 +8,6 @@ const Notes = ({ apartmentData }) => {
   const { notes, id } = apartmentData;
   const initialNotes = notes || "";
 
-  //state for editing
   const [isEditing, setIsEditing] = useState(false);
   const [localNotes, setLocalNotes] = useState(initialNotes);
   const [backupNotes, setBackupNotes] = useState(initialNotes);
@@ -39,7 +38,8 @@ const Notes = ({ apartmentData }) => {
   return (
     <Box
       sx={{
-        border: "2px solid black",
+        border: "5px ridge rgb(157, 127, 246)",
+        borderRadius: 2.5,
         p: 2,
         display: "flex",
         flexDirection: "column",

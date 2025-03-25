@@ -55,8 +55,9 @@ app.listen(4000, () => {
 });
 
 function errorHandler(err, req, res, next) {
-  //simple error response
-  return res.status(res.statusCode !== 200 ? res.statusCode : 500).json({ message: err.message });
+  return res
+    .status(res.statusCode !== 200 ? res.statusCode : 500)
+    .json({ message: err.message });
 }
 
 function ensureAuthenticated(req, res, next) {

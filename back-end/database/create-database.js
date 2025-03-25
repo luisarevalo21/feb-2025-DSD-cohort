@@ -11,10 +11,14 @@ const createDatabase = async () => {
     console.log("✅ Connected to Postgres. Checking if database exists...");
 
     // Check if the database exists
-    const result = await client.query(`SELECT 1 FROM pg_database WHERE datname = '${dbConfig.database}';`);
+    const result = await client.query(
+      `SELECT 1 FROM pg_database WHERE datname = '${dbConfig.database}';`
+    );
 
     if (result.rowCount === 0) {
-      console.log(`🛠 Database '${dbConfig.database}' does not exist. Creating it...`);
+      console.log(
+        `🛠 Database '${dbConfig.database}' does not exist. Creating it...`
+      );
       await client.query(`CREATE DATABASE "${dbConfig.database}";`);
       console.log("✅ Database created.");
     } else {

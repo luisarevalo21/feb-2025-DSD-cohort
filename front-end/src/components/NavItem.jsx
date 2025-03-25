@@ -1,4 +1,3 @@
-//This component is just a helper component for the left navigation bar, to keep the code cleaner.
 import {
   ListItem,
   ListItemButton,
@@ -6,7 +5,6 @@ import {
   ListItemText,
   Tooltip,
 } from "@mui/material";
-//Icons
 import { NavLink } from "react-router-dom";
 
 const NavItem = ({ to, text, icon, open, onClick }) => {

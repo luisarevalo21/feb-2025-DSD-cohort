@@ -1,5 +1,5 @@
 import { Grid2, Typography } from "@mui/material";
-import logo1 from "../assets/dwellify-high-resolution-logo.png";
+import apartmentPhoto from "../assets/ApartmentPhoto.jpeg";
 
 import SignupForm from "../components/SignupForm";
 

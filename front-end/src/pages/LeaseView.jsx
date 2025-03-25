@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { PDFViewer } from "@react-pdf/renderer";
@@ -19,7 +18,9 @@ function LeaseView({ leaseData }) {
         <Text className="title">Lease Agreement</Text>
         <View className="section">
           <Text className="bold-content">Parties Involved:</Text>
-          <Text className="content">Tenant Name : {tenantInformation.tenantName}</Text>
+          <Text className="content">
+            Tenant Name : {tenantInformation.tenantName}
+          </Text>
         </View>
         <View ClassName="section">
           <Text className="bold-content">Lease Start Date:</Text>
@@ -27,15 +28,21 @@ function LeaseView({ leaseData }) {
         </View>
         <View className="section">
           <Text className="bold-content">Lease End Date:</Text>
-          <Text className="content">{leaseData.leaseEndDate || "December 31, 2025"}</Text>
+          <Text className="content">
+            {leaseData.leaseEndDate || "December 31, 2025"}
+          </Text>
         </View>
         <View className="section">
           <Text className="bold-content">Rent Amount:</Text>
-          <Text className="content">${leaseData.rentAmount || "1500"} per month</Text>
+          <Text className="content">
+            ${leaseData.rentAmount || "1500"} per month
+          </Text>
         </View>
         <View className="section">
           <Text className="bold-content">Terms and Conditions:</Text>
-          <Text className="content">The tenant agrees to maintain the property in good condition...</Text>
+          <Text className="content">
+            The tenant agrees to maintain the property in good condition...
+          </Text>
         </View>
       </Page>
     </Document>
@@ -45,12 +52,14 @@ function LeaseView({ leaseData }) {
     <div className="layout-container">
       <h1 className="header">Lease Agreement Preview</h1>
       <div className="viewer-container">
-        {/* Embedding the PDF viewer in the page */}
         <PDFViewer className="pdf-viewer">
           <MyDocument />
         </PDFViewer>
       </div>
-      <SignatureCanvas penColor="green" canvasProps={{ width: 500, height: 200, className: "sigCanvas" }} />
+      <SignatureCanvas
+        penColor="green"
+        canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+      />
 
       <div className="button-container">
         <Button variant="contained" endIcon={<SendIcon />}>

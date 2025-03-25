@@ -1,4 +1,4 @@
-const calculateLeaseExpiration = lease => {
+const calculateLeaseExpiration = (lease) => {
   const leaseEndDate = new Date(lease);
   const today = new Date();
   const endRange = new Date();

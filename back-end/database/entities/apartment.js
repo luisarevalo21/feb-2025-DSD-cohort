@@ -1,4 +1,4 @@
-const { EntitySchema, JoinColumn } = require("typeorm");
+const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
   name: "Apartment",

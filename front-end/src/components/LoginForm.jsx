@@ -116,7 +116,6 @@ const LoginForm = () => {
           variant="contained"
           disabled={isSubmitting || Object.keys(errors).length > 0}
         >
-          {/* Submit */}
           {isSubmitting ? "Submitting..." : "Login"}
         </Button>
       </Stack>
@@ -127,7 +126,6 @@ const LoginForm = () => {
   );
 };
 
-// Zod schema to validate inputs and display error messages
 const loginSchema = z.object({
   email: z
     .string()

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Grid2, CircularProgress } from "@mui/material";
+import { Box, Grid2 } from "@mui/material";
 import { useParams } from "react-router";
 import Hero from "../../components/aptdetails/Hero";
 import Details from "../../components/aptdetails/Details";
@@ -14,7 +14,6 @@ import floorPlan5 from "../../assets/floorplans/floorplan5.png";
 import Spinner from "../../components/Spinner";
 
 const ApartmentDetails = () => {
-  //Id took from the URL parameters, used to fetch the specific items
   const { id } = useParams();
   const floorPlans = [
     floorPlan1,
@@ -38,7 +37,6 @@ const ApartmentDetails = () => {
     const fetchData = async () => {
       try {
         const data = await fetchApartmentDetailsById(id);
-        //get random floor plan image and name
         const randIndex = Math.floor(Math.random() * floorPlans.length);
         setApartmentData({
           ...data,
