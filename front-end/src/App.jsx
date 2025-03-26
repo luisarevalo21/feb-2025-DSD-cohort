@@ -3,6 +3,7 @@ import EnsureAuth from "./auth/EnsureAuth";
 import EnsureGuest from "./auth/EnsureGuest";
 import RootLayout from "./layouts/RootLayout";
 import AccessControlPage from "./pages/AccessControlPage";
+import AccountSettings from "./pages/AccountSettings";
 import Complaints from "./pages/Complaints";
 import CreateLeasePage from "./pages/CreateLeasePage";
 import Dashboard from "./pages/Dashboard";
@@ -15,7 +16,6 @@ import ApartmentDetails from "./pages/details/ApartmentDetails";
 import ComplaintDetails from "./pages/details/ComplaintDetails";
 import LeaseDetails from "./pages/details/LeaseDetails";
 import TenantDetails from "./pages/details/TenantDetails";
-import AccountSettings from "./pages/AccountSettings";
 
 function App() {
   return (
@@ -39,9 +39,8 @@ function App() {
           <Route path="lease-pdf-details/:id" element={<LeaseView />}></Route>
           <Route path="tenant-details/:id" element={<TenantDetails />}></Route>
           <Route path="complaint-details/:id" element={<ComplaintDetails />}></Route>
-          <Route path="/create-lease/:id" element={<CreateLeasePage />}></Route>
-          <Route path="/renew-lease/:id" element={<RenewLeasePage />}></Route>
-          <Route path="/lease-view/:id" element={<LeaseView />}></Route>
+          <Route path="create-lease/:id" element={<CreateLeasePage />}></Route>
+          <Route path="renew-lease/:id" element={<RenewLeasePage />}></Route>
         </Route>
       </Route>
     </Routes>
