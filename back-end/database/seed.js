@@ -6,6 +6,8 @@ const Apartment = require("./entities/apartment");
 const Lease = require("./entities/lease");
 const Tenant = require("./entities/tenant");
 const Complaint = require("./entities/complaint");
+const AccessControl = require("./entities/accessControl");
+const { generatePrimaryLockCode } = require("../utilis/codeGenerator.js");
 let apartments;
 let tenants;
 let leases;
@@ -444,7 +446,10 @@ AppDataSource.initialize()
 
     // Update tenants with their lease_id
     for (let i = 0; i < leases.length; i++) {
-      await tenantRepo.update({ id: tenants[i].id }, { lease_id: leases[i].id });
+      await tenantRepo.update(
+        { id: tenants[i].id },
+        { lease_id: leases[i].id }
+      );
     }
 
     // --------- Seed Complaint Table --------- //
@@ -599,6 +604,24 @@ AppDataSource.initialize()
       console.log("✅ Complaint table seeded.");
     } else {
       console.log("⚠️ Complaint table already has data.");
+    }
+
+    // --------- Seed AccessControl Table --------- //
+    const accessControlRepo = AppDataSource.getRepository(AccessControl);
+    const existingAccessControls = await accessControlRepo.count();
+
+    if (existingAccessControls === 0) {
+      const accessControlData = apartments.map((apartment) => {
+        return {
+          primary_lock_code: generatePrimaryLockCode(), // Customize this value as needed
+          apartment_id: apartment.id,
+          // temp_code and expires_at are not seeded and will remain null
+        };
+      });
+      await accessControlRepo.insert(accessControlData);
+      console.log("✅ AccessControl table seeded.");
+    } else {
+      console.log("⚠️ AccessControl table already has data.");
     }
 
     console.log("🎉 Database seeding complete.");
