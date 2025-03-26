@@ -43,33 +43,32 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// DON'T DELETE BELOW COMMENTED CODE. GOING TO USE IT TO REFERENCE CREATING A PUT ROUTE TO CHANGE TEMP_CODE IN DB.
-// router.put("/:apartmentId", async (req, res, next) => {
-//   const aptId = req.params.apartmentId;
+router.put("/:accessControlId", async (req, res, next) => {
+  const accessControlId = req.params.accessControlId;
 
-//   const editedData = req.body;
-//   try {
-//     const apartmentToUpdate = await AppDataSource.manager.findOne(Apartment, {
-//       where: { id: aptId },
-//     });
+  const editedData = req.body;
+  try {
+    const accessControlToUpdate = await AppDataSource.manager.findOne(AccessControl, {
+      where: { id: accessControlId },
+    });
 
-//     if (!apartmentToUpdate) {
-//       return next(new Error("Apartment not found."));
-//     }
+    if (!accessControlToUpdate) {
+      return next(new Error("Access control not found."));
+    }
 
-//     if (editedData.notes !== undefined) {
-//       apartmentToUpdate.notes = editedData.notes;
-//     } else if (editedData.features !== undefined) {
-//       apartmentToUpdate.features = editedData.features;
-//     } else {
-//       return next(new Error("Incorrect data."));
-//     }
+    if (editedData.tempCode !== undefined) {
+      accessControlToUpdate.temp_code = editedData.tempCode;
+    } else if (editedData.expiresAt !== undefined) {
+      accessControlToUpdate.expires_at = editedData.expiresAt;
+    } else {
+      return next(new Error("Incorrect data."));
+    }
 
-//     await AppDataSource.manager.save(Apartment, apartmentToUpdate);
-//     return res.status(200).json(apartmentToUpdate);
-//   } catch (error) {
-//     return next(error);
-//   }
-// });
+    await AppDataSource.manager.save(AccessControl, accessControlToUpdate);
+    return res.status(200).json(accessControlToUpdate);
+  } catch (error) {
+    return next(error);
+  }
+});
 
 module.exports = router;
