@@ -35,11 +35,11 @@ module.exports = new EntitySchema({
     },
     apartment_id: {
       type: "uuid",
-      nullable: false,
+      nullable: true,
     },
     tenant_id: {
       type: "uuid",
-      nullable: false,
+      nullable: true,
       unique: true,
     },
   },

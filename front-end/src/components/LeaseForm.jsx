@@ -7,8 +7,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { useMutation } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 import { z } from "zod";
-import { createLease } from "../api/leaseApi";
+import api from "../api";
 import Spinner from "../components/Spinner";
 
 const leaseSchema = z.object({
@@ -24,10 +25,11 @@ const leaseSchema = z.object({
     }),
   monthly_rent_in_dollars: z.string().transform((val) => Number(val)),
   notes: z.string().max(100).optional(),
-  apartment_id: z.string().transform((val) => Number(val)),
+  apartment_id: z.string(),
 });
 
 const LeaseForm = ({ setActiveStep, tenantFormData, apartmentId }) => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -35,28 +37,34 @@ const LeaseForm = ({ setActiveStep, tenantFormData, apartmentId }) => {
     isSubmitting,
     formState: { errors },
   } = useForm({
-    defaultValues: {
+    values: {
       apartment_id: apartmentId,
     },
     resolver: zodResolver(leaseSchema),
   });
 
-  const { mutate } = useMutation({
-    mutationFn: (data) => createLease(data),
-    onMutate: () => {
-      return <Spinner />;
-    },
-    onSuccess: () => {
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (data) => api.post("/api/lease/new-lease", data),
+    onSuccess: (response) => {
       setActiveStep((prevStep) => prevStep + 1);
+      toast.success("Lease created successfully");
+      navigate(`/lease-details/${response.data}`);
     },
     onError: (error) => {
-      toast.error(error.message || "An error occurred. Please try again");
+      setActiveStep(0);
+      toast.error(
+        error?.response?.data?.message || "An error occurred. Please try again"
+      );
     },
   });
 
   const onSubmit = async (leaseFormData) => {
     mutate({ ...tenantFormData, ...leaseFormData });
   };
+
+  if (isPending) {
+    return <Spinner />;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

@@ -241,21 +241,6 @@ router.post("/", async (req, res, next) => {
 });
 
 router.post("/new-lease", async (req, res, next) => {
-  const leaseData = req.body;
-  const apartmentId = req.body.apartmentId;
-
-  if (leaseData.leaseId) {
-    await AppDataSource.manager.update(Lease, leaseData.leaseId, {
-      lease_start_date: leaseData.leaseStartDate,
-      lease_end_date: leaseData.leaseEndDate,
-      monthly_rent_in_dollars: leaseData.rent,
-      notes: leaseData.notes,
-    });
-    return res.status(200).json({
-      message: "lease updated",
-    });
-  }
-
   const {
     first_name,
     last_name,
@@ -263,54 +248,71 @@ router.post("/new-lease", async (req, res, next) => {
     date_of_birth,
     phone_number,
     additional_information,
-  } = leaseData;
+    lease_start_date,
+    lease_end_date,
+    monthly_rent_in_dollars,
+    notes,
+    apartment_id,
+  } = req.body;
 
-  const newTenant = await AppDataSource.manager.save(Tenant, {
+  const tenant = {
     first_name,
     last_name,
     email,
     date_of_birth,
     phone_number,
     additional_information,
+  };
+
+  const lease = {
+    lease_start_date,
+    lease_end_date,
+    monthly_rent_in_dollars,
+    notes,
+    apartment_id,
+  };
+
+  const foundTenant = await AppDataSource.manager.findOne(Tenant, {
+    where: { email },
   });
 
+  if (foundTenant) {
+    return next(new Error("tenant already exists with that email"));
+  }
+
+  const newTenant = await AppDataSource.manager.save(Tenant, tenant);
+
   const fetchedApartment = await AppDataSource.manager.findOne(Apartment, {
-    where: { id: apartmentId },
+    where: { id: apartment_id },
     relations: ["lease"],
   });
 
   if (fetchedApartment.lease.length !== 0) {
-    return res.status(400).json({
-      message: "apartment already has a lease try again",
-    });
+    await AppDataSource.manager.delete(Tenant, newTenant);
+    return next(new Error("apartment already has a lease try again"));
   }
 
-  const leaseStart = new Date(leaseData.leaseStartDate);
-  const leaseEnd = new Date(leaseData.leaseEndDate);
+  const leaseStart = new Date(lease_start_date);
+  const leaseEnd = new Date(lease_end_date);
 
   if (leaseEnd < leaseStart) {
-    return res.status(400).json({
-      message: "lease end dates start before the start date try again",
-    });
+    await AppDataSource.manager.delete(Tenant, newTenant);
+    return next(
+      new Error("lease end dates start before the start date try again")
+    );
   }
 
   try {
     const newLease = await AppDataSource.manager.save(Lease, {
-      lease_start_date: leaseData.leaseStartDate,
-      lease_end_date: leaseData.leaseEndDate,
-      monthly_rent_in_dollars: leaseData.rent,
-      notes: leaseData.notes,
-      apartment_id: leaseData.apartmentId,
+      ...lease,
       tenant_id: newTenant.id,
     });
 
     await AppDataSource.manager.update(Tenant, newTenant.id, {
-      lease_id: newLease,
+      lease_id: newLease.id,
     });
 
-    return res.status(200).json({
-      message: "new lease created",
-    });
+    return res.status(200).json(newLease.id);
   } catch (err) {
     return next(err);
   }

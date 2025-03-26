@@ -8,15 +8,6 @@ export async function fetchRenewals() {
     return err;
   }
 }
-export async function createLease(data) {
-  try {
-    const result = await api.post("/api/lease/new-lease", data);
-
-    return result.data;
-  } catch (err) {
-    return err;
-  }
-}
 
 export async function fetchPending() {
   try {
@@ -38,7 +29,9 @@ export async function fetchLeaseDetails(leaseId) {
 
 export async function signLease(leaseId, checked) {
   try {
-    const result = await api.put(`/api/lease/signLease/${leaseId}`, { signature: checked });
+    const result = await api.put(`/api/lease/signLease/${leaseId}`, {
+      signature: checked,
+    });
     return result;
   } catch (err) {
     return err;
