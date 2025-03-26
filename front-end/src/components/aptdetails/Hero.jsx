@@ -64,7 +64,7 @@ const Hero = ({ apartmentData }) => {
         </Typography>
         <CardContent className="text-xl-1 font-semi-bold text-gray-800">
           <Grid2 container>
-            <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 5, position: "relative" }}>
+            <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 2, position: "relative" }}>
               <Typography variant="h5" sx={{ fontWeight: "bold" }}>
                 Apartment {apartmentNumber}
               </Typography>
@@ -75,7 +75,7 @@ const Hero = ({ apartmentData }) => {
               </p>
               <p>{address4}</p>
             </Grid2>
-            <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 2, mt: 3 }}>
+            <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 2 }}>
               <Typography variant="h6" sx={{ mb: 1 }}>
                 <strong>Status: </strong>
                 {leaseId ? (
