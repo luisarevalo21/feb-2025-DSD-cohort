@@ -12,10 +12,11 @@ import two_bed_two_bath from "../../assets/floorplans/2bed2bath.png";
 import three_bed_two_bath from "../../assets/floorplans/3bed2bath.png";
 import Spinner from "../../components/Spinner";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const ApartmentDetails = () => {
   const { id } = useParams();
-  
+  const navigate = useNavigate();
 
   const [apartmentData, setApartmentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,19 +24,22 @@ const ApartmentDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchApartmentDetailsById(id);
-        if (response.status !== 200) {
+        const result = await fetchApartmentDetailsById(id);
+        if (result?.response?.data?.message === "Apartment not found.") {
+          return navigate("/not-found");
+        }
+        if (result.status !== 200) {
           toast.error("Failed to fetch apartment details");
           return;
         }
         let floorPlan = three_bed_two_bath; //defaults to 3 bed 2 bath in case an invalid combo is given
-        if (response.data.bedrooms === 1 && response.data.bathrooms === 1) {
+        if (result.data.bedrooms === 1 && result.data.bathrooms === 1) {
           floorPlan = one_bed_one_bath;
-        } else if (response.data.bedrooms === 2 && response.data.bathrooms === 2) {
+        } else if (result.data.bedrooms === 2 && result.data.bathrooms === 2) {
           floorPlan = two_bed_two_bath;
         }
         setApartmentData({
-          ...response.data,
+          ...result.data,
           floorPlanImg: floorPlan,
         });
       } catch (error) {
