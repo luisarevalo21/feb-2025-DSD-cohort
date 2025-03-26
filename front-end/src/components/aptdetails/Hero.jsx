@@ -30,7 +30,6 @@ const Hero = ({ apartmentData }) => {
   };
 
   const {
-    id,
     apartmentNumber,
     leaseId,
     leaseStatus = "No Status",
@@ -165,7 +164,6 @@ const Hero = ({ apartmentData }) => {
       >
         <Grid2 container>
           <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 2, position: "relative" }}>
-            <Typography variant="body1">ID: {id}</Typography>
 
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
               Apartment {apartmentNumber}
@@ -173,12 +171,12 @@ const Hero = ({ apartmentData }) => {
 
             <Typography variant="h6">{address1}</Typography>
             <Typography variant="h6">
-              {address2},{address3}
+              {address2}, {address3}
             </Typography>
             <Typography variant="h6">{address4}</Typography>
           </Grid2>
 
-          <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 2, mt: 3 }}>
+          <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 2 }}>
             <Typography variant="h5" sx={{ mb: 1 }}>
               <strong>Status: </strong>
               {leaseId ? (
@@ -223,7 +221,7 @@ const Hero = ({ apartmentData }) => {
           >
             <img
               src={floorPlanImg}
-              alt="Floor Plan 1"
+              alt="Floor Plan Diagram"
               style={{
                 maxWidth: "160px",
                 maxHeight: "150px",
@@ -244,7 +242,7 @@ const Hero = ({ apartmentData }) => {
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <img
           src={floorPlanImg}
-          alt="Floor Plan Large"
+          alt="Floor Plan Diagram(large)"
           style={{
             maxWidth: "80vw",
             maxHeight: "80vh",

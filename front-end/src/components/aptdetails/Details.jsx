@@ -2,8 +2,7 @@ import { Typography, Grid2, Card, CardContent } from "@mui/material";
 import React from "react";
 
 const Details = ({ apartmentData }) => {
-  const { floorPlanName, squareFootage, bedrooms, bathrooms, floor } =
-    apartmentData;
+  const { squareFootage, bedrooms, bathrooms, floor } = apartmentData;
 
   return (
     <React.Fragment>

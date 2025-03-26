@@ -6,47 +6,41 @@ import Details from "../../components/aptdetails/Details";
 import Features from "../../components/aptdetails/Features";
 import Notes from "../../components/aptdetails/Notes";
 import { fetchApartmentDetailsById } from "../../api/apartmentApi";
-import floorPlan1 from "../../assets/floorplans/floorplan1.png";
-import floorPlan2 from "../../assets/floorplans/floorplan2.png";
-import floorPlan3 from "../../assets/floorplans/floorplan3.png";
-import floorPlan4 from "../../assets/floorplans/floorplan4.png";
-import floorPlan5 from "../../assets/floorplans/floorplan5.png";
+//The valid types are 1bed1bath, 2bed2bath, 3bed2bath(default)
+import one_bed_one_bath from "../../assets/floorplans/1bed1bath.png";
+import two_bed_two_bath from "../../assets/floorplans/2bed2bath.png";
+import three_bed_two_bath from "../../assets/floorplans/3bed2bath.png";
 import Spinner from "../../components/Spinner";
+import toast from "react-hot-toast";
 
 const ApartmentDetails = () => {
   const { id } = useParams();
-  const floorPlans = [
-    floorPlan1,
-    floorPlan2,
-    floorPlan3,
-    floorPlan4,
-    floorPlan5,
-  ];
-  const floorPlanNames = [
-    "1 Bed - 1 Bath A",
-    "2 Bed - 1 Bath B",
-    "2 Bed - 2 Bath C",
-    "3 Bed - 2 Bath D",
-    "Studio E",
-  ];
+  const navigate = useNavigate();
 
   const [apartmentData, setApartmentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchApartmentDetailsById(id);
-        const randIndex = Math.floor(Math.random() * floorPlans.length);
-        if (data?.response?.data?.message === "Apartment not found.") {
+        const result = await fetchApartmentDetailsById(id);
+        if (result?.response?.data?.message === "Apartment not found.") {
           return navigate("/not-found");
         }
+        if (result.status !== 200) {
+          toast.error("Failed to fetch apartment details");
+          return;
+        }
+        let floorPlan = three_bed_two_bath; //defaults to 3 bed 2 bath in case an invalid combo is given
+        if (result.data.bedrooms === 1 && result.data.bathrooms === 1) {
+          floorPlan = one_bed_one_bath;
+        } else if (result.data.bedrooms === 2 && result.data.bathrooms === 2) {
+          floorPlan = two_bed_two_bath;
+        }
+
         setApartmentData({
-          ...data,
-          floorPlanImg: floorPlans[randIndex],
-          id: id,
-          floorPlanName: floorPlanNames[randIndex],
+          ...result.data,
+          floorPlanImg: floorPlan,
         });
       } catch (error) {
         toast.error("Failed to fetch apartment details", error);
@@ -74,7 +68,7 @@ const ApartmentDetails = () => {
   }
 
   if (!apartmentData) {
-    return <div>Error loading apartment data</div>;
+    return <div>Error loading apartment data from apartment with id: {id}</div>;
   }
 
   return (
