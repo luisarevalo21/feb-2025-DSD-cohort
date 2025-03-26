@@ -26,7 +26,7 @@ const TenantLeaseDetails = ({ tenant }) => {
                 </Link>
               </p>
               <p>
-                <strong>Monthly Rent: </strong>
+                <strong>Monthly Rent: </strong>$
                 {tenant?.leaseInformation?.rentAmount}
               </p>
               <p>

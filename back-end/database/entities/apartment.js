@@ -41,5 +41,10 @@ module.exports = new EntitySchema({
       target: "Lease",
       inverseSide: "apartment",
     },
+    accessControl: {
+      type: "one-to-one",
+      target: "AccessControl",
+      inverseSide: "apartment",
+    },
   },
 });
