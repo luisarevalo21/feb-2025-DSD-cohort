@@ -59,7 +59,7 @@ const Features = ({ apartmentData }) => {
           Features
         </Typography>
         {!isEditing && (
-          <Button variant="outlined" onClick={handleEdit}>
+          <Button variant="outlined" onClick={handleEdit} sx={{ mt: 2 }}>
             Add/Remove Features <EditIcon />
           </Button>
         )}
