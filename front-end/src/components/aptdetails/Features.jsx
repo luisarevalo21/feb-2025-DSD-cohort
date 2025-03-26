@@ -51,7 +51,7 @@ const Features = ({ apartmentData }) => {
 
   return (
     <React.Fragment>
-      <Card sx={{ height: 400 }}>
+      <Card sx={{ height: 400, textAlign: "center" }}>
         <Typography
           className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
           bgcolor={"#206129"}
@@ -59,7 +59,7 @@ const Features = ({ apartmentData }) => {
           Features
         </Typography>
         {!isEditing && (
-          <Button variant="outlined" color="warning" onClick={handleEdit}>
+          <Button variant="outlined" onClick={handleEdit}>
             Add/Remove Features <EditIcon />
           </Button>
         )}

@@ -65,21 +65,19 @@ const Hero = ({ apartmentData }) => {
         </Typography>
         <CardContent className="p-4 space-y-3 text-center text-xl-1 font-semi-bold text-gray-800">
           <Grid2 container>
-            <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 2, position: "relative" }}>
-              <Typography variant="body1">ID: {id}</Typography>
-
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+            <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 5, position: "relative" }}>
+              <Typography variant="h5" sx={{ fontWeight: "bold" }}>
                 Apartment {apartmentNumber}
               </Typography>
 
-              <Typography variant="h6">{address1}</Typography>
-              <Typography variant="h6">
-                {address2},{address3}
-              </Typography>
-              <Typography variant="h6">{address4}</Typography>
+              <p>{address1}</p>
+              <p>
+                {address2}, {address3}
+              </p>
+              <p>{address4}</p>
             </Grid2>
             <Grid2 size={{ xs: 12, md: 5 }} sx={{ p: 2, mt: 3 }}>
-              <Typography variant="h5" sx={{ mb: 1 }}>
+              <Typography variant="h6" sx={{ mb: 1 }}>
                 <strong>Status: </strong>
                 {leaseId ? (
                   <Link to={`/lease-details/${leaseId}`} className="underline">
@@ -89,8 +87,7 @@ const Hero = ({ apartmentData }) => {
                   <span style={{ color: statusColor }}>{leaseStatus}</span>
                 )}
               </Typography>
-
-              <Typography variant="h5" sx={{ mb: 1 }}>
+              <Typography variant="h6" sx={{ mb: 1 }}>
                 <strong>Lease Expires: </strong>
                 {leaseEndDate ? (
                   <span style={{ color: leaseExpirationColor }}>
@@ -100,8 +97,7 @@ const Hero = ({ apartmentData }) => {
                   <span style={{ color: "black" }}>N/A</span>
                 )}
               </Typography>
-
-              <Typography variant="h5" sx={{ mb: 1 }}>
+              <Typography variant="h6" sx={{ mb: 1 }}>
                 <strong>Current Occupant: </strong>
                 {tenantId ? (
                   <Link

@@ -54,7 +54,7 @@ const ComplaintCard = ({ complaint }) => {
         flexDirection: "column",
         height: "100%",
         border: "1px solid #ccc",
-        borderRadius: 1,
+        borderRadius: 5,
         boxShadow: 1,
       }}
     >

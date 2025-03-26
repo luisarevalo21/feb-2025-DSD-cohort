@@ -46,7 +46,7 @@ const Notes = ({ apartmentData }) => {
   };
   return (
     <React.Fragment>
-      <Card sx={{ height: 400 }}>
+      <Card sx={{ height: 400, textAlign: "center" }}>
         <Typography
           className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
           bgcolor={"#206129"}
@@ -79,9 +79,10 @@ const Notes = ({ apartmentData }) => {
             </Box>
             <>
               {localNotes ? (
-                <Typography variant="body1" sx={{ whiteSpace: "pre-line" }}>
-                  {localNotes}
-                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ whiteSpace: "pre-line" }}
+                ></Typography>
               ) : (
                 <Typography variant="h5">No notes to display.</Typography>
               )}
