@@ -8,6 +8,8 @@ const LeaseDetailsHeader = ({ status }) => {
         justifyContent: "space-between",
         border: 1,
         p: 2,
+        borderRadius: "5px 5px 0px 0px",
+        bgcolor: "#206129",
       }}
     >
       <Typography>Lease Summary</Typography>

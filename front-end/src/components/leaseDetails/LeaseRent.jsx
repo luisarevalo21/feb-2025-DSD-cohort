@@ -9,6 +9,7 @@ const LeaseRent = ({ rent }) => {
         justifyContent: "space-between",
         border: 1,
         p: 2,
+        borderRadius: "0px 0px 5px 5px",
       }}
     >
       <Typography>Rent</Typography>

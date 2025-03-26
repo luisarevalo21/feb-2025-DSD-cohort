@@ -137,6 +137,17 @@ const Hero = ({ apartmentData }) => {
               </IconButton>
             </Grid2>
           </Grid2>
+          <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+            <img
+              src={floorPlanImg}
+              alt="Floor Plan Large"
+              style={{
+                maxWidth: "80vw",
+                maxHeight: "80vh",
+                objectFit: "contain",
+              }}
+            />
+          </Dialog>
         </CardContent>
       </Card>
     </React.Fragment>

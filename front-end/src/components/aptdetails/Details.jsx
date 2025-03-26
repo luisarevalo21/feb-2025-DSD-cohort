@@ -7,7 +7,7 @@ const Details = ({ apartmentData }) => {
 
   return (
     <React.Fragment>
-      <Card sx={{ height: 400 }}>
+      <Card sx={{ height: 350 }}>
         <Typography
           className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
           bgcolor={"#206129"}
