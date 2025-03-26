@@ -41,7 +41,7 @@ const columns = [
         component={Link}
         to={`/lease-details/${params.row.id}`}
         variant="contained"
-        color="warning"
+        color="tertiary"
       >
         Pending
       </Button>

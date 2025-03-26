@@ -36,7 +36,7 @@ const columns = [
       <Button
         component={Link}
         to={`/renew-lease/${params.row.leaseId}`}
-        color="warning"
+        color="secondary"
         variant="contained"
       >
         Renew

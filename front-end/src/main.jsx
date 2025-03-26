@@ -6,6 +6,8 @@ import "./index.css";
 
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter } from "react-router";
+import { ThemeProvider } from "@emotion/react";
+import theme from "../theme.js";
 
 const queryClient = new QueryClient();
 
@@ -13,8 +15,10 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <App />
-        <Toaster position="top-right" />
+        <ThemeProvider theme={theme}>
+          <App />
+          <Toaster position="top-right" />
+        </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </StrictMode>

@@ -20,8 +20,8 @@ const NavItem = ({ to, text, icon, open, onClick }) => {
             justifyContent: open ? "initial" : "center",
             px: 2.5,
             "&.active": {
-              backgroundColor: "#ede7f6",
-              color: "#4527a0",
+              backgroundColor: "#E3E7D3",
+              color: "#4A5460",
             },
           }}
         >
@@ -30,6 +30,9 @@ const NavItem = ({ to, text, icon, open, onClick }) => {
               minWidth: 0,
               mr: open ? 2 : "auto",
               justifyContent: "center",
+              "&.active": {
+                color: "#E3E7D3",
+              },
             }}
           >
             {icon}

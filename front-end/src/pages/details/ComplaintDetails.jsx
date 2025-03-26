@@ -14,7 +14,6 @@ import {
 import Spinner from "../../components/Spinner";
 
 const ComplaintDetails = () => {
-  
   const { id: complaintId } = useParams();
   const navigate = useNavigate();
 
@@ -67,15 +66,16 @@ const ComplaintDetails = () => {
         Complaint Details
       </Typography>
       <Box sx={{ minWidth: 275 }}>
-        <Card variant="outlined">
+        <Card sx={{ borderRadius: 5 }}>
           <Box
             sx={{
-              backgroundColor: "#1976D2",
+              backgroundColor: "#206129",
               color: "white",
               p: 2,
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              borderRadius: "5px 5px 0px 0px",
             }}
           >
             <Typography variant="h6" component="div">

@@ -34,11 +34,17 @@ function App() {
           <Route path="register" element={<Register />}></Route>
           <Route path="access-control" element={<AccessControlPage />}></Route>
           <Route path="settings" element={<AccountSettings />}></Route>
-          <Route path="apartment-details/:id" element={<ApartmentDetails />}></Route>
+          <Route
+            path="apartment-details/:id"
+            element={<ApartmentDetails />}
+          ></Route>
           <Route path="lease-details/:id" element={<LeaseDetails />}></Route>
           <Route path="lease-pdf-details/:id" element={<LeaseView />}></Route>
           <Route path="tenant-details/:id" element={<TenantDetails />}></Route>
-          <Route path="complaint-details/:id" element={<ComplaintDetails />}></Route>
+          <Route
+            path="complaint-details/:id"
+            element={<ComplaintDetails />}
+          ></Route>
           <Route path="create-lease/:id" element={<CreateLeasePage />}></Route>
           <Route path="renew-lease/:id" element={<RenewLeasePage />}></Route>
         </Route>

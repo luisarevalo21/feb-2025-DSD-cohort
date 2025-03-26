@@ -1,6 +1,6 @@
 import { TextField, IconButton } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import logo from "../assets/logo.png";
+import logo from "../assets/dwellify-high-resolution-logo.png";
 
 const MainHeader = () => {
   return (
@@ -20,7 +20,7 @@ const MainHeader = () => {
           <NotificationsIcon />
         </IconButton>
 
-        <img src={logo} alt="Our site logo" className="h-8" />
+        <img src={logo} alt="Our site logo" className="h-14" />
       </div>
     </header>
   );

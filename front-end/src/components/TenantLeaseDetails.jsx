@@ -6,8 +6,11 @@ import { Link } from "react-router";
 const TenantLeaseDetails = ({ tenant }) => {
   return (
     <React.Fragment>
-      <Card>
-        <Typography className="bg-gray-500 text-white text-center py-3 text-lg font-semibold rounded-t-lg">
+      <Card sx={{ height: 300 }}>
+        <Typography
+          className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
+          bgcolor={"#206129"}
+        >
           Lease Details
         </Typography>
         <CardContent className="p-4 space-y-3 text-center text-xl-1 font-semi-bold text-gray-800">
