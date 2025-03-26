@@ -9,9 +9,9 @@ export async function fetchAccessControlInformation() {
   }
 }
 
-export async function updateAccessControlDetails(id, updatedData) {
+export async function generateAccessControlTempCode(id) {
     try {
-      const result = await api.put(`/api/access-control/${id}`, updatedData);
+      const result = await api.put(`/api/access-control/${id}`);
       return result.data;
     } catch (err) {
       return err;

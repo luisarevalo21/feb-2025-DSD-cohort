@@ -44,9 +44,8 @@ router.get("/", async (req, res, next) => {
 });
 
 router.put("/:accessControlId", async (req, res, next) => {
-  const accessControlId = req.params.accessControlId;
-
-  const editedData = req.body;
+  const { accessControlId } = req.params;
+//   const editedData = req.body;
   try {
     const accessControlToUpdate = await AppDataSource.manager.findOne(AccessControl, {
       where: { id: accessControlId },
@@ -56,13 +55,11 @@ router.put("/:accessControlId", async (req, res, next) => {
       return next(new Error("Access control not found."));
     }
 
-    if (editedData.tempCode !== undefined) {
-      accessControlToUpdate.temp_code = editedData.tempCode;
-    } else if (editedData.expiresAt !== undefined) {
-      accessControlToUpdate.expires_at = editedData.expiresAt;
-    } else {
-      return next(new Error("Incorrect data."));
-    }
+    const newTempCode = generateTempCode();
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    accessControlToUpdate.temp_code = newTempCode;
+    accessControlToUpdate.expires_at = expiresAt;
 
     await AppDataSource.manager.save(AccessControl, accessControlToUpdate);
     return res.status(200).json(accessControlToUpdate);

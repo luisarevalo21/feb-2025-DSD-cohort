@@ -2,8 +2,12 @@ import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import AccessControlTable from "../components/tables/AccessControlTable";
+import toast from "react-hot-toast";
 
-import { fetchAccessControlInformation } from "../api/accessControlApi";
+import {
+  fetchAccessControlInformation,
+  generateAccessControlTempCode,
+} from "../api/accessControlApi";
 
 const AccessControl = () => {
   const [accessControlInfo, setAccessControlInfo] = useState([]);
@@ -19,6 +23,26 @@ const AccessControl = () => {
     InitialFetch();
     setLoadingAccessControlData(false);
   }, []);
+
+  const handleGenerateCode = async (accessControlId) => {
+    try {
+      const updatedData = await generateAccessControlTempCode(accessControlId);
+      setAccessControlInfo((prev) =>
+        prev.map((item) =>
+          item.id === updatedData.id
+            ? {
+                ...item,
+                tempCode: updatedData.temp_code,
+                tempCodeExpiration: updatedData.expires_at,
+              }
+            : item
+        )
+      );
+      toast.success("Temporary Code Generated Successfully");
+    } catch (err) {
+      toast.error("Failed to generate temporary code. Please try again.");
+    }
+  };
   return (
     <>
       <Typography
@@ -40,6 +64,7 @@ const AccessControl = () => {
             <AccessControlTable
               isLoading={loadingAccessControlData}
               accessControlInfo={accessControlInfo}
+              handleGenerateCode={handleGenerateCode}
             />
           </Box>
         </Grid>
