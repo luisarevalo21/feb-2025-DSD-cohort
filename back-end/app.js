@@ -13,6 +13,7 @@ const leaseRouter = require("./routes/lease");
 const apartmentRouter = require("./routes/apartment");
 const tenantRouter = require("./routes/tenant");
 const complaintsRouter = require("./routes/complaints");
+const accessControlRouter = require("./routes/accessControl")
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use("/api/complaints", ensureAuthenticated, complaintsRouter);
 app.use("/api/lease", ensureAuthenticated, leaseRouter);
 app.use("/api/tenant", ensureAuthenticated, tenantRouter);
 app.use("/api/apartment", ensureAuthenticated, apartmentRouter);
+app.use("/api/access-control", ensureAuthenticated, accessControlRouter);
 
 app.use(errorHandler);
 
