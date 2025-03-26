@@ -29,7 +29,6 @@ router.get("/:tenantId", async (req, res, next) => {
     if (!tenant) {
       return next(new Error("Tenant not found."));
     }
-
     const tenantInformation = {
       tenantId: tenant.id,
       firstName: tenant.first_name,
@@ -43,7 +42,7 @@ router.get("/:tenantId", async (req, res, next) => {
         leaseId: tenant.lease_id,
         leaseStartDate: tenant.lease.lease_start_date,
         leaseEndDate: tenant.lease.lease_end_date,
-        rentAmount: tenant.lease.monthly_rent_amount,
+        rentAmount: tenant.lease.monthly_rent_in_dollars,
         notes: tenant.lease.notes,
       },
       apartment: {
