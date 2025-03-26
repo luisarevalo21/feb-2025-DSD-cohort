@@ -12,7 +12,6 @@ import two_bed_two_bath from "../../assets/floorplans/2bed2bath.png";
 import three_bed_two_bath from "../../assets/floorplans/3bed2bath.png";
 import Spinner from "../../components/Spinner";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 const ApartmentDetails = () => {
   const { id } = useParams();
@@ -20,7 +19,6 @@ const ApartmentDetails = () => {
 
   const [apartmentData, setApartmentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
