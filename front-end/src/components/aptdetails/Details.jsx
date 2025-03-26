@@ -16,10 +16,6 @@ const Details = ({ apartmentData }) => {
         <CardContent className="p-4 space-y-3 text-center text-xl-1 font-semi-bold text-gray-800">
           <Grid2>
             <h2>
-              <strong>Layout: </strong>
-              {floorPlanName}
-            </h2>
-            <h2>
               <strong>Sq. Ft: </strong>
               {squareFootage}
             </h2>
