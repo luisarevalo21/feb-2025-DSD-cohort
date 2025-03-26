@@ -6,8 +6,8 @@ const LeaseTenantDetails = ({ tenant }) => {
     <Box>
       <Typography>Tenant</Typography>
       <Grid2 size={{ xs: 12, md: 20 }}>
-        <Link className="underline" to={`/tenant-details/${tenant.tenantId}`}>
-          <p>{tenant.tenantName}</p>
+        <Link className="underline" to={`/tenant-details/${tenant?.tenantId}`}>
+          <p>{tenant?.tenantName}</p>
         </Link>
       </Grid2>
     </Box>

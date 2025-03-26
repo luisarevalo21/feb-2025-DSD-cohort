@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Grid2 } from "@mui/material";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import Hero from "../../components/aptdetails/Hero";
 import Details from "../../components/aptdetails/Details";
 import Features from "../../components/aptdetails/Features";
@@ -20,6 +20,7 @@ const ApartmentDetails = () => {
 
   const [apartmentData, setApartmentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +39,7 @@ const ApartmentDetails = () => {
         } else if (result.data.bedrooms === 2 && result.data.bathrooms === 2) {
           floorPlan = two_bed_two_bath;
         }
+
         setApartmentData({
           ...result.data,
           floorPlanImg: floorPlan,
@@ -50,7 +52,7 @@ const ApartmentDetails = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, navigate]);
 
   if (isLoading) {
     return (

@@ -6,8 +6,8 @@ module.exports = new EntitySchema({
   columns: {
     id: {
       primary: true,
-      type: "int",
-      generated: true,
+      type: "uuid",
+      generated: "uuid",
     },
     date_submitted: {
       type: "date",
@@ -28,14 +28,14 @@ module.exports = new EntitySchema({
       default: "New",
     },
     tenant_id: {
-      type: "int",
+      type: "uuid",
       nullable: false,
     },
   },
   relations: {
     tenant: {
       target: "Tenant",
-      type: "one-to-one",
+      type: "many-to-one",
       joinColumn: {
         name: "tenant_id",
       },
