@@ -35,15 +35,19 @@ router.get("/:tenantId", async (req, res, next) => {
       firstName: tenant.first_name,
       lastName: tenant.last_name,
       email: tenant.email,
-      dateOfBirth: tenant.date_of_birth,
+      dateOfBirth: new Date(tenant.date_of_birth).toLocaleDateString("en"),
       phoneNumber: tenant.phone_number,
       profile_photo: tenant.phone_number,
       additionalInformation: tenant.additional_information,
       leaseInformation: {
         leaseId: tenant.lease_id,
-        leaseStartDate: tenant.lease.lease_start_date,
-        leaseEndDate: tenant.lease.lease_end_date,
-        rentAmount: tenant.lease.monthly_rent_amount,
+        leaseStartDate: new Date(
+          tenant.lease.lease_start_date
+        ).toLocaleDateString("en"),
+        leaseEndDate: new Date(tenant.lease.lease_end_date).toLocaleDateString(
+          "en"
+        ),
+        rentAmount: tenant.lease.monthly_rent_in_dollars,
         notes: tenant.lease.notes,
       },
       apartment: {

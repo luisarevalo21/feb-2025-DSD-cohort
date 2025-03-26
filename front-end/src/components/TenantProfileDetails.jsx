@@ -12,14 +12,32 @@ const TenantProfileDetails = ({ tenant }) => {
         <CardContent className="p-4 space-y-3 text-center text-xl-1 font-semi-bold text-gray-800">
           <Grid2 container spacing={2} padding={2}>
             <Grid2 size={{ xs: 12, md: 6 }}>
-              <h2>First Name: {tenant?.firstName}</h2>
-              <h2>Last Name:{tenant?.lastName}</h2>
-              <p>Phone Number: {tenant?.phoneNumber}</p>
+              <h2>
+                <strong>First Name: </strong>
+                {tenant?.firstName}
+              </h2>
+              <h2>
+                <strong>Last Name: </strong>
+                {tenant?.lastName}
+              </h2>
+              <p>
+                <strong>Phone Number: </strong>
+                {tenant?.phoneNumber}
+              </p>
             </Grid2>
             <Grid2 size={{ xs: 12, md: 6 }}>
-              <p>Email: {tenant?.email}</p>
-              <p>Birthday: {tenant?.dateOfBirth}</p>
-              <p>Additional Info: {tenant?.additionalInformation}</p>
+              <p>
+                <strong>Email: </strong>
+                {tenant?.email}
+              </p>
+              <p>
+                <strong>Birthday: </strong>
+                {tenant?.dateOfBirth}
+              </p>
+              <p>
+                <strong>Additional Info: </strong>
+                {tenant?.additionalInformation}
+              </p>
             </Grid2>
           </Grid2>
         </CardContent>
