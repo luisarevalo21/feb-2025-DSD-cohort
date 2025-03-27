@@ -40,8 +40,12 @@ router.get("/:tenantId", async (req, res, next) => {
       additionalInformation: tenant.additional_information,
       leaseInformation: {
         leaseId: tenant.lease_id,
-        leaseStartDate: tenant.lease.lease_start_date,
-        leaseEndDate: tenant.lease.lease_end_date,
+        leaseStartDate: new Date(
+          tenant.lease.lease_start_date
+        ).toLocaleDateString("en"),
+        leaseEndDate: new Date(tenant.lease.lease_end_date).toLocaleDateString(
+          "en"
+        ),
         rentAmount: tenant.lease.monthly_rent_in_dollars,
         notes: tenant.lease.notes,
       },

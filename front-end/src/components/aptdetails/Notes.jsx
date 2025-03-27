@@ -49,12 +49,17 @@ const Notes = ({ apartmentData }) => {
       <Card sx={{ height: 350, textAlign: "center" }}>
         <Typography
           className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
-          bgcolor={"#206129"}
+          bgcolor={"#108C21"}
         >
           Notes
         </Typography>
         {!isEditing && (
-          <Button variant="outlined" color="primary" onClick={handleEdit} sx={{ mt: 2 }}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={handleEdit}
+            sx={{ mt: 2 }}
+          >
             Modify Notes <EditIcon />
           </Button>
         )}
