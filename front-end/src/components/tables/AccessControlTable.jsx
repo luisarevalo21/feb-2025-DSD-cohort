@@ -1,5 +1,7 @@
-import { Button, Paper } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Box, Button, IconButton, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Spinner from "../Spinner";
 
@@ -9,10 +11,20 @@ const AccessControlTable = ({
   isLoading,
   accessControlInfo,
   handleGenerateCode,
+  handleDeleteTempCode,
 }) => {
   if (isLoading) {
     return <Spinner />;
   }
+
+  const copyToClipboard = (code, label) => {
+    if (code) {
+      navigator.clipboard.writeText(code);
+      toast.success(`${label} copied!`);
+    } else {
+      toast.error("No code to copy!");
+    }
+  };
 
   const columns = [
     {
@@ -51,14 +63,34 @@ const AccessControlTable = ({
       headerName: "Primary Lock Code",
       flex: 1,
       minWidth: 120,
-      renderCell: (params) => <span>{params.row.primaryLockCode}</span>,
+      renderCell: (params) => {
+        const code = params.row.primaryLockCode;
+        return (
+          <span
+            style={{ cursor: "copy" }}
+            onClick={() => copyToClipboard(code, "Primary lock code")}
+          >
+            {code}
+          </span>
+        );
+      },
     },
     {
       field: "tempCode",
       headerName: "Temp Code",
       flex: 1,
       minWidth: 120,
-      renderCell: (params) => <span>{params.row.tempCode}</span>,
+      renderCell: (params) => {
+        const code = params.row.tempCode;
+        return (
+          <span
+            style={{ cursor: "copy" }}
+            onClick={() => copyToClipboard(code, "Temporary code")}
+          >
+            {code}
+          </span>
+        );
+      },
     },
     {
       field: "tempCodeExpirationDate",
@@ -80,22 +112,51 @@ const AccessControlTable = ({
     {
       headerName: "Action",
       type: "action",
-      description: "Generate a 24-hour temporary code for guest access",
+      description:
+        "Generate or delete a 24-hour temporary code for guest access",
       sortable: false,
       flex: 1,
-      minWidth: 200,
+      minWidth: 250,
       disableColumnMenu: true,
       renderCell: (params) => {
         return (
-          <div className="flex justify-center items-center gap-2 h-full">
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            height="100%"
+          >
             <Button
+              type="button"
+              sx={{
+                textTransform: "none",
+                padding: "6px 12px",
+                maxWidth: "175px",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+              }}
               onClick={() => handleGenerateCode(params.row.id)}
               color="primary"
               variant="contained"
             >
               Generate Temp Code
             </Button>
-          </div>
+            <IconButton
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (params.row.tempCode) {
+                  handleDeleteTempCode(params.row.id);
+                }
+              }}
+              color="error"
+              title="Delete Temp Code"
+              disabled={!params.row.tempCode}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Box>
         );
       },
     },

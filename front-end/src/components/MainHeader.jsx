@@ -1,6 +1,6 @@
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { IconButton, TextField } from "@mui/material";
-import logo from "../assets/dwellify-high-resolution-logo.png";
+import logo from "../assets/logo_background_removed.png";
 
 const MainHeader = () => {
   return (

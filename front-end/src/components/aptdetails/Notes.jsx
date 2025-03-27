@@ -53,7 +53,12 @@ const Notes = ({ apartmentData }) => {
           Notes
         </Typography>
         {!isEditing && (
-          <Button variant="outlined" color="primary" onClick={handleEdit}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={handleEdit}
+            sx={{ mt: 2 }}
+          >
             Modify Notes <EditIcon />
           </Button>
         )}
