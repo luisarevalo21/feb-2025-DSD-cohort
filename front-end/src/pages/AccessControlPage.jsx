@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import AccessControlTable from "../components/tables/AccessControlTable";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import AccessControlTable from "../components/tables/AccessControlTable";
 
 import {
   deleteAccessControlTempCode,
@@ -81,7 +81,7 @@ const AccessControl = () => {
           <Typography variant="h4" fontSize={"1.5rem"} marginBottom={"1rem"}>
             Access Control Information
           </Typography>
-          <Box border={"1px solid black"} bgcolor={"#f5f5f5"}>
+          <Box bgcolor={"#f5f5f5"}>
             <AccessControlTable
               isLoading={loadingAccessControlData}
               accessControlInfo={accessControlInfo}

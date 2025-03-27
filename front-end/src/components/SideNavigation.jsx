@@ -64,7 +64,8 @@ const SideNavigation = () => {
           overflowX: "hidden",
           transition: "width 0.3s",
           boxShadow: "2px 5px 10px #4A5460",
-          backgroundColor: "#108C21",
+          backgroundColor: "#4A90A4",
+          color: "#fff",
         },
       }}
     >
@@ -77,7 +78,7 @@ const SideNavigation = () => {
         }}
       >
         <IconButton onClick={handleExpandCollapse}>
-          <MenuIcon />
+          <MenuIcon style={{ color: "#fff" }} />
         </IconButton>
       </Box>
       <Divider />
@@ -85,25 +86,25 @@ const SideNavigation = () => {
         <NavItem
           to="/dashboard"
           text="Dashboard"
-          icon={<DashboardIcon sx={{ color: "black" }} />}
+          icon={<DashboardIcon sx={{ color: "white" }} />}
           open={open}
         />
         <NavItem
           to="/access-control"
           text="Access Control"
-          icon={<LockIcon sx={{ color: "black" }} />}
+          icon={<LockIcon sx={{ color: "white" }} />}
           open={open}
         />
         <NavItem
           to="/complaints"
           text="Complaints"
-          icon={<ReportIcon sx={{ color: "black" }} />}
+          icon={<ReportIcon sx={{ color: "white" }} />}
           open={open}
         />
         <NavItem
           to="/settings"
           text="Account Settings"
-          icon={<SettingsIcon sx={{ color: "black" }} />}
+          icon={<SettingsIcon sx={{ color: "white" }} />}
           open={open}
         />
       </List>
@@ -111,8 +112,9 @@ const SideNavigation = () => {
       <List>
         <NavItem
           onClick={handleLogout}
+          to={""}
           text="Log out"
-          icon={<LogoutIcon sx={{ color: "#697A21" }} />}
+          icon={<LogoutIcon sx={{ color: "#871411" }} />}
           open={open}
         />
       </List>

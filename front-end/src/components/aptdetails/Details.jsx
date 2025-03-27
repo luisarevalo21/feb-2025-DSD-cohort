@@ -1,4 +1,4 @@
-import { Typography, Grid2, Card, CardContent } from "@mui/material";
+import { Card, CardContent, Grid2, Typography } from "@mui/material";
 import React from "react";
 
 const Details = ({ apartmentData }) => {
@@ -6,10 +6,10 @@ const Details = ({ apartmentData }) => {
 
   return (
     <React.Fragment>
-      <Card sx={{ height: 350 }}>
+      <Card sx={{ height: 350, border: 0.5 }}>
         <Typography
-          className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
-          bgcolor={"#108C21"}
+          className="text-center py-3 text-lg font-semibold"
+          bgcolor={"#e3e7d3"}
         >
           Details
         </Typography>

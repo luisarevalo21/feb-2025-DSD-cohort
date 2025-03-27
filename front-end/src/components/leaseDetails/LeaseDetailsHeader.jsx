@@ -1,4 +1,4 @@
-import { Box, Typography, Grid2 } from "@mui/material";
+import { Box, Grid2, Typography } from "@mui/material";
 
 const LeaseDetailsHeader = ({ status }) => {
   return (
@@ -6,10 +6,9 @@ const LeaseDetailsHeader = ({ status }) => {
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        border: 1,
         p: 2,
         borderRadius: "5px 5px 0px 0px",
-        bgcolor: "#108C21",
+        bgcolor: "#e3e7d3",
       }}
     >
       <Typography>Lease Summary</Typography>

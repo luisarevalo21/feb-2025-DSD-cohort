@@ -1,4 +1,4 @@
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -46,15 +46,22 @@ const AccountSettings = () => {
         Account Settings
       </Typography>
       <Box sx={{ display: "inline-block" }}>
-        <Paper elevation={3} sx={{ p: 2, mb: 2, overflow: "hidden" }}>
-          <Typography variant="h6">
+        <Box sx={{ border: 0.5, borderRadius: 1, display: "inline-block" }}>
+          <Typography
+            variant="h6"
+            sx={{
+              p: 2,
+              mb: 2,
+              backgroundColor: "#e3e7d3",
+              borderRadius: 1,
+              borderEndEndRadius: 0,
+              borderEndStartRadius: 0,
+            }}
+          >
             Welcome, {firstName} {lastName}! How are things at {propertyName}?
           </Typography>
-        </Paper>
-
-        <Grid2 container spacing={2}>
-          <Grid2 xs={12} md={6}>
-            <Paper elevation={3} sx={{ p: 2, overflow: "hidden" }}>
+          <Grid2 container spacing={2}>
+            <Grid2 xs={12} md={6} sx={{ p: 2 }}>
               <Typography variant="h6" gutterBottom>
                 Email Settings
               </Typography>
@@ -76,11 +83,9 @@ const AccountSettings = () => {
               >
                 Save Email
               </Button>
-            </Paper>
-          </Grid2>
+            </Grid2>
 
-          <Grid2 xs={12} md={6}>
-            <Paper elevation={3} sx={{ p: 2, overflow: "hidden" }}>
+            <Grid2 xs={12} md={6} sx={{ p: 2 }}>
               <Typography variant="h6" gutterBottom>
                 Property Name
               </Typography>
@@ -102,10 +107,10 @@ const AccountSettings = () => {
               >
                 Save Property Name
               </Button>
-            </Paper>
+            </Grid2>
           </Grid2>
-        </Grid2>
-        <DeleteAccountFlow />
+          <DeleteAccountFlow />
+        </Box>
       </Box>
     </Box>
   );

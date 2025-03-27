@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
 import { Box, Grid2 } from "@mui/material";
-import { useParams, useNavigate } from "react-router";
-import Hero from "../../components/aptdetails/Hero";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { fetchApartmentDetailsById } from "../../api/apartmentApi";
 import Details from "../../components/aptdetails/Details";
 import Features from "../../components/aptdetails/Features";
+import Hero from "../../components/aptdetails/Hero";
 import Notes from "../../components/aptdetails/Notes";
-import { fetchApartmentDetailsById } from "../../api/apartmentApi";
 //The valid types are 1bed1bath, 2bed2bath, 3bed2bath(default)
+import toast from "react-hot-toast";
 import one_bed_one_bath from "../../assets/floorplans/1bed1bath.png";
 import two_bed_two_bath from "../../assets/floorplans/2bed2bath.png";
 import three_bed_two_bath from "../../assets/floorplans/3bed2bath.png";
 import Spinner from "../../components/Spinner";
-import toast from "react-hot-toast";
 
 const ApartmentDetails = () => {
   const { id } = useParams();

@@ -1,7 +1,7 @@
-import { Box, Button, IconButton, Paper } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import toast from "react-hot-toast";
+import { Box, Button, IconButton, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Spinner from "../Spinner";
 
@@ -59,39 +59,39 @@ const AccessControlTable = ({
         ),
     },
     {
-        field: "primaryLockCode",
-        headerName: "Primary Lock Code",
-        flex: 1,
-        minWidth: 120,
-        renderCell: (params) => {
-          const code = params.row.primaryLockCode;
-          return (
-            <span
-              style={{ cursor: "copy" }}
-              onClick={() => copyToClipboard(code, "Primary lock code")}
-            >
-              {code}
-            </span>
-          );
-        },
+      field: "primaryLockCode",
+      headerName: "Primary Lock Code",
+      flex: 1,
+      minWidth: 120,
+      renderCell: (params) => {
+        const code = params.row.primaryLockCode;
+        return (
+          <span
+            style={{ cursor: "copy" }}
+            onClick={() => copyToClipboard(code, "Primary lock code")}
+          >
+            {code}
+          </span>
+        );
       },
-      {
-        field: "tempCode",
-        headerName: "Temp Code",
-        flex: 1,
-        minWidth: 120,
-        renderCell: (params) => {
-          const code = params.row.tempCode;
-          return (
-            <span
-              style={{ cursor: "copy" }}
-              onClick={() => copyToClipboard(code, "Temporary code")}
-            >
-              {code}
-            </span>
-          );
-        },
+    },
+    {
+      field: "tempCode",
+      headerName: "Temp Code",
+      flex: 1,
+      minWidth: 120,
+      renderCell: (params) => {
+        const code = params.row.tempCode;
+        return (
+          <span
+            style={{ cursor: "copy" }}
+            onClick={() => copyToClipboard(code, "Temporary code")}
+          >
+            {code}
+          </span>
+        );
       },
+    },
     {
       field: "tempCodeExpirationDate",
       headerName: "Temp Code Expiration Date",
@@ -154,8 +154,8 @@ const AccessControlTable = ({
               title="Delete Temp Code"
               disabled={!params.row.tempCode}
             >
-                <DeleteIcon />
-              </IconButton>
+              <DeleteIcon />
+            </IconButton>
           </Box>
         );
       },
@@ -170,10 +170,11 @@ const AccessControlTable = ({
           ...col,
           align: "center",
           headerAlign: "center",
+          headerClassName: "bg-[#e3e7d3]",
         }))}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10]}
-        sx={{ border: 0 }}
+        sx={{ border: 0.5 }}
         align={"center"}
         disableColumnResize
         disableColumnSelector

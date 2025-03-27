@@ -1,4 +1,4 @@
-import { Box, Typography, Grid2 } from "@mui/material";
+import { Box, Grid2, Typography } from "@mui/material";
 
 const LeaseDuration = ({ startDate, endDate }) => {
   return (
@@ -7,7 +7,6 @@ const LeaseDuration = ({ startDate, endDate }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        border: 1,
         p: 2,
       }}
     >

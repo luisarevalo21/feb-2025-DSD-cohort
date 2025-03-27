@@ -23,7 +23,10 @@ router.get("/renewals", async (req, res, next) => {
         const { apartment } = lease;
         const { tenant } = lease;
 
-        if (calculateLeaseExpiration(lease.lease_end_date)) {
+        if (
+          calculateLeaseExpiration(lease.lease_end_date) &&
+          lease.signed_at !== null
+        ) {
           return {
             id: lease.apartment_id,
             leaseId: lease.id,
