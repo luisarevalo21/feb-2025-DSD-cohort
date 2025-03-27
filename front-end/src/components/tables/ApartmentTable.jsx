@@ -43,7 +43,12 @@ const columns = [
             to={`/lease-details/${params.row.leaseId}`}
             className="underline"
             color="primary"
-            style={{ color: "black", borderRadius: "5px", padding: "5px", backgroundColor: "#7ED4AD" }}
+            style={{
+              color: "black",
+              borderRadius: "5px",
+              padding: "5px",
+              backgroundColor: "#7ED4AD",
+            }}
           >
             {params.row.leaseStatus}
           </Link>
