@@ -37,14 +37,36 @@ const columns = [
     headerName: "Lease Status",
     flex: 1,
     minWidth: 120,
-    renderCell: (params) =>
-      params.row.leaseStatus === "Vacant" ? (
-        <span>{params.row.leaseStatus}</span>
-      ) : (
-        <Link to={`/lease-details/${params.row.leaseId}`} className="underline">
-          {params.row.leaseStatus}
-        </Link>
-      ),
+    renderCell: (params) => {
+      if (params.row.leaseStatus === "Vacant") {
+        return <span>{params.row.leaseStatus}</span>;
+      } else if (params.row.leaseStatus === "Active") {
+        return (
+          <Link
+            to={`/lease-details/${params.row.leaseId}`}
+            className="underline"
+            color="primary"
+            style={{
+              color: "black",
+              borderRadius: "5px",
+              padding: "5px",
+              backgroundColor: "#7ED4AD",
+            }}
+          >
+            {params.row.leaseStatus}
+          </Link>
+        );
+      } else {
+        return (
+          <Link
+            to={`/lease-details/${params.row.leaseId}`}
+            className="underline"
+          >
+            {params.row.leaseStatus}
+          </Link>
+        );
+      }
+    },
   },
   {
     field: "leaseStart",

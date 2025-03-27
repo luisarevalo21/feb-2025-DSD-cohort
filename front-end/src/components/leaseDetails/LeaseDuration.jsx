@@ -21,7 +21,7 @@ const LeaseDuration = ({ startDate, endDate }) => {
           }}
         >
           <Typography>Start Date</Typography>
-          <p>{startDate}</p>
+          <p>{new Date(startDate).toLocaleDateString()}</p>
         </Grid2>
         <Grid2
           size={{ xs: 12, md: 20 }}
@@ -32,7 +32,7 @@ const LeaseDuration = ({ startDate, endDate }) => {
           }}
         >
           <Typography>End Date</Typography>
-          <p>{endDate}</p>
+          <p>{new Date(endDate).toLocaleDateString()}</p>
         </Grid2>
       </Box>
     </Box>

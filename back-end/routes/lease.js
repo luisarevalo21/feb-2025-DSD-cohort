@@ -227,8 +227,12 @@ router.post("/", async (req, res, next) => {
 
   try {
     const newLease = {
-      lease_start_date: leaseData.leaseStartDate,
-      lease_end_date: leaseData.leaseEndDate,
+      lease_start_date: new Date(leaseData.leaseStartDate).toLocaleDateString(
+        "en-US"
+      ),
+      lease_end_date: new Date(leaseData.leaseEndDate).toLocaleDateString(
+        "en-US"
+      ),
       monthly_rent_in_dollars: leaseData.rent,
       notes: leaseData.notes,
       apartment_id: leaseData.apartmentId,
@@ -295,8 +299,8 @@ router.post("/new-lease", async (req, res, next) => {
     return next(new Error("apartment already has a lease try again"));
   }
 
-  const leaseStart = new Date(lease_start_date);
-  const leaseEnd = new Date(lease_end_date);
+  const leaseStart = new Date(lease_start_date).toLocaleDateString("en-US");
+  const leaseEnd = new Date(lease_end_date).toLocaleDateString("en-US");
 
   if (leaseEnd < leaseStart) {
     await AppDataSource.manager.delete(Tenant, newTenant);

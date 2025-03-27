@@ -9,7 +9,7 @@ import DeleteAccountFlow from "../components/DeleteAccountFlow";
 const AccountSettings = () => {
   const [email, setEmail] = useState("");
   const [tempEmail, setTempEmail] = useState("");
-  const [propertyName, setPropertyName] = useState("Unnamed Property");
+  const [propertyName, setPropertyName] = useState("The Ridge");
   const [tempPropertyName, setTempPropertyName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -45,7 +45,12 @@ const AccountSettings = () => {
       <Typography variant="h4" gutterBottom>
         Account Settings
       </Typography>
-
+      <Box sx={{ display: "inline-block" }}>
+        <Paper elevation={3} sx={{ p: 2, mb: 2, overflow: "hidden" }}>
+          <Typography variant="h6">
+            Welcome, {firstName} {lastName}! How are things at {propertyName}?
+          </Typography>
+        </Paper>
       <Box sx={{ border: 0.5, borderRadius: 1, display: "inline-block" }}>
         <Typography
           variant="h6"

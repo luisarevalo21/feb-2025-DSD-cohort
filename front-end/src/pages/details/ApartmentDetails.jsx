@@ -40,6 +40,7 @@ const ApartmentDetails = () => {
 
         setApartmentData({
           ...result.data,
+          id: id,
           floorPlanImg: floorPlan,
         });
       } catch (error) {
