@@ -5,7 +5,6 @@ const AccessControl = require("../database/entities/accessControl");
 const AppDataSource = require("../database/data-source");
 const { generateTempCode } = require("../utilis/codeGenerator.js");
 
-
 router.get("/", async (req, res, next) => {
   try {
     const accessControl = await AppDataSource.manager.find(AccessControl, {
@@ -19,17 +18,19 @@ router.get("/", async (req, res, next) => {
     const accessControlFiltered = accessControl.map((control) => {
       const { apartment } = control;
 
-      const tenant  = apartment.lease?.[0]?.tenant;
+      const tenant = apartment.lease?.[0]?.tenant;
 
       return {
         id: control.id,
         apartmentId: apartment.id,
         apartmentNumber: apartment.apartment_number,
         tenantId: tenant ? tenant.id : null,
-        tenantName: tenant ? `${tenant.first_name} ${tenant.last_name}`: "Apartment Vacant",
+        tenantName: tenant
+          ? `${tenant.first_name} ${tenant.last_name}`
+          : "Apartment Vacant",
         primaryLockCode: control.primary_lock_code,
         tempCode: control.temp_code ? control.temp_code : null,
-        tempCodeExpiration: control.temp_code ? control.expires_at : null
+        tempCodeExpiration: control.temp_code ? control.expires_at : null,
       };
     });
 
@@ -45,7 +46,7 @@ router.get("/", async (req, res, next) => {
 
 router.put("/:accessControlId", async (req, res, next) => {
   const { accessControlId } = req.params;
-//   const editedData = req.body;
+  
   try {
     const accessControlToUpdate = await AppDataSource.manager.findOne(AccessControl, {
       where: { id: accessControlId },
@@ -62,6 +63,32 @@ router.put("/:accessControlId", async (req, res, next) => {
     accessControlToUpdate.expires_at = expiresAt;
 
     await AppDataSource.manager.save(AccessControl, accessControlToUpdate);
+    return res.status(200).json(accessControlToUpdate);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.delete("/:accessControlId", async (req, res, next) => {
+  const { accessControlId } = req.params;
+
+  try {
+    const accessControlToUpdate = await AppDataSource.manager.findOne(
+      AccessControl,
+      {
+        where: { id: accessControlId },
+      }
+    );
+
+    if (!accessControlToUpdate) {
+      return next(new Error("Access control not found."));
+    }
+
+    accessControlToUpdate.temp_code = null;
+    accessControlToUpdate.expires_at = null;
+
+    await AppDataSource.manager.save(AccessControl, accessControlToUpdate);
+
     return res.status(200).json(accessControlToUpdate);
   } catch (error) {
     return next(error);

@@ -5,6 +5,7 @@ import AccessControlTable from "../components/tables/AccessControlTable";
 import toast from "react-hot-toast";
 
 import {
+  deleteAccessControlTempCode,
   fetchAccessControlInformation,
   generateAccessControlTempCode,
 } from "../api/accessControlApi";
@@ -23,6 +24,26 @@ const AccessControl = () => {
     InitialFetch();
     setLoadingAccessControlData(false);
   }, []);
+
+  const handleDeleteTempCode = async (accessControlId) => {
+    try {
+      const updatedDeleteData = await deleteAccessControlTempCode(accessControlId);
+      setAccessControlInfo((prev) =>
+        prev.map((item) =>
+          item.id === accessControlId
+            ? {
+                ...item,
+                tempCode: null,
+                tempCodeExpiration: null,
+              }
+            : item
+        )
+      );
+      toast.success("Temporary Code Deleted Successfully");
+    } catch (err) {
+      toast.error("Failed to delete temporary code. Please try again.");
+    }
+  };
 
   const handleGenerateCode = async (accessControlId) => {
     try {
@@ -65,6 +86,7 @@ const AccessControl = () => {
               isLoading={loadingAccessControlData}
               accessControlInfo={accessControlInfo}
               handleGenerateCode={handleGenerateCode}
+              handleDeleteTempCode={handleDeleteTempCode}
             />
           </Box>
         </Grid>
