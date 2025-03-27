@@ -30,7 +30,10 @@ const leaseSchema = z.object({
     .refine((date) => !isNaN(date.getTime()), {
       message: "Please select a valid date",
     }),
-  monthly_rent_in_dollars: z.string().transform((val) => Number(val)),
+  monthly_rent_in_dollars: z
+    .string()
+    .min(1, { message: "Monthly rent is required" })
+    .transform((val) => Number(val)),
   notes: z.string().max(100).optional(),
 });
 
