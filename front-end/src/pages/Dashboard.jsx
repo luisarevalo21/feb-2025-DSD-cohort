@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import { useEffect, useState } from "react";
 import ApartmentTable from "../components/tables/ApartmentTable";
 import PendingLeasesTable from "../components/tables/PendingLeasesTable";
 import RenewLeaseTable from "../components/tables/RenewLeaseTable";
 
 import { fetchApartmentInformation } from "../api/apartmentApi";
-import { fetchRenewals, fetchPending } from "../api/leaseApi";
+import { fetchPending, fetchRenewals } from "../api/leaseApi";
 const Dashboard = () => {
   const [renewableLeases, setRenewableLeases] = useState([]);
   const [pendingLeases, setPendingLeases] = useState([]);
@@ -46,7 +46,7 @@ const Dashboard = () => {
           <Typography variant="h4" fontSize={"1.5rem"} marginBottom={"1rem"}>
             Upcoming Renewals
           </Typography>
-          <Box border={"1px solid black"} bgcolor={"#f5f5f5"}>
+          <Box>
             <RenewLeaseTable
               isLoading={loadingDashboardData}
               renewableLeases={renewableLeases}
@@ -57,7 +57,7 @@ const Dashboard = () => {
           <Typography variant="h4" fontSize={"1.5rem"} marginBottom={"1rem"}>
             Pending Leases
           </Typography>
-          <Box border={"1px solid black"} bgcolor={"#f5f5f5"}>
+          <Box>
             <PendingLeasesTable
               isLoading={loadingDashboardData}
               pendingLeases={pendingLeases}
@@ -68,7 +68,7 @@ const Dashboard = () => {
           <Typography variant="h4" fontSize={"1.5rem"} marginBottom={"1rem"}>
             Apartments Info
           </Typography>
-          <Box border={"1px solid black"} bgcolor={"#f5f5f5"}>
+          <Box>
             <ApartmentTable
               isLoading={loadingDashboardData}
               apartmentInfo={apartmentInfo}

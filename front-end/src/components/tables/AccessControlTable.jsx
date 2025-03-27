@@ -5,7 +5,11 @@ import Spinner from "../Spinner";
 
 const paginationModel = { page: 0, pageSize: 5 };
 
-const AccessControlTable = ({ isLoading, accessControlInfo, handleGenerateCode }) => {
+const AccessControlTable = ({
+  isLoading,
+  accessControlInfo,
+  handleGenerateCode,
+}) => {
   if (isLoading) {
     return <Spinner />;
   }
@@ -64,8 +68,14 @@ const AccessControlTable = ({ isLoading, accessControlInfo, handleGenerateCode }
       minWidth: 200,
       sortable: false,
       disableColumnMenu: true,
-      renderCell: (params) => params.row.tempCodeExpiration ? 
-      <span>{new Date(params.row.tempCodeExpiration).toLocaleString()}</span> : "",
+      renderCell: (params) =>
+        params.row.tempCodeExpiration ? (
+          <span>
+            {new Date(params.row.tempCodeExpiration).toLocaleString()}
+          </span>
+        ) : (
+          ""
+        ),
     },
     {
       headerName: "Action",
@@ -99,10 +109,11 @@ const AccessControlTable = ({ isLoading, accessControlInfo, handleGenerateCode }
           ...col,
           align: "center",
           headerAlign: "center",
+          headerClassName: "bg-[#e3e7d3]",
         }))}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10]}
-        sx={{ border: 0 }}
+        sx={{ border: 0.5 }}
         align={"center"}
         disableColumnResize
         disableColumnSelector

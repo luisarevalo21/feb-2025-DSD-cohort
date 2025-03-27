@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate, useLocation } from "react-router";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { fetchLeaseDetails } from "../../api/leaseApi";
 import Spinner from "../../components/Spinner";
 import LeaseApartmentDetails from "../../components/leaseDetails/LeaseApartmentDetails";
@@ -8,7 +8,6 @@ import LeaseDetailsHeader from "../../components/leaseDetails/LeaseDetailsHeader
 import LeaseDuration from "../../components/leaseDetails/LeaseDuration";
 import LeaseRent from "../../components/leaseDetails/LeaseRent";
 import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
-import toast from "react-hot-toast";
 const Lease = () => {
   const { id } = useParams();
   const [lease, setLease] = useState(null);
@@ -55,31 +54,33 @@ const Lease = () => {
           marginBottom: "5px",
           width: "15%",
           p: 1,
+          backgroundColor: "#4a5460",
         }}
       >
         View PDF
       </Button>
 
-      <LeaseDetailsHeader status={lease?.leaseStatus} />
+      <Box sx={{ border: 0.5, borderRadius: 1 }}>
+        <LeaseDetailsHeader status={lease?.leaseStatus} />
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          border: 1,
-          p: 2,
-        }}
-      >
-        <LeaseApartmentDetails apartment={lease?.apartmentInformation} />
-        <LeaseTenantDetails tenant={lease?.tenantInformation} />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            p: 2,
+          }}
+        >
+          <LeaseApartmentDetails apartment={lease?.apartmentInformation} />
+          <LeaseTenantDetails tenant={lease?.tenantInformation} />
+        </Box>
+
+        <LeaseDuration
+          startDate={lease?.leaseStartDate}
+          endDate={lease?.leaseEndDate}
+        />
+
+        <LeaseRent rent={lease?.monthlyRent} />
       </Box>
-
-      <LeaseDuration
-        startDate={lease?.leaseStartDate}
-        endDate={lease?.leaseEndDate}
-      />
-
-      <LeaseRent rent={lease?.monthlyRent} />
     </Box>
   );
 };

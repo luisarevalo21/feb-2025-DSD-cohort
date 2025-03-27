@@ -1,4 +1,4 @@
-import { Box, Typography, Grid2 } from "@mui/material";
+import { Box, Grid2, Typography } from "@mui/material";
 
 const LeaseRent = ({ rent }) => {
   return (
@@ -7,7 +7,6 @@ const LeaseRent = ({ rent }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        border: 1,
         p: 2,
         borderRadius: "0px 0px 5px 5px",
       }}

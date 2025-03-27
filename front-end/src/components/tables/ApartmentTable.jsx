@@ -77,16 +77,16 @@ const columns = [
             <Button
               component={Link}
               to={`/create-lease/${params.row.id}`}
-              color="primary"
+              style={{ backgroundColor: "#4a5460" }}
               variant="contained"
             >
               Create Lease
             </Button>
-          ) : daysUntilEnd < 30 ? (
+          ) : daysUntilEnd < 30 && params.row.leaseStatus === "Active" ? (
             <Button
               component={Link}
               to={`/renew-lease/${params.row.leaseId}`}
-              color="secondary"
+              color="primary"
               variant="contained"
             >
               Renew Lease
@@ -112,10 +112,11 @@ const ApartmentTable = ({ isLoading, apartmentInfo }) => {
           ...col,
           align: "center",
           headerAlign: "center",
+          headerClassName: "bg-[#e3e7d3]",
         }))}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10]}
-        sx={{ border: 0 }}
+        sx={{ border: 0.5 }}
         align={"center"}
         disableColumnResize
         disableColumnSelector

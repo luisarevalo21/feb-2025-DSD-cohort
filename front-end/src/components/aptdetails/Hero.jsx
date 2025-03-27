@@ -1,15 +1,14 @@
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
-  Typography,
-  Grid2,
-  IconButton,
   Card,
   CardContent,
+  Grid2,
+  IconButton,
+  Typography,
 } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useState } from "react";
 import Dialog from "@mui/material/Dialog";
+import React, { useState } from "react";
 import { Link } from "react-router";
-import React from "react";
 
 const Hero = ({ apartmentData }) => {
   const parseAddress = (fullAddress) => {
@@ -55,10 +54,10 @@ const Hero = ({ apartmentData }) => {
 
   return (
     <React.Fragment>
-      <Card sx={{ height: 300 }}>
+      <Card sx={{ height: 300, border: 0.5 }}>
         <Typography
-          className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
-          bgcolor={"#206129"}
+          className="text-center py-3 text-lg font-semibold"
+          bgcolor={"#e3e7d3"}
         >
           Details
         </Typography>

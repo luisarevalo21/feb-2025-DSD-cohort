@@ -1,17 +1,16 @@
-import { useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
-  Typography,
   Button,
-  TextField,
-  Grid2,
   Card,
   CardContent,
+  Grid2,
+  TextField,
+  Typography,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import { updateApartmentDetails } from "../../api/apartmentApi";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-import React from "react";
+import { updateApartmentDetails } from "../../api/apartmentApi";
 
 const Notes = ({ apartmentData }) => {
   const { notes, id } = apartmentData;
@@ -46,10 +45,10 @@ const Notes = ({ apartmentData }) => {
   };
   return (
     <React.Fragment>
-      <Card sx={{ height: 350, textAlign: "center" }}>
+      <Card sx={{ height: 350, textAlign: "center", border: 0.5 }}>
         <Typography
-          className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
-          bgcolor={"#206129"}
+          className="text-center py-3 text-lg font-semibold"
+          bgcolor={"#e3e7d3"}
         >
           Notes
         </Typography>

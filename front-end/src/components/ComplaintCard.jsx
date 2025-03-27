@@ -1,22 +1,22 @@
 import {
-  Card,
-  CardContent,
-  CardActions,
-  Typography,
-  Button,
   Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
 } from "@mui/material";
 
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import WarningIcon from "@mui/icons-material/Warning";
-import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import BuildIcon from "@mui/icons-material/Build";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import WarningIcon from "@mui/icons-material/Warning";
 
 import { Link } from "react-router";
 
 export const complaintTypeIcons = {
-  Noise: <VolumeUpIcon fontSize="small" sx={{ color: "purple" }} />,
+  Noise: <VolumeUpIcon fontSize="small" sx={{ color: "black" }} />,
   Disturbance: <WarningIcon fontSize="small" sx={{ color: "red" }} />,
   Emergency: <PriorityHighIcon fontSize="small" sx={{ color: "orange" }} />,
   Maintenance: <BuildIcon fontSize="small" sx={{ color: "blue" }} />,
@@ -56,6 +56,7 @@ const ComplaintCard = ({ complaint }) => {
         border: "1px solid #ccc",
         borderRadius: 5,
         boxShadow: 1,
+        padding: 2,
       }}
     >
       <CardContent sx={{ flexGrow: 1 }}>

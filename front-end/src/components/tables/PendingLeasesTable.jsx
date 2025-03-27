@@ -41,7 +41,7 @@ const columns = [
         component={Link}
         to={`/lease-details/${params.row.id}`}
         variant="contained"
-        color="tertiary"
+        style={{ backgroundColor: "#4a5460" }}
       >
         Pending
       </Button>
@@ -64,10 +64,11 @@ export default function PendingLeasesTable({ isLoading, pendingLeases }) {
           ...col,
           align: "center",
           headerAlign: "center",
+          headerClassName: "bg-[#e3e7d3]",
         }))}
         initialState={{ pagination: { paginationModel } }}
         pageSizeOptions={[5, 10]}
-        sx={{ border: 0 }}
+        sx={{ border: 0.5 }}
         align={"center"}
         disableColumnResize
         disableColumnSelector

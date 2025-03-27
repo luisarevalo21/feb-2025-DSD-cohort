@@ -1,14 +1,14 @@
-import React from "react";
-import { CardContent, Typography, Card, Grid2 } from "@mui/material";
+import { Card, CardContent, Grid2, Typography } from "@mui/material";
 import PropTypes from "prop-types";
+import React from "react";
 
 const TenantProfileDetails = ({ tenant }) => {
   return (
     <React.Fragment>
-      <Card sx={{ height: 300 }}>
+      <Card sx={{ height: 300, border: 0.5 }}>
         <Typography
-          className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
-          bgcolor={"#206129"}
+          className="text-center py-3 text-lg font-semibold"
+          bgcolor={"#e3e7d3"}
         >
           Personal Information
         </Typography>

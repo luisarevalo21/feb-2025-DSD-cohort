@@ -66,12 +66,11 @@ const ComplaintDetails = () => {
         Complaint Details
       </Typography>
       <Box sx={{ minWidth: 275 }}>
-        <Card sx={{ borderRadius: 5 }}>
+        <Card sx={{ borderRadius: 5, border: 0.5 }}>
           <Box
             sx={{
-              backgroundColor: "#206129",
-              color: "white",
-              p: 2,
+              backgroundColor: "#e3e7d3",
+              padding: 2,
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
