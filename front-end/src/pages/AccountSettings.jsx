@@ -60,7 +60,6 @@ const AccountSettings = () => {
           >
             Welcome, {firstName} {lastName}! How are things at {propertyName}?
           </Typography>
-
           <Grid2 container spacing={2}>
             <Grid2 xs={12} md={6} sx={{ p: 2 }}>
               <Typography variant="h6" gutterBottom>
