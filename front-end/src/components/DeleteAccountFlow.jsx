@@ -44,7 +44,7 @@ const DeleteAccountFlow = () => {
   }
 
   return (
-    <Paper elevation={3} sx={{ p: 2, mt: 2 }}>
+    <Paper elevation={3} sx={{ p: 2, mt: 2, overflow: "hidden" }}>
       {step === "initial" && (
         <Button
           variant="contained"
