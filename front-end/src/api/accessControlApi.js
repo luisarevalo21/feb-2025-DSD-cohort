@@ -17,3 +17,11 @@ export async function generateAccessControlTempCode(id) {
       return err;
     }
   }
+
+export async function deleteAccessControlTempCode(id) {
+    try {
+        const result = await api.delete(`/api/access-control/${id}`)
+    } catch (err) {
+        return err;
+      }
+}

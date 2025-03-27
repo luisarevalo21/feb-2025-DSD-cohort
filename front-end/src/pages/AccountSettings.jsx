@@ -9,7 +9,7 @@ import DeleteAccountFlow from "../components/DeleteAccountFlow";
 const AccountSettings = () => {
   const [email, setEmail] = useState("");
   const [tempEmail, setTempEmail] = useState("");
-  const [propertyName, setPropertyName] = useState("Unnamed Property");
+  const [propertyName, setPropertyName] = useState("The Ridge");
   const [tempPropertyName, setTempPropertyName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
