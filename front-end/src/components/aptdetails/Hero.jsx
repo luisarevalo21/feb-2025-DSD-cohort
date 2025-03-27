@@ -58,7 +58,7 @@ const Hero = ({ apartmentData }) => {
       <Card sx={{ height: "auto" }}>
         <Typography
           className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
-          bgcolor={"#206129"}
+          bgcolor={"#108C21"}
         >
           Details
         </Typography>

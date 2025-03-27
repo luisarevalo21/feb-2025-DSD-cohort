@@ -9,7 +9,7 @@ const columns = [
     headerName: "Apt #",
     flex: 1,
     minWidth: 120,
-    renderCell: params => (
+    renderCell: (params) => (
       <Link to={`/apartment-details/${params.row.id}`} className="underline">
         {params.row.apartmentNumber}
       </Link>
@@ -20,11 +20,14 @@ const columns = [
     headerName: "Tenant Name",
     flex: 2,
     minWidth: 200,
-    renderCell: params =>
+    renderCell: (params) =>
       params.row.tenantName === "Vacant" ? (
         <span>{params.row.tenantName}</span>
       ) : (
-        <Link to={`/tenant-details/${params.row.tenantId}`} className="underline">
+        <Link
+          to={`/tenant-details/${params.row.tenantId}`}
+          className="underline"
+        >
           {params.row.tenantName}
         </Link>
       ),
@@ -34,7 +37,7 @@ const columns = [
     headerName: "Lease Status",
     flex: 1,
     minWidth: 120,
-    renderCell: params => {
+    renderCell: (params) => {
       if (params.row.leaseStatus === "Vacant") {
         return <span>{params.row.leaseStatus}</span>;
       } else if (params.row.leaseStatus === "Active") {
@@ -55,7 +58,10 @@ const columns = [
         );
       } else {
         return (
-          <Link to={`/lease-details/${params.row.leaseId}`} className="underline">
+          <Link
+            to={`/lease-details/${params.row.leaseId}`}
+            className="underline"
+          >
             {params.row.leaseStatus}
           </Link>
         );
@@ -82,7 +88,7 @@ const columns = [
     flex: 1,
     minWidth: 200,
     disableColumnMenu: true,
-    renderCell: params => {
+    renderCell: (params) => {
       const leaseEndDate = new Date(params.row.leaseEnd);
       const today = new Date();
       const daysUntilEnd = (leaseEndDate - today) / (1000 * 60 * 60 * 24);
@@ -90,11 +96,21 @@ const columns = [
       return (
         <div className="flex justify-center items-center gap-2 h-full">
           {params.row.leaseStatus === "Vacant" ? (
-            <Button component={Link} to={`/create-lease/${params.row.id}`} color="primary" variant="contained">
+            <Button
+              component={Link}
+              to={`/create-lease/${params.row.id}`}
+              color="primary"
+              variant="contained"
+            >
               Create Lease
             </Button>
           ) : daysUntilEnd < 30 ? (
-            <Button component={Link} to={`/renew-lease/${params.row.leaseId}`} color="secondary" variant="contained">
+            <Button
+              component={Link}
+              to={`/renew-lease/${params.row.leaseId}`}
+              color="secondary"
+              variant="contained"
+            >
               Renew Lease
             </Button>
           ) : null}
@@ -114,7 +130,7 @@ const ApartmentTable = ({ isLoading, apartmentInfo }) => {
     <Paper>
       <DataGrid
         rows={apartmentInfo}
-        columns={columns.map(col => ({
+        columns={columns.map((col) => ({
           ...col,
           align: "center",
           headerAlign: "center",
