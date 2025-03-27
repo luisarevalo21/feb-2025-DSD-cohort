@@ -50,7 +50,7 @@ const columns = [
               color: "black",
               borderRadius: "5px",
               padding: "5px",
-              backgroundColor: "limegreen",
+              backgroundColor: "#7ED4AD",
             }}
           >
             {params.row.leaseStatus}
