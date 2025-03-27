@@ -9,7 +9,7 @@ const LeaseDetailsHeader = ({ status }) => {
         border: 1,
         p: 2,
         borderRadius: "5px 5px 0px 0px",
-        bgcolor: "#206129",
+        bgcolor: "#108C21",
       }}
     >
       <Typography>Lease Summary</Typography>

@@ -8,7 +8,7 @@ const TenantProfileDetails = ({ tenant }) => {
       <Card sx={{ height: 300 }}>
         <Typography
           className=" text-white text-center py-3 text-lg font-semibold rounded-t-lg"
-          bgcolor={"#206129"}
+          bgcolor={"#108C21"}
         >
           Personal Information
         </Typography>
