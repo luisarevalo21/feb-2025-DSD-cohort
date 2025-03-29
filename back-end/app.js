@@ -36,7 +36,11 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET_KEY || "your_secret_key",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    },
   })
 );
 
