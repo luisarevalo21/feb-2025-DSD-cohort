@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { fetchLeaseDetails } from "../../api/leaseApi";
 import Spinner from "../../components/Spinner";
@@ -8,11 +8,23 @@ import LeaseDetailsHeader from "../../components/leaseDetails/LeaseDetailsHeader
 import LeaseDuration from "../../components/leaseDetails/LeaseDuration";
 import LeaseRent from "../../components/leaseDetails/LeaseRent";
 import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
-const Lease = () => {
-  const { id } = useParams();
-  const [lease, setLease] = useState(null);
-  const location = useLocation();
-  const [isLoading, setIsLoading] = useState(true);
+
+interface Lease {
+  id: string;
+  leaseStartDate: Date;
+  leaseEndDate: Date;
+  monthlyRent: number;
+  leaseStatus: string;
+  apartmentInformation: object;
+  tenantInformation: object;
+  
+}
+
+const LeaseDetails: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const [lease, setLease] = useState<Lease | null>(null);
+  // const location = useLocation();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +45,7 @@ const Lease = () => {
         setIsLoading(false);
       }
     }
-    fetchLeaseInfo(id);
+    fetchLeaseInfo();
   }, [id, navigate]);
 
   if (isLoading) {
@@ -85,4 +97,4 @@ const Lease = () => {
   );
 };
 
-export default Lease;
+export default LeaseDetails;
