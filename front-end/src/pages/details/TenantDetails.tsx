@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid2 } from "@mui/material";
 import TenantLeaseDetails from "../../components/TenantLeaseDetails";
 import TenantProfileDetails from "../../components/TenantProfileDetails";
@@ -32,7 +32,7 @@ interface Tenant {
   } | null;
 }
 
-const TenantDetails: React.FC = () => {
+const TenantDetails = () => {
   const [tenant, setTenant] = useState<Tenant | null>(null);
   const { id } = useParams<{ id: string }>();
   const [isLoading, setIsLoading] = useState<boolean>(true);

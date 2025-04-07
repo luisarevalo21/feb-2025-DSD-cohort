@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { fetchLeaseDetails } from "../../api/leaseApi";
 import Spinner from "../../components/Spinner";
@@ -36,7 +36,7 @@ interface Lease {
   
 }
 
-const LeaseDetails: React.FC = () => {
+const LeaseDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [lease, setLease] = useState<Lease | null>(null);
   // const location = useLocation();
