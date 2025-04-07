@@ -10,13 +10,29 @@ import LeaseRent from "../../components/leaseDetails/LeaseRent";
 import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
 
 interface Lease {
-  id: string;
+  leaseId: string;
   leaseStartDate: Date;
   leaseEndDate: Date;
-  monthlyRent: number;
   leaseStatus: string;
-  apartmentInformation: object;
-  tenantInformation: object;
+  monthlyRent: number;
+  leaseNotes: string | null;
+  tenantInformation: {
+    tenantId: string;
+    tenantName: string;
+    phoneNumber: string | null;
+    email: string;
+  } | null;
+  apartmentInformation: {
+    apartmentId: string;
+    apartmentNumber: string;
+    apartmentAddress: string;
+    squareFootage: number;
+    bedrooms: number;
+    bathrooms: number;
+    floor: number;
+    features: string[] | null;
+    apartmentNotes: string | null;
+  } | null;
   
 }
 
@@ -33,8 +49,8 @@ const LeaseDetails: React.FC = () => {
         // if (location.state && location.state.message) {
         //   toast.success("Lease signed successfully");
         // }
-        const lease = await fetchLeaseDetails(id);
-        if (lease?.response?.data?.message === "Lease not found.") {
+        const leaseData = await fetchLeaseDetails(id);
+        if (leaseData?.response?.data?.message === "Lease not found.") {
           return navigate("/not-found");
         }
         setLease(lease);

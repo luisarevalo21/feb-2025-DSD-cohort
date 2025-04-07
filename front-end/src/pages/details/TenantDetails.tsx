@@ -7,14 +7,29 @@ import { useParams, useNavigate } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 
 interface Tenant {
-  id: string;
+  tenantId: string;
   firstName: string;
   lastName: string;
   email: string;
-  dateOfBirth: Date | null;
+  dateOfBirth: string | null;
   phoneNumber: string | null;
   additionalInformation: string | null;
-  leaseId: string | null;
+  leaseInformation: {
+    leaseId: string;
+    leaseStartDate: string;
+    leaseEndDate: string;
+    rentAmount: number;
+    notes: string | null;
+  } | null;
+  apartment: {
+    apartmentId: string;
+    apartmentNumber: string;
+    floor: number;
+    bedrooms: number;
+    bathrooms: number;
+    squareFootage: number;
+    notes: string | null;
+  } | null;
 }
 
 const TenantDetails: React.FC = () => {

@@ -36,7 +36,7 @@ router.get("/:tenantId", async (req, res, next) => {
       email: tenant.email,
       dateOfBirth: new Date(tenant.date_of_birth).toLocaleDateString("en"),
       phoneNumber: tenant.phone_number,
-      profile_photo: tenant.phone_number,
+      // profile_photo: tenant.phone_number,
       additionalInformation: tenant.additional_information,
       leaseInformation: {
         leaseId: tenant.lease_id,
