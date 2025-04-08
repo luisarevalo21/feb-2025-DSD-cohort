@@ -13,12 +13,31 @@ import two_bed_two_bath from "../../assets/floorplans/2bed2bath.png";
 import three_bed_two_bath from "../../assets/floorplans/3bed2bath.png";
 import Spinner from "../../components/Spinner";
 
+interface ApartmentData {
+  id: string | null;
+  apartmentAddress: string;
+  apartmentNumber: string;
+  leaseId: string | null;
+  leaseStartDate: string | null;
+  leaseEndDate: string | null;
+  leaseStatus: string | null;
+  tenantId: string | null;
+  tenantName: string | null;
+  squareFootage: number;
+  bedrooms: number;
+  bathrooms: number;
+  floor: number;
+  features: string[] | null;
+  notes: string | null;
+  floorPlanImg: string | null;
+}
+
 const ApartmentDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const [apartmentData, setApartmentData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [apartmentData, setApartmentData] = useState<ApartmentData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {

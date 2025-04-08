@@ -8,11 +8,39 @@ import LeaseDetailsHeader from "../../components/leaseDetails/LeaseDetailsHeader
 import LeaseDuration from "../../components/leaseDetails/LeaseDuration";
 import LeaseRent from "../../components/leaseDetails/LeaseRent";
 import LeaseTenantDetails from "../../components/leaseDetails/LeaseTenantDetails";
-const Lease = () => {
-  const { id } = useParams();
-  const [lease, setLease] = useState(null);
-  const location = useLocation();
-  const [isLoading, setIsLoading] = useState(true);
+
+interface Lease {
+  leaseId: string;
+  leaseStartDate: Date;
+  leaseEndDate: Date;
+  leaseStatus: string;
+  monthlyRent: number;
+  leaseNotes: string | null;
+  tenantInformation: {
+    tenantId: string;
+    tenantName: string;
+    phoneNumber: string | null;
+    email: string;
+  } | null;
+  apartmentInformation: {
+    apartmentId: string;
+    apartmentNumber: string;
+    apartmentAddress: string;
+    squareFootage: number;
+    bedrooms: number;
+    bathrooms: number;
+    floor: number;
+    features: string[] | null;
+    apartmentNotes: string | null;
+  } | null;
+  
+}
+
+const LeaseDetails = () => {
+  const { id } = useParams<{ id: string }>();
+  const [lease, setLease] = useState<Lease | null>(null);
+  // const location = useLocation();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,8 +49,8 @@ const Lease = () => {
         // if (location.state && location.state.message) {
         //   toast.success("Lease signed successfully");
         // }
-        const lease = await fetchLeaseDetails(id);
-        if (lease?.response?.data?.message === "Lease not found.") {
+        const leaseData = await fetchLeaseDetails(id);
+        if (leaseData?.response?.data?.message === "Lease not found.") {
           return navigate("/not-found");
         }
         setLease(lease);
@@ -33,7 +61,7 @@ const Lease = () => {
         setIsLoading(false);
       }
     }
-    fetchLeaseInfo(id);
+    fetchLeaseInfo();
   }, [id, navigate]);
 
   if (isLoading) {
@@ -85,4 +113,4 @@ const Lease = () => {
   );
 };
 
-export default Lease;
+export default LeaseDetails;

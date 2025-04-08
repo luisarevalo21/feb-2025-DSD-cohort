@@ -1,32 +1,58 @@
+import { useEffect, useState } from "react";
 import { Grid2 } from "@mui/material";
 import TenantLeaseDetails from "../../components/TenantLeaseDetails";
 import TenantProfileDetails from "../../components/TenantProfileDetails";
 import { fetchTenantInformation } from "../../api/tenantApi";
-import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 
+interface Tenant {
+  tenantId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  dateOfBirth: string | null;
+  phoneNumber: string | null;
+  additionalInformation: string | null;
+  leaseInformation: {
+    leaseId: string;
+    leaseStartDate: string;
+    leaseEndDate: string;
+    rentAmount: number;
+    notes: string | null;
+  } | null;
+  apartment: {
+    apartmentId: string;
+    apartmentNumber: string;
+    floor: number;
+    bedrooms: number;
+    bathrooms: number;
+    squareFootage: number;
+    notes: string | null;
+  } | null;
+}
+
 const TenantDetails = () => {
-  const [tenant, setTenant] = useState(null);
-  const { id } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
+  const [tenant, setTenant] = useState<Tenant | null>(null);
+  const { id } = useParams<{ id: string }>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchTenantInfo() {
       try {
-        const tenant = await fetchTenantInformation(id);
-        if (tenant?.response?.data?.message === "Tenant not found.") {
+        const tenantData = await fetchTenantInformation(id);
+        if (tenantData?.response?.data?.message === "Tenant not found.") {
           return navigate("/not-found");
         }
-        setTenant(tenant);
+        setTenant(tenantData);
       } catch (err) {
         return err;
       } finally {
         setIsLoading(false);
       }
     }
-    fetchTenantInfo(id);
+    fetchTenantInfo();
   }, [id, navigate]);
 
   if (isLoading) {
