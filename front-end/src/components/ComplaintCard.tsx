@@ -79,7 +79,7 @@ const ComplaintCard = ({ complaint }) => {
           variant="body2"
           sx={{
             fontWeight: "bold",
-
+            color: statusColors[status] || "text.primary",
           }}
         >
           {status}
