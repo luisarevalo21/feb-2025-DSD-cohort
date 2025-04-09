@@ -1,5 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
-import Grid2 from "@mui/material/Grid2";
+import { Box, Button, Grid2, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";

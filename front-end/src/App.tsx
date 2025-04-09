@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import EnsureAuth from "./auth/EnsureAuth";
 import EnsureGuest from "./auth/EnsureGuest";
-import RootLayout from "./layouts/RootLayout";
+import RootLayout from "./layouts/RootLayout.tsx";
 import AccessControlPage from "./pages/AccessControlPage";
 import AccountSettings from "./pages/AccountSettings";
 import Complaints from "./pages/Complaints";
