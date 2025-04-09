@@ -10,11 +10,22 @@ import {
   generateAccessControlTempCode,
 } from "../api/accessControlApi";
 
-const AccessControl = () => {
-  const [accessControlInfo, setAccessControlInfo] = useState([]);
-  const [loadingAccessControlData, setLoadingAccessControlData] =
-    useState(true);
+interface AccessControlObject {
+  id: string;
+  apartmentId: string;
+  apartmentNumber: string;
+  tenantId: string | null;
+  tenantName: string | null;
+  primaryLockCode: number;
+  tempCode: number | null;
+  tempCodeExpiration: Date | null;
+}
 
+const AccessControl = () => {
+  const [accessControlInfo, setAccessControlInfo] = useState<AccessControlObject[]>([]);
+  const [loadingAccessControlData, setLoadingAccessControlData] =
+    useState<boolean>(true);
+  
   useEffect(() => {
     async function InitialFetch() {
       const accessControlInformation = await fetchAccessControlInformation();
@@ -24,10 +35,10 @@ const AccessControl = () => {
     InitialFetch();
     setLoadingAccessControlData(false);
   }, []);
-
-  const handleDeleteTempCode = async (accessControlId) => {
+  
+  const handleDeleteTempCode = async (accessControlId: string) => {
     try {
-      const updatedDeleteData = await deleteAccessControlTempCode(accessControlId);
+      await deleteAccessControlTempCode(accessControlId);
       setAccessControlInfo((prev) =>
         prev.map((item) =>
           item.id === accessControlId
@@ -44,8 +55,8 @@ const AccessControl = () => {
       toast.error("Failed to delete temporary code. Please try again.");
     }
   };
-
-  const handleGenerateCode = async (accessControlId) => {
+  
+  const handleGenerateCode = async (accessControlId: string) => {
     try {
       const updatedData = await generateAccessControlTempCode(accessControlId);
       setAccessControlInfo((prev) =>
