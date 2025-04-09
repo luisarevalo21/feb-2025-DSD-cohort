@@ -6,7 +6,7 @@ const admin = require("../database/entities/admin");
 const AppDataSource = require("../database/data-source");
 
 router.post("/logout", function (req, res, next) {
-  req.logout((err) => {
+  req.logout(err => {
     if (err) return next(new Error(err));
 
     req.session.destroy(() => {
@@ -54,10 +54,10 @@ router.post("/signup", async (req, res, next) => {
 
     await AppDataSource.manager.save(admin, newUser);
 
-    req.logIn(newUser, (err) => {
+    req.logIn(newUser, err => {
       if (err) return next(err);
 
-      return res.status(200).json({ user: newUser });
+      return res.status(200).json({ user: { firstName: newUser.first_name, lastName: newUser.last_name, email: newUser.email, id: newUser.id } });
     });
   } catch (err) {
     return next(err);
