@@ -25,7 +25,7 @@ const AccessControl = () => {
   const [accessControlInfo, setAccessControlInfo] = useState<AccessControlObject[]>([]);
   const [loadingAccessControlData, setLoadingAccessControlData] =
     useState<boolean>(true);
-
+  
   useEffect(() => {
     async function InitialFetch() {
       const accessControlInformation = await fetchAccessControlInformation();
@@ -35,7 +35,7 @@ const AccessControl = () => {
     InitialFetch();
     setLoadingAccessControlData(false);
   }, []);
-
+  
   const handleDeleteTempCode = async (accessControlId: string) => {
     try {
       await deleteAccessControlTempCode(accessControlId);
@@ -55,7 +55,7 @@ const AccessControl = () => {
       toast.error("Failed to delete temporary code. Please try again.");
     }
   };
-
+  
   const handleGenerateCode = async (accessControlId: string) => {
     try {
       const updatedData = await generateAccessControlTempCode(accessControlId);

@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { z } from "zod";
 import api from "../api";
-import Spinner from "../components/Spinner";
+import Spinner from "./Spinner";
 
 const leaseSchema = z.object({
   lease_start_date: z
