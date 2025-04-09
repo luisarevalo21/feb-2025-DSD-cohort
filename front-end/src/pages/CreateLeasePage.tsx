@@ -13,7 +13,7 @@ import LeaseForm from "../components/LeaseForm";
 import TenantForm from "../components/TenantForm";
 
 const CreateLease = () => {
-  const { id: apartmentId } = useParams();
+  const { id: apartmentId } = useParams<{id: string}>();
   const [activeStep, setActiveStep] = useState(0);
   const [tenantFormData, setTenantFormData] = useState({});
 
